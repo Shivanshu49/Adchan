@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f2eddf;
+  --ink: #17251b;
+  --leaf: #285b3a;
+  --line: #b8b19e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, transparent 49.8%, rgb(23 37 27 / 5%) 50%, transparent 50.2%),
+    var(--paper);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.shell {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.wordmark,
+.eyebrow,
+.disclaimer {
+  font-family: ui-monospace, "Courier New", monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.wordmark {
+  width: fit-content;
+  padding-bottom: 0.35rem;
+  border-bottom: 3px solid var(--leaf);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.placeholder {
+  width: min(48rem, 100%);
+  align-self: center;
+  padding: clamp(2rem, 7vw, 5rem) 0;
+}
+
+.eyebrow {
+  margin: 0 0 1.5rem;
+  color: var(--leaf);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+h1 {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(2.8rem, 9vw, 7rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.placeholder > p:last-child {
+  max-width: 38rem;
+  margin: 2rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.disclaimer {
+  margin: 0;
+  font-size: 0.58rem;
+  line-height: 1.5;
+}
