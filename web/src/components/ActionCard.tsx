@@ -28,141 +28,118 @@ export default function ActionCard({
   const whatsappHref = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
 
   return (
-    <section
-      className="print-card overflow-hidden border-2 border-[#1d2330] bg-[#fffdf7] shadow-[5px_5px_0_#8f2d24]"
-      aria-labelledby="action-title"
-    >
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-[#1d2330] bg-[#1d2330] px-5 py-4 text-white">
-        <div>
-          <p className="font-mono text-[18px] font-black uppercase tracking-[0.12em] text-[#f0c95a]">
-            अगला कदम
-          </p>
-          <h2 id="action-title" className="mt-1 text-3xl font-black">
-            अब क्या करना है
-          </h2>
-        </div>
-        <span className="border border-[#f0c95a] bg-[#342d38] px-3 py-1 text-[18px] font-black text-[#fff3c7]">
-          ड्राफ़्ट मार्गदर्शन
-        </span>
+    <section className="action-card document-card print-card" aria-labelledby="action-title">
+      <div className="print-only action-card-section border-b-2 border-[var(--ink)]">
+        <p className="text-[14pt] font-semibold">अड़चन · करने का पर्चा</p>
+        <p>{persona.name.hi} · {persona.regNo}</p>
+        <p className="mt-1 text-[10pt]">स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।</p>
       </div>
 
-      <div className="grid gap-0 lg:grid-cols-2">
-        <div className="border-b-2 border-[#1d2330] p-5 sm:p-7 lg:border-b-0 lg:border-r-2">
-          <p className="font-mono text-[18px] font-black uppercase tracking-[0.1em] text-[#8f2d24]">
-            1 · कहाँ जाएँ / Office
-          </p>
-          <p className="mt-2 text-3xl font-black leading-tight text-[#1d2330]">
-            {failure.office.hi}
-          </p>
-          <p className="mt-2 text-[18px] text-[#555149]" lang="en">
-            {failure.office.en}
-          </p>
-
-          <div className="mt-8">
-            <p className="font-mono text-[18px] font-black uppercase tracking-[0.1em] text-[#8f2d24]">
-              2 · साथ ले जाएँ / Documents
-            </p>
-            <ol className="mt-3 space-y-3">
-              {failure.documents.map((document, index) => (
-                <li key={document.hi} className="flex gap-3 text-[18px] leading-relaxed">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#f0c95a] font-mono text-[18px] font-black text-[#1d2330]">
-                    {index + 1}
-                  </span>
-                  <span>
-                    <strong className="block text-[#1d2330]">{document.hi}</strong>
-                    <span className="text-[#5a554d]" lang="en">
-                      {document.en}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
+      <header className="action-card-section flex flex-wrap items-start justify-between gap-3 border-b border-[var(--rule)] p-5 sm:p-6">
+        <div>
+          <p className="section-label">अगला कदम</p>
+          <h2 id="action-title" className="mt-2 text-[28px] font-semibold leading-[1.3]">अब क्या करना है</h2>
         </div>
+        <MockBadge hi="नमूना मार्गदर्शन" />
+      </header>
 
-        <div className="p-5 sm:p-7">
-          <p className="font-mono text-[18px] font-black uppercase tracking-[0.1em] text-[#8f2d24]">
-            3 · काउंटर पर यही कहें
+      <div className="action-card-section border-b border-[var(--rule)] p-5 sm:p-6">
+        <p className="section-label">1 · कहाँ जाएँ</p>
+        <p className="mt-2 text-[26px] font-semibold leading-[1.35]">{failure.office.hi}</p>
+        <p className="secondary-copy mt-1" lang="en">{failure.office.en}</p>
+      </div>
+
+      <div className="action-card-section border-b border-[var(--rule)] p-5 sm:p-6">
+        <p className="section-label">2 · साथ क्या ले जाएँ</p>
+        <ol className="mt-4 space-y-4">
+          {failure.documents.map((document, index) => (
+            <li key={document.hi} className="flex gap-4 text-[19px] leading-[1.6]">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-[var(--ink)] font-semibold" aria-hidden="true">
+                {index + 1}
+              </span>
+              <span>
+                <strong className="block font-semibold">{document.hi}</strong>
+                <span className="secondary-copy" lang="en">{document.en}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div className="action-card-section p-5 sm:p-6">
+        <p className="section-label">3 · काउंटर पर क्या कहें</p>
+        <p className="secondary-copy mt-1" lang="en">Say this at the counter</p>
+
+        <blockquote className="action-script mt-4 border-4 border-[var(--ink)] bg-[var(--surface)] p-5 sm:p-6">
+          <p className="text-[24px] font-medium leading-[1.5]">“{failure.script.hi}”</p>
+          <p className="secondary-copy mt-4 border-t border-[var(--rule)] pt-3" lang="en">
+            “{failure.script.en}”
           </p>
-          <p className="mt-1 text-[18px] text-[#5a554d]" lang="en">
-            Say this sentence at the counter
-          </p>
-          <blockquote className="mt-4 border-l-8 border-[#f0c95a] bg-[#292232] p-5 text-white sm:p-6">
-            <p className="text-[clamp(1.45rem,5vw,2rem)] font-black leading-snug">
-              “{failure.script.hi}”
-            </p>
-            <p className="mt-4 border-t border-[#766d7c] pt-4 text-[18px] leading-relaxed text-[#eee8ef]" lang="en">
-              “{failure.script.en}”
-            </p>
-          </blockquote>
 
           {failure.script.hi !== "—" && (
-            <div className="no-print mt-4 border-4 border-[#f0c95a] bg-[#fff3c7] p-4 shadow-[4px_4px_0_#1d2330]">
-              <p className="text-[22px] font-black text-[#1d2330]">
-                🔊 काउंटर पर कहने वाली बात सुनें
-              </p>
-              <p className="mt-1 text-[18px] text-[#514a3d]" lang="en">
-                Play and repeat this sentence
-              </p>
+            <div className="no-print mt-5 border-t-2 border-[var(--ink)] pt-4">
+              <p className="text-[21px] font-semibold">▶ यही वाक्य सुनिए</p>
+              <p className="secondary-copy mt-1" lang="en">Listen and repeat</p>
               <audio
                 controls
                 preload="none"
-                className="mt-3 min-h-12 w-full"
-                aria-label="काउंटर पर कहने वाली बात सुनें"
+                className="mt-3 w-full"
+                aria-label="काउंटर पर बोलने वाला वाक्य सुनिए"
               >
                 <source src={`/audio/${failure.code}_script.mp3`} type="audio/mpeg" />
                 आपका ब्राउज़र ऑडियो नहीं चला सकता।
               </audio>
             </div>
           )}
+        </blockquote>
 
-          <div className="no-print mt-6 grid gap-3 sm:flex">
-            <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-              className="flex min-h-14 w-full items-center justify-center bg-[#14633f] px-5 py-3 text-center text-[18px] font-black text-white shadow-[3px_3px_0_#0b3b25] hover:bg-[#0d4d31] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#8f2d24] sm:w-auto"
-            >
-              WhatsApp पर भेजें
-            </a>
-          </div>
-        </div>
+        <p className="mt-5 text-[19px]">
+          आम तौर पर लगभग <strong>{failure.typicalDays} दिन</strong> लगते हैं।
+          <span className="secondary-copy ml-2" lang="en">Typically about {failure.typicalDays} days.</span>
+        </p>
+
+        <a
+          href={whatsappHref}
+          target="_blank"
+          rel="noreferrer"
+          className="primary-action no-print mt-6 w-full"
+        >
+          WhatsApp पर परिवार या CSC को भेजें
+        </a>
       </div>
 
       {mode === "diagnosis" ? (
         <a href={`/status/${persona.regNo}/login/start`} className="no-print tracker-login-cta">
-          नमूना tracker · MOCKED — प्रगति सेव करें →
+          <MockBadge hi="नमूना tracker" />
+          प्रगति सेव करें
         </a>
       ) : (
-        <div className="no-print border-t-2 border-[#1d2330] bg-[#fff3c7] p-5 sm:p-7">
+        <div className="no-print border-t border-[var(--rule)] p-5 sm:p-6">
           {markedDoneAt ? (
-          <div>
-            <MockBadge hi="नमूना tracker" en="MOCKED" tone="ink" />
-            <p className="mt-3 text-3xl font-black text-[#14633f]">✓ आपने यह कदम पूरा किया</p>
-            <p className="mt-2 text-[18px] text-[#4d4942]">
-              दर्ज समय: {new Intl.DateTimeFormat("hi-IN", { dateStyle: "long", timeStyle: "short", timeZone: "Asia/Kolkata" }).format(new Date(markedDoneAt))}
-            </p>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <MockBadge hi="नमूना tracker" en="MOCKED" tone="ink" />
-              <h3 className="mt-3 text-3xl font-black">दफ़्तर वाला काम पूरा हो गया?</h3>
-              <p className="mt-2 text-[18px] text-[#4d4942]">पूरा होने पर तारीख tracker timeline में जुड़ जाएगी।</p>
+              <MockBadge hi="नमूना tracker" />
+              <p className="status-working mt-3 text-[26px] font-semibold">आपने यह कदम पूरा किया</p>
+              <p className="mt-2 text-[19px]">
+                दर्ज समय: {new Intl.DateTimeFormat("hi-IN", { dateStyle: "long", timeStyle: "short", timeZone: "Asia/Kolkata" }).format(new Date(markedDoneAt))}
+              </p>
             </div>
-            <form action={markActionDone}>
-              <input type="hidden" name="regNo" value={persona.regNo} />
-              <button
-                type="submit"
-                className="flex min-h-16 w-full min-w-64 items-center justify-center bg-[#14633f] px-6 py-3 text-[22px] font-black text-white shadow-[4px_4px_0_#1d2330] hover:bg-[#0d4d31] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#8f2d24]"
-              >
-                मैंने कर लिया ✓
-              </button>
-            </form>
-          </div>
+          ) : (
+            <div>
+              <MockBadge hi="नमूना tracker" />
+              <h3 className="mt-3 text-[26px] font-semibold">दफ़्तर वाला काम पूरा हो गया?</h3>
+              <p className="mt-2 text-[19px]">पूरा होने पर तारीख़ प्रगति में जुड़ जाएगी।</p>
+              <form action={markActionDone} className="mt-5">
+                <input type="hidden" name="regNo" value={persona.regNo} />
+                <button type="submit" className="primary-action w-full">मैंने कर लिया</button>
+              </form>
+            </div>
           )}
         </div>
       )}
+
+      <p className="print-only action-card-section border-t border-[var(--ink)] text-[10pt]">
+        यह नमूना मार्गदर्शन है। दफ़्तर और दस्तावेज़ की जानकारी अभी क्षेत्र में सत्यापित नहीं हुई है।
+      </p>
     </section>
   );
 }

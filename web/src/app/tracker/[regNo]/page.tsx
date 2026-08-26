@@ -11,16 +11,12 @@ import { getMockSessionId } from "@/lib/mock-auth";
 import { getTrackerRecord, type TrackerRecord } from "@/lib/tracker-api";
 
 
-export const metadata: Metadata = {
-  title: "काम की प्रगति",
-};
-
+export const metadata: Metadata = { title: "काम की प्रगति" };
 
 interface TrackerPageProps {
   params: Promise<{ regNo: string }>;
   searchParams: Promise<{ saved?: string; error?: string; storage?: string }>;
 }
-
 
 function defaultReminderDate() {
   const date = new Date();
@@ -49,113 +45,91 @@ export default async function TrackerPage({ params, searchParams }: TrackerPageP
   }
 
   return (
-    <main id="main-content" className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <nav className="flex flex-wrap gap-5" aria-label="Tracker navigation">
-        <Link
-          href={`/status/${regNo}`}
-          prefetch={false}
-          className="inline-flex min-h-12 items-center border-b-2 border-[#1d2330] text-[18px] font-black focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#8f2d24]"
-        >
-          ← निदान देखें
-        </Link>
-        <Link
-          href={`/tracker/${regNo}/schemes`}
-          prefetch={false}
-          className="inline-flex min-h-12 items-center border-b-2 border-[#1d2330] text-[18px] font-black focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#8f2d24]"
-        >
-          दूसरी किसान योजनाएँ
-        </Link>
+    <main id="main-content" className="page-shell">
+      <nav className="grid gap-2" aria-label="प्रगति के दूसरे पन्ने">
+        <Link href={`/status/${regNo}`} prefetch={false} className="touch-link">← निदान देखें</Link>
+        <Link href={`/tracker/${regNo}/schemes`} prefetch={false} className="touch-link">दूसरी किसान योजनाएँ</Link>
       </nav>
 
-      <header className="mt-7 border-y-4 border-[#1d2330] bg-[#292232] px-5 py-8 text-white sm:px-8">
-        <MockBadge hi="नमूना निजी क्षेत्र" en="MOCK SESSION" tone="ochre" />
-        <h1 className="mt-4 text-[clamp(2.7rem,9vw,5.5rem)] font-black leading-none tracking-[-0.04em]">
-          {match.persona.name.hi} का काम
-        </h1>
-        <p className="mt-4 max-w-3xl text-[20px] font-bold leading-relaxed text-[#eee8ef]">
-          यह हिस्सा निदान के बाद खुलता है। Session एक httpOnly cookie में है; नमूना फोन नंबर कहीं सेव नहीं हुआ।
+      <header className="mt-8">
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="section-label">निदान के बाद का निजी हिस्सा</p>
+          <MockBadge hi="नमूना निजी क्षेत्र" en="MOCK SESSION" />
+        </div>
+        <h1 className="mt-3 text-[32px] font-semibold leading-[1.35]">{match.persona.name.hi} का काम</h1>
+        <p className="mt-4 text-[19px] leading-[1.6]">
+          यह हिस्सा निदान के बाद खुलता है। नमूना फोन नंबर सेव नहीं हुआ; सत्र केवल सुरक्षित cookie में है।
         </p>
       </header>
 
       {(query.saved || query.error) && (
-        <p
-          role="status"
-          className={`mt-7 border-2 p-4 text-[18px] font-black ${query.error ? "border-[#8f2d24] bg-[#fff0ed] text-[#7c211b]" : "border-[#14633f] bg-[#eaf7ef] text-[#0d4d31]"}`}
-        >
-          {query.saved === "done" && "काम पूरा दर्ज हो गया। Timeline अपडेट हो गई है।"}
+        <p role="status" className={`${query.error ? "state-broken" : "state-working"} mt-7 p-4 text-[19px] font-semibold`}>
+          {query.saved === "done" && "काम पूरा दर्ज हो गया। प्रगति अपडेट हो गई है।"}
           {query.saved === "reminder" && "याद दिलाने की तारीख़ नमूना tracker में सेव हो गई।"}
           {query.error === "reminder" && "याद दिलाने के लिए सही तारीख़ चुनें।"}
-          {query.error === "not-ready" && "Typical resolution समय पूरा होने के बाद grievance draft खुलेगा।"}
-          {query.error === "storage" && "Tracker अभी Postgres तक नहीं पहुँच पा रहा। दोबारा कोशिश करें।"}
+          {query.error === "not-ready" && "समाधान का सामान्य समय पूरा होने के बाद शिकायत का मसौदा खुलेगा।"}
+          {query.error === "storage" && "Tracker अभी डेटाबेस तक नहीं पहुँच पा रहा। दोबारा कोशिश करें।"}
         </p>
       )}
 
       {storageUnavailable || !record ? (
-        <section className="mt-8 border-2 border-[#8f2d24] bg-[#fff0ed] p-6 shadow-[5px_5px_0_#8f2d24]" aria-labelledby="storage-title">
-          <MockBadge hi="नमूना tracker" en="MOCKED" />
-          <h2 id="storage-title" className="mt-3 text-3xl font-black">Tracker database उपलब्ध नहीं है</h2>
-          <p className="mt-3 text-[18px] leading-relaxed">
-            निदान और action card अभी भी काम करते हैं। Progress सेव करने के लिए API में `DATABASE_URL` और generated schema चाहिए।
+        <section className="state-broken mt-8 p-5 sm:p-6" aria-labelledby="storage-title">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 id="storage-title" className="text-[28px] font-semibold">प्रगति का डेटाबेस उपलब्ध नहीं है</h2>
+            <MockBadge hi="नमूना tracker" />
+          </div>
+          <p className="mt-3 text-[19px] leading-[1.6]">
+            निदान और अगला कदम अभी भी काम करते हैं। प्रगति सेव करने के लिए API में DATABASE_URL और बनाया गया schema चाहिए।
           </p>
         </section>
       ) : (
         <>
-          <div className="mt-8">
-            <TrackerTimeline record={record} failure={match.failure} />
-          </div>
+          <div className="mt-8"><TrackerTimeline record={record} failure={match.failure} /></div>
 
-          <section className="mt-10 grid gap-6 border-2 border-[#1d2330] bg-[#e5ded1] p-5 sm:p-7 lg:grid-cols-[1fr_auto] lg:items-end" aria-labelledby="reminder-title">
-            <div>
-              <MockBadge hi="नमूना reminder" en="MOCKED" tone="ink" />
-              <h2 id="reminder-title" className="mt-3 text-3xl font-black">कब दोबारा देखना है?</h2>
-              <p className="mt-2 text-[18px] leading-relaxed text-[#4d4942]">
-                यह अभी केवल तारीख़ tracker में रखता है; SMS या WhatsApp notification नहीं भेजता।
-              </p>
-              {record.reminderAt && (
-                <p className="mt-3 text-[18px] font-black text-[#14633f]">
-                  सेव तारीख़: {new Intl.DateTimeFormat("hi-IN", { dateStyle: "long", timeZone: "Asia/Kolkata" }).format(new Date(record.reminderAt))}
-                </p>
-              )}
+          <section className="document-card mt-8 p-5 sm:p-6" aria-labelledby="reminder-title">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 id="reminder-title" className="text-[28px] font-semibold">कब दोबारा देखना है?</h2>
+              <MockBadge hi="नमूना reminder" />
             </div>
-            <form action={setReminder} className="grid gap-3 sm:grid-cols-[auto_auto] sm:items-end">
+            <p className="mt-3 text-[19px] leading-[1.6]">
+              यह केवल तारीख़ रखता है; SMS या WhatsApp संदेश नहीं भेजता।
+            </p>
+            {record.reminderAt && (
+              <p className="status-working mt-3 text-[19px] font-semibold">
+                सेव तारीख़: {new Intl.DateTimeFormat("hi-IN", { dateStyle: "long", timeZone: "Asia/Kolkata" }).format(new Date(record.reminderAt))}
+              </p>
+            )}
+            <form action={setReminder} className="mt-5 grid gap-4">
               <input type="hidden" name="regNo" value={regNo} />
-              <label className="text-[18px] font-black">
+              <label className="text-[19px] font-semibold">
                 तारीख़
                 <input
                   type="date"
                   name="reminderDate"
                   required
                   defaultValue={defaultReminderDate()}
-                  className="mt-2 block min-h-14 w-full border-2 border-[#1d2330] bg-white px-3 py-2 text-[18px] focus:outline-4 focus:outline-offset-2 focus:outline-[#8f2d24]"
+                  className="mt-2 block min-h-14 w-full rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-3 py-2 text-[19px]"
                 />
               </label>
-              <button type="submit" className="min-h-14 bg-[#1d2330] px-5 py-3 text-[18px] font-black text-white shadow-[3px_3px_0_#8f2d24] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#f0c95a]">
-                याद रखें
-              </button>
+              <button type="submit" className="primary-action w-full">तारीख़ याद रखें</button>
             </form>
           </section>
 
-          <div className="mt-10">
-            <ActionCard
-              failure={match.failure}
-              persona={match.persona}
-              mode="tracker"
-              markedDoneAt={record.markedDoneAt}
-            />
+          <div className="mt-8">
+            <ActionCard failure={match.failure} persona={match.persona} mode="tracker" markedDoneAt={record.markedDoneAt} />
           </div>
 
-          <section className="mt-10 border-2 border-[#1d2330] bg-[#f0c95a] p-6 shadow-[6px_6px_0_#1d2330] sm:p-8">
-            <p className="font-mono text-[16px] font-black tracking-[0.12em]">ONE PROOF, MORE SCHEMES</p>
-            <h2 className="mt-2 text-4xl font-black">ज़मीन और पहचान फिर से क्यों साबित करें?</h2>
-            <p className="mt-3 max-w-3xl text-[20px] font-bold leading-relaxed">
-              PM-KISAN के लिए जो नमूना जानकारी पहले से है, उससे चार दूसरी योजनाओं के application packets तैयार करें। कोई आवेदन जमा नहीं होगा।
+          <section className="document-card mt-8 p-5 sm:p-6">
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="section-label">एक प्रमाण, दूसरी योजनाएँ</p>
+              <MockBadge hi="नमूना packet" />
+            </div>
+            <h2 className="mt-3 text-[28px] font-semibold leading-[1.35]">ज़मीन और पहचान फिर से क्यों साबित करें?</h2>
+            <p className="mt-3 text-[19px] leading-[1.6]">
+              PM-KISAN की नमूना जानकारी से चार दूसरी योजनाओं के आवेदन-पैकेट तैयार करें। कोई आवेदन जमा नहीं होगा।
             </p>
-            <Link
-              href={`/tracker/${regNo}/schemes`}
-              prefetch={false}
-              className="mt-6 inline-flex min-h-14 items-center bg-[#8f2d24] px-6 py-3 text-[20px] font-black text-white shadow-[4px_4px_0_#1d2330] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#1d2330]"
-            >
-              योजनाएँ और packets देखें →
+            <Link href={`/tracker/${regNo}/schemes`} prefetch={false} className="primary-action mt-5 w-full">
+              योजनाएँ और पैकेट देखें
             </Link>
           </section>
         </>

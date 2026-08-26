@@ -3,27 +3,28 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#1d2330" />
+    <meta name="theme-color" content="#1a1a1a" />
     <title>आप ऑफलाइन हैं · अड़चन</title>
     <style>
-      *{box-sizing:border-box}body{min-width:320px;margin:0;background:#f6f1e8;color:#1d2330;font:18px/1.6 system-ui,sans-serif}header{border-bottom:4px solid #f0c95a;background:#1d2330;color:#fff;padding:20px}header strong{display:block;max-width:720px;margin:auto;font-size:24px}main{max-width:720px;margin:auto;padding:40px 20px}h1{margin:0;font-size:clamp(36px,10vw,64px);line-height:1.1}h2{margin:32px 0 8px;font-size:26px}.badge{display:inline-block;margin-bottom:16px;padding:5px 12px;background:#292232;color:#fff;font-weight:900}.card{margin-top:24px;border:2px solid #1d2330;background:#fffdf7;padding:20px;box-shadow:5px 5px 0 #1d2330}a{display:inline-flex;min-height:48px;align-items:center;margin-top:24px;border-bottom:2px solid #1d2330;color:#1d2330;font-weight:900;text-decoration:none}li{margin:8px 0}
+      @font-face{font-family:NotoHi;src:url('/fonts/noto-hi-subset.woff2') format('woff2');font-display:swap}*{box-sizing:border-box}:root{--ink:#1a1a1a;--paper:#faf8f5;--rule:#d6d1c9;--surface:#fff;--mock:#6b5b95}body{min-width:320px;margin:0;background:var(--paper);color:var(--ink);font:19px/1.6 NotoHi,system-ui,sans-serif}header,footer{border-color:var(--rule);background:var(--surface)}header{border-bottom:1px solid var(--rule)}footer{border-top:1px solid var(--rule)}header div,footer div,main{width:100%;max-width:560px;margin:auto;padding:20px}main{padding-top:32px;padding-bottom:48px}h1{margin:12px 0 0;font-size:32px;line-height:1.35;font-weight:600}h2{margin:0;font-size:28px;line-height:1.35}.label{margin:0;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}.badge{display:inline-block;margin-left:8px;border-radius:2px;padding:4px 8px;background:var(--mock);color:var(--surface);font-size:13px;font-weight:600}.card{margin-top:32px;border:2px solid var(--ink);border-radius:4px;background:var(--surface);padding:20px}a{display:inline-flex;min-height:56px;align-items:center;margin-top:24px;border-bottom:2px solid var(--ink);color:var(--ink);font-weight:700;text-decoration:none}li{margin:10px 0}.secondary{font-size:15px;line-height:1.5;color:var(--ink);opacity:.72}
     </style>
   </head>
   <body>
-    <header><strong>अड़चन · ऑफलाइन सहायता</strong></header>
+    <header><div><strong>अड़चन</strong><p class="secondary">स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।</p></div></header>
     <main>
-      <span class="badge">डेमो · MOCKED</span>
-      <h1>अभी इंटरनेट नहीं है।</h1>
-      <p>घबराइए नहीं। पहले से सहेजे गए आठ डेमो स्टेटस पेज, निदान कार्ड, रिकॉर्ड की कड़ियाँ, अगला कदम और हिंदी ऑडियो ऑफलाइन भी खुलते हैं।</p>
+      <p class="label">ऑफलाइन सहायता <span class="badge">नमूना · MOCKED</span></p>
+      <h1>इंटरनेट नहीं है। आपकी पिछली जानकारी नीचे मौजूद है।</h1>
+      <p>जो स्थिति पन्ना आपने पहले खोला था, वह और उसकी हिंदी आवाज़ ऑफलाइन भी चल सकती है। नया नंबर या नई आवाज़ जाँचने के लिए इंटरनेट चाहिए।</p>
       <section class="card">
         <h2>ऑफलाइन क्या नहीं चलेगा?</h2>
         <ul>
-          <li>नई आवाज़ को लिखना और खुली शिकायत का AI निदान</li>
-          <li>WhatsApp पर भेजना या कोई बाहरी सरकारी वेबसाइट खोलना</li>
-          <li>किसी असली लाभार्थी का ताज़ा सरकारी स्टेटस देखना</li>
+          <li>नई आवाज़ को लिखना और शिकायत का AI निदान</li>
+          <li>WhatsApp पर भेजना या कोई बाहरी वेबसाइट खोलना</li>
+          <li>किसी असली लाभार्थी की नई सरकारी स्थिति देखना</li>
         </ul>
       </section>
-      <a href="/">सहेजे हुए डेमो नंबर देखें →</a>
+      <a href="/">पहले खोला हुआ नमूना नंबर देखें</a>
     </main>
+    <footer><div>स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।</div></footer>
   </body>
 </html>

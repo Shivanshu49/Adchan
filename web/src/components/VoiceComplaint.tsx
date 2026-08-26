@@ -166,25 +166,25 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
         : "बोलकर परेशानी बताएँ";
 
   return (
-    <div className="border-2 border-[#1d2330] bg-[#fffdf7] p-5 shadow-[6px_6px_0_#f0c95a] sm:p-7">
+    <div className="document-card p-5 sm:p-6">
       <button
         type="button"
         onClick={state === "recording" ? stopRecording : startRecording}
         disabled={busy}
-        className={`flex min-h-20 w-full items-center justify-center gap-3 px-5 py-4 text-[22px] font-black text-white shadow-[4px_4px_0_#1d2330] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#8f2d24] disabled:cursor-wait disabled:bg-[#655f58] ${state === "recording" ? "animate-pulse bg-[#b3261e]" : "bg-[#14633f] hover:bg-[#0d4d31]"}`}
+        className="flex min-h-[72px] w-full items-center justify-center gap-3 rounded-[4px] border-2 border-[var(--ink)] bg-[var(--ink)] px-5 py-4 text-[21px] font-semibold text-[var(--surface)] disabled:cursor-wait disabled:opacity-60"
         aria-pressed={state === "recording"}
       >
-        <span aria-hidden="true" className="text-3xl">{state === "recording" ? "■" : "●"}</span>
+        <span aria-hidden="true" className="text-[26px]">{state === "recording" ? "■" : "●"}</span>
         {buttonText}
       </button>
-      <p className="mt-3 text-[18px] leading-relaxed text-[#514e48]">
+      <p className="mt-3 text-[19px] leading-[1.6]">
         अधिकतम 60 सेकंड। माइक्रोफ़ोन न चले तो नीचे लिखें।
       </p>
 
-      <form onSubmit={submitText} className="mt-5 border-t border-dashed border-[#827b6d] pt-5">
-        <label htmlFor="complaint" className="block text-[20px] font-black text-[#1d2330]">
+      <form onSubmit={submitText} className="mt-5 border-t border-[var(--rule)] pt-5">
+        <label htmlFor="complaint" className="block text-[19px] font-semibold">
           या अपनी परेशानी लिखें
-          <span className="ml-2 text-[18px] font-normal text-[#5a554d]" lang="en">/ Type instead</span>
+          <span className="secondary-copy ml-2" lang="en">/ Type instead</span>
         </label>
         <textarea
           ref={complaintRef}
@@ -194,17 +194,17 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
           rows={3}
           maxLength={4000}
           placeholder="जैसे: पोर्टल पर eKYC बाकी दिखा रहा है…"
-          className="mt-3 w-full border-2 border-[#1d2330] bg-white px-4 py-3 text-[18px] leading-relaxed text-[#1d2330] placeholder:text-[#736e65] focus:outline-4 focus:outline-offset-2 focus:outline-[#8f2d24]"
+          className="mt-3 w-full rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-4 py-3 text-[19px] leading-[1.6] placeholder:text-[var(--ink)] placeholder:opacity-60"
         />
         <button
           type="submit"
           disabled={busy || state === "recording"}
-          className="mt-3 flex min-h-12 w-full items-center justify-center border-2 border-[#1d2330] bg-[#f0c95a] px-5 py-2 text-[18px] font-black text-[#1d2330] hover:bg-[#e4b938] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#8f2d24] disabled:cursor-wait disabled:opacity-60"
+          className="mt-3 flex min-h-14 w-full items-center justify-center rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-5 py-3 text-[19px] font-semibold text-[var(--ink)] disabled:cursor-wait disabled:opacity-60"
         >
           परेशानी की वजह खोजें
         </button>
       </form>
-      <p className="mt-3 min-h-7 text-[18px] font-bold text-[#8f2d24]" role="status" aria-live="polite">
+      <p className="mt-3 min-h-8 text-[19px] font-semibold" role="status" aria-live="polite">
         {message}
       </p>
     </div>

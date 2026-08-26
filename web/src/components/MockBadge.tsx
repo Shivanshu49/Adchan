@@ -1,17 +1,15 @@
 interface MockBadgeProps {
   hi?: string;
   en?: string;
-  tone?: "red" | "ink" | "ochre";
 }
 
 
 export default function MockBadge({
-  hi = "नमूना",
+  hi = "नमूना डेटा",
   en = "MOCKED",
-  tone = "red",
 }: MockBadgeProps) {
   return (
-    <span className={`mock-badge mock-badge-${tone}`}>
+    <span className="mock-badge">
       {hi} · <span lang="en">{en}</span>
     </span>
   );
