@@ -1,0 +1,138 @@
+{
+  "version": "0.1.0-demo",
+  "note": "STATIC PUBLIC-SOURCE GUIDANCE — packets are mocked and are never submitted.",
+  "schemes": [
+    {
+      "id": "pmfby",
+      "name": {
+        "hi": "प्रधानमंत्री फसल बीमा योजना",
+        "en": "Pradhan Mantri Fasal Bima Yojana (PMFBY)"
+      },
+      "purpose": {
+        "hi": "अधिसूचित फसल और मौसम के लिए फसल बीमा आवेदन तैयार करना।",
+        "en": "Prepare an application for crop insurance for a notified crop and season."
+      },
+      "documentedEligibility": {
+        "hi": "गैर-ऋणी किसान स्वेच्छा से बैंक, CSC, बीमा मध्यस्थ या PMFBY Farmer Corner के ज़रिए आवेदन कर सकते हैं। फसल और क्षेत्र उस मौसम में अधिसूचित होने चाहिए।",
+        "en": "Non-loanee farmers may apply voluntarily through a bank, CSC, insurance intermediary, or the PMFBY Farmer Corner. The crop and area must be notified for that season."
+      },
+      "applyAt": {
+        "hi": "PMFBY Farmer Corner, नज़दीकी CSC, बैंक या अधिकृत बीमा मध्यस्थ",
+        "en": "PMFBY Farmer Corner, nearest CSC, bank, or authorised insurance intermediary"
+      },
+      "documents": [
+        { "hi": "आधार कार्ड या आधार नामांकन पहचान", "en": "Aadhaar card or Aadhaar enrolment ID" },
+        { "hi": "बैंक पासबुक", "en": "Bank passbook" },
+        { "hi": "भूमि रिकॉर्ड, पट्टा या राज्य द्वारा मान्य खेती का प्रमाण", "en": "Land record, tenancy contract, or other state-accepted proof of cultivation" },
+        { "hi": "बोआई प्रमाणपत्र या प्रस्तावित फसल बोने की स्व-घोषणा", "en": "Sowing certificate or self-declaration of intent to sow the proposed crop" }
+      ],
+      "uncertainty": {
+        "hi": "अधिसूचित फसल, कट-ऑफ तारीख और स्वीकार्य भूमि दस्तावेज़ राज्य और मौसम के अनुसार बदलते हैं; पैकेट जमा करने से पहले PMFBY portal पर जाँच ज़रूरी है।",
+        "en": "Notified crops, cut-off dates, and accepted land documents vary by state and season; verify them on the PMFBY portal before submission."
+      },
+      "source": {
+        "label": "PMFBY Revised Operational Guidelines",
+        "url": "https://pmfby.gov.in/pdf/Revised_Operational_Guidelines.pdf"
+      }
+    },
+    {
+      "id": "kcc",
+      "name": {
+        "hi": "किसान क्रेडिट कार्ड",
+        "en": "Kisan Credit Card (KCC)"
+      },
+      "purpose": {
+        "hi": "खेती, फसल के बाद के खर्च और कृषि से जुड़ी कार्यशील पूँजी के लिए बैंक ऋण आवेदन तैयार करना।",
+        "en": "Prepare a bank credit application for cultivation, post-harvest costs, and agriculture-related working capital."
+      },
+      "documentedEligibility": {
+        "hi": "मालिक किसान, संयुक्त उधारकर्ता, किरायेदार किसान, मौखिक पट्टेदार, बटाईदार और किसानों के SHG/JLG आवेदन कर सकते हैं। मंज़ूरी बैंक का ऋण निर्णय है।",
+        "en": "Owner cultivators, joint borrowers, tenant farmers, oral lessees, sharecroppers, and farmer SHGs/JLGs may apply. Approval remains a bank credit decision."
+      },
+      "applyAt": {
+        "hi": "भाग लेने वाला बैंक, RRB, सहकारी बैंक या JanSamarth",
+        "en": "A participating bank, RRB, cooperative bank, or JanSamarth"
+      },
+      "documents": [
+        { "hi": "भरा हुआ KCC आवेदन फॉर्म", "en": "Completed KCC application form" },
+        { "hi": "बैंक द्वारा माँगे गए पहचान और पते के KYC दस्तावेज़", "en": "Identity and address KYC documents required by the bank" },
+        { "hi": "लागू होने पर भूमि, खेती, किरायेदारी या बटाई का विवरण", "en": "Land, cultivation, tenancy, or sharecropping details, as applicable" },
+        { "hi": "फसल, रकबा और माँगी गई ऋण सीमा का विवरण", "en": "Crop, cultivated area, and requested credit-limit details" }
+      ],
+      "uncertainty": {
+        "hi": "एक सार्वभौमिक दस्तावेज़ सूची नहीं है। KYC, भूमि प्रमाण, ऋण सीमा और मंज़ूरी की शर्तें बैंक और आवेदक के प्रकार के अनुसार बदल सकती हैं।",
+        "en": "There is no single universal document list. KYC, land proof, credit limits, and sanction conditions may vary by bank and applicant type."
+      },
+      "source": {
+        "label": "RBI Master Circular — Kisan Credit Card Scheme",
+        "url": "https://www.rbi.org.in/scripts/FS_Notification.aspx?Id=11325"
+      }
+    },
+    {
+      "id": "pmkmy",
+      "name": {
+        "hi": "प्रधानमंत्री किसान मानधन योजना",
+        "en": "Pradhan Mantri Kisan Maandhan Yojana (PM-KMY)"
+      },
+      "purpose": {
+        "hi": "छोटे और सीमांत किसान के लिए स्वैच्छिक अंशदायी पेंशन नामांकन तैयार करना।",
+        "en": "Prepare enrolment for the voluntary contributory pension for small and marginal farmers."
+      },
+      "documentedEligibility": {
+        "hi": "प्रवेश आयु 18–40 वर्ष और राज्य/केंद्रशासित प्रदेश के भूमि रिकॉर्ड के अनुसार अधिकतम 2 हेक्टेयर खेती योग्य भूमि वाले छोटे या सीमांत भूमिधारक किसान, लागू बहिष्करण शर्तों के अधीन।",
+        "en": "Landholding small or marginal farmers aged 18–40 with up to 2 hectares of cultivable land in State/UT records, subject to the scheme's exclusion criteria."
+      },
+      "applyAt": {
+        "hi": "नज़दीकी CSC, राज्य का PM-KISAN nodal officer या आधिकारिक PM-KMY portal",
+        "en": "Nearest CSC, State PM-KISAN nodal officer, or the official PM-KMY portal"
+      },
+      "documents": [
+        { "hi": "आधार कार्ड", "en": "Aadhaar card" },
+        { "hi": "बचत बैंक खाते की पासबुक और IFSC", "en": "Savings-bank passbook and IFSC" },
+        { "hi": "नाम, जन्मतिथि और मोबाइल नंबर", "en": "Name, date of birth, and mobile number" },
+        { "hi": "भूमि रिकॉर्ड में दर्ज रकबे का विवरण", "en": "Cultivable landholding details from State/UT records" }
+      ],
+      "uncertainty": {
+        "hi": "यह डेमो उम्र, भूमि सीमा या बहिष्करण की पात्रता जाँच नहीं करता। CSC या आधिकारिक portal पर सत्यापन के बाद ही नामांकन हो सकता है।",
+        "en": "This demo does not verify age, landholding, or exclusion criteria. Enrolment can proceed only after verification by a CSC or the official portal."
+      },
+      "source": {
+        "label": "PIB — Five years of PM-KMY",
+        "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2053142"
+      }
+    },
+    {
+      "id": "soil-health-card",
+      "name": {
+        "hi": "मृदा स्वास्थ्य कार्ड",
+        "en": "Soil Health Card"
+      },
+      "purpose": {
+        "hi": "खेत की मिट्टी के नमूने की जाँच और पोषक तत्वों की रिपोर्ट के लिए अनुरोध तैयार करना।",
+        "en": "Prepare a request for field soil sampling, testing, and a nutrient-status report."
+      },
+      "documentedEligibility": {
+        "hi": "यह सामान्य ऋण या नकद लाभ आवेदन नहीं है। राज्य कृषि विभाग या उसकी अधिकृत एजेंसी खेत से नमूना लेकर परीक्षण और पोषक तत्व सलाह देती है।",
+        "en": "This is not a conventional loan or cash-benefit application. The State Agriculture Department or its authorised agency collects and tests soil and provides nutrient advice."
+      },
+      "applyAt": {
+        "hi": "राज्य कृषि विभाग, नज़दीकी soil testing laboratory, KVK या स्थानीय कृषि अधिकारी",
+        "en": "State Agriculture Department, nearest soil-testing laboratory, KVK, or local agriculture officer"
+      },
+      "documents": [
+        { "hi": "खेत का गाँव, ज़िला और स्थान", "en": "Field village, district, and location" },
+        { "hi": "सर्वे या खसरा नंबर, अगर उपलब्ध हो", "en": "Survey or khasra number, if available" },
+        { "hi": "खेत का रकबा और मिट्टी का प्रकार, अगर पता हो", "en": "Field area and soil type, if known" },
+        { "hi": "पिछली और प्रस्तावित फसल का विवरण", "en": "Previous and proposed crop details" }
+      ],
+      "uncertainty": {
+        "hi": "नमूना कौन और कब लेगा, स्थानीय प्रयोगशाला का संपर्क और राज्य की scheduling प्रक्रिया स्थान के अनुसार बदलती है। इस पैकेट को स्थानीय अधिकारी से सत्यापित करें।",
+        "en": "Who collects the sample, local laboratory contacts, and State scheduling procedures vary by location. Verify this packet with the local officer."
+      },
+      "source": {
+        "label": "Soil Health Card — official FAQ",
+        "url": "https://soilhealth.dac.gov.in/files/FAQ_Final_English.pdf"
+      }
+    }
+  ]
+}

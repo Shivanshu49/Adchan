@@ -36,6 +36,49 @@ textarea {
   background: #8f2d24;
 }
 
+.mock-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.mock-badge-red {
+  color: #ffffff;
+  background: #8f2d24;
+}
+
+.mock-badge-ink {
+  color: #ffffff;
+  background: #292232;
+}
+
+.mock-badge-ochre {
+  color: #1d2330;
+  background: #f0c95a;
+}
+
+.tracker-login-cta {
+  display: flex;
+  min-height: 64px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-top: 2px solid #1d2330;
+  padding: 1rem 1.25rem;
+  color: #8f2d24;
+  background: #fff3c7;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.tracker-login-cta:focus-visible {
+  outline: 4px solid #8f2d24;
+  outline-offset: 4px;
+}
+
 @media print {
   @page {
     size: A4;

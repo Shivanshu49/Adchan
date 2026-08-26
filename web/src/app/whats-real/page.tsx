@@ -21,6 +21,8 @@ const COLUMNS = [
       "पहले से बने हिंदी audio",
       "ऑफलाइन चलने वाले status pages",
       "खुली शिकायत का LLM classification pipeline — जब configured gateway जवाब दे",
+      "Post-diagnosis httpOnly mock session और Postgres tracker",
+      "Taxonomy से deterministic CPGRAMS draft और चार source-linked scheme packets",
     ],
   },
   {
@@ -33,6 +35,8 @@ const COLUMNS = [
       "UP-DEMO registration numbers",
       "डेमो OTP: 123456",
       "सभी payment और Aadhaar data",
+      "CPGRAMS submit और लौटाया गया grievance registration number",
+      "Adjacent-scheme packets — कोई application सरकारी system में जमा नहीं होता",
       "कोई असली सरकारी record कहीं भी नहीं",
     ],
   },

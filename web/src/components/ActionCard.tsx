@@ -1,13 +1,22 @@
+import { markActionDone } from "@/actions/tracker";
+import MockBadge from "@/components/MockBadge";
 import type { Failure } from "@/types/failures";
 import type { Persona } from "@/types/personas";
 
 interface ActionCardProps {
   failure: Failure;
   persona: Persona;
+  mode?: "diagnosis" | "tracker";
+  markedDoneAt?: string | null;
 }
 
 
-export default function ActionCard({ failure, persona }: ActionCardProps) {
+export default function ActionCard({
+  failure,
+  persona,
+  mode = "diagnosis",
+  markedDoneAt = null,
+}: ActionCardProps) {
   const shareText = [
     `PM-KISAN डेमो रिकॉर्ड: ${persona.regNo}`,
     failure.plain.hi,
@@ -119,6 +128,41 @@ export default function ActionCard({ failure, persona }: ActionCardProps) {
           </div>
         </div>
       </div>
+
+      {mode === "diagnosis" ? (
+        <a href={`/status/${persona.regNo}/login/start`} className="no-print tracker-login-cta">
+          नमूना tracker · MOCKED — प्रगति सेव करें →
+        </a>
+      ) : (
+        <div className="no-print border-t-2 border-[#1d2330] bg-[#fff3c7] p-5 sm:p-7">
+          {markedDoneAt ? (
+          <div>
+            <MockBadge hi="नमूना tracker" en="MOCKED" tone="ink" />
+            <p className="mt-3 text-3xl font-black text-[#14633f]">✓ आपने यह कदम पूरा किया</p>
+            <p className="mt-2 text-[18px] text-[#4d4942]">
+              दर्ज समय: {new Intl.DateTimeFormat("hi-IN", { dateStyle: "long", timeStyle: "short", timeZone: "Asia/Kolkata" }).format(new Date(markedDoneAt))}
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <MockBadge hi="नमूना tracker" en="MOCKED" tone="ink" />
+              <h3 className="mt-3 text-3xl font-black">दफ़्तर वाला काम पूरा हो गया?</h3>
+              <p className="mt-2 text-[18px] text-[#4d4942]">पूरा होने पर तारीख tracker timeline में जुड़ जाएगी।</p>
+            </div>
+            <form action={markActionDone}>
+              <input type="hidden" name="regNo" value={persona.regNo} />
+              <button
+                type="submit"
+                className="flex min-h-16 w-full min-w-64 items-center justify-center bg-[#14633f] px-6 py-3 text-[22px] font-black text-white shadow-[4px_4px_0_#1d2330] hover:bg-[#0d4d31] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[#8f2d24]"
+              >
+                मैंने कर लिया ✓
+              </button>
+            </form>
+          </div>
+          )}
+        </div>
+      )}
     </section>
   );
 }

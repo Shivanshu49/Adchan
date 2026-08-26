@@ -270,7 +270,8 @@ HTML, its hashed Next CSS/font and the two MP3s present on that page. For demo
 or when that status page is visited. These resources use cache-first.
 `/diagnose` and `/transcribe` use network-first and return a Hindi 503
 explanation when the network is absent. An uncached navigation receives
-`public/offline.html`.
+`public/offline.html`. Session-specific `/status/*/login` and `/tracker/*`
+routes bypass the worker completely and are never written to Cache Storage.
 
 **Performance targets:**
 

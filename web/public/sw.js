@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "adchan-offline-";
-const CACHE_NAME = `${CACHE_PREFIX}v2`;
+const CACHE_NAME = `${CACHE_PREFIX}v3`;
 
 // Keep install-time transfer tiny. Build-hashed CSS/font URLs and the two audio
 // files for the page being viewed are sent by the page after window.load.
@@ -44,6 +44,10 @@ function isCurrentPageAsset(pathname) {
   );
 }
 
+function isOfflineStatusPage(pathname) {
+  return /^\/status\/UP-DEMO-\d{4}$/.test(pathname);
+}
+
 function referencedAssets(html, baseUrl) {
   const urls = new Set();
   const pattern = /["'(]([^"')\s]+\.(?:css|woff2|mp3)(?:\?[^"')\s]*)?)/g;
@@ -67,7 +71,8 @@ self.addEventListener("message", (event) => {
     const sameCurrentPage =
       clientUrl &&
       requestedPage.origin === self.location.origin &&
-      requestedPage.pathname === clientUrl.pathname;
+      requestedPage.pathname === clientUrl.pathname &&
+      isOfflineStatusPage(requestedPage.pathname);
 
     const cache = await caches.open(CACHE_NAME);
     const urls = new Set();
@@ -124,6 +129,15 @@ async function cacheFirst(request) {
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
+
+  // Session-specific HTML must never enter the offline cache. Returning without
+  // respondWith lets the browser handle the request (including Set-Cookie).
+  if (
+    url.pathname.startsWith("/tracker/") ||
+    /^\/status\/[^/]+\/login(?:\/|$)/.test(url.pathname)
+  ) {
+    return;
+  }
 
   if (url.pathname === "/diagnose" || url.pathname === "/transcribe") {
     event.respondWith(networkFirstApi(request));

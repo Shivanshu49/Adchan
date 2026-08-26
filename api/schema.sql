@@ -22,12 +22,11 @@ END
 $$;
 
 CREATE TABLE IF NOT EXISTS tracker (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    registration_number TEXT NOT NULL,
+    session_id UUID NOT NULL,
+    reg_no TEXT NOT NULL,
     failure_code failure_code NOT NULL,
-    completed BOOLEAN NOT NULL DEFAULT FALSE,
+    marked_done_at TIMESTAMPTZ,
     reminder_at TIMESTAMPTZ,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    UNIQUE (registration_number, failure_code)
+    PRIMARY KEY (session_id, reg_no)
 );
