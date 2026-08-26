@@ -1,10 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f2eddf;
-  --ink: #17251b;
-  --leaf: #285b3a;
-  --line: #b8b19e;
+  --paper: #f6f1e8;
+  --ink: #1d2330;
 }
 
 * {
@@ -16,70 +14,79 @@ html {
 }
 
 body {
+  min-width: 320px;
   margin: 0;
   color: var(--ink);
-  background:
-    linear-gradient(90deg, transparent 49.8%, rgb(23 37 27 / 5%) 50%, transparent 50.2%),
-    var(--paper);
-  font-family: Georgia, "Times New Roman", serif;
+  background-color: var(--paper);
+  background-image: linear-gradient(rgb(29 35 48 / 4%) 1px, transparent 1px);
+  background-size: 100% 2rem;
+  font-family: "Noto Serif Devanagari", "Kohinoor Devanagari", Georgia, serif;
+  font-size: 18px;
+  text-rendering: optimizeLegibility;
 }
 
-.shell {
-  min-height: 100svh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  padding: clamp(1.25rem, 4vw, 3.5rem);
+button,
+input,
+textarea {
+  font: inherit;
 }
 
-.wordmark,
-.eyebrow,
-.disclaimer {
-  font-family: ui-monospace, "Courier New", monospace;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+::selection {
+  color: #ffffff;
+  background: #8f2d24;
 }
 
-.wordmark {
-  width: fit-content;
-  padding-bottom: 0.35rem;
-  border-bottom: 3px solid var(--leaf);
-  font-size: 0.82rem;
-  font-weight: 700;
-}
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
 
-.placeholder {
-  width: min(48rem, 100%);
-  align-self: center;
-  padding: clamp(2rem, 7vw, 5rem) 0;
-}
+  html,
+  body {
+    color: #000000;
+    background: #ffffff !important;
+    font-size: 12pt;
+  }
 
-.eyebrow {
-  margin: 0 0 1.5rem;
-  color: var(--leaf);
-  font-size: 0.7rem;
-  font-weight: 700;
-}
+  header,
+  footer {
+    color: #000000 !important;
+    background: #ffffff !important;
+    border-color: #000000 !important;
+  }
 
-h1 {
-  max-width: 12ch;
-  margin: 0;
-  font-size: clamp(2.8rem, 9vw, 7rem);
-  font-weight: 500;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-}
+  header a,
+  header span,
+  header p,
+  footer p {
+    color: #000000 !important;
+    border-color: #000000 !important;
+  }
 
-.placeholder > p:last-child {
-  max-width: 38rem;
-  margin: 2rem 0 0;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  font-size: clamp(1rem, 2.2vw, 1.25rem);
-  line-height: 1.6;
-}
+  main {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
 
-.disclaimer {
-  margin: 0;
-  font-size: 0.58rem;
-  line-height: 1.5;
+  .no-print {
+    display: none !important;
+  }
+
+  .print-card {
+    break-inside: avoid;
+    margin-bottom: 8mm !important;
+    box-shadow: none !important;
+  }
+
+  a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
 }

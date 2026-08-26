@@ -1,0 +1,126 @@
+{
+  "version": "0.1.0-demo",
+  "note": "FICTIONAL DEMO DATA ONLY — these beneficiaries and registration numbers are not real.",
+  "personas": [
+    {
+      "regNo": "UP-DEMO-0001",
+      "name": { "hi": "रमेश परीक्षण", "en": "Ramesh Test" },
+      "village": { "hi": "हरितपुर", "en": "Haritpur" },
+      "district": { "hi": "मेरठ", "en": "Meerut" },
+      "installmentsReceived": 11,
+      "lastInstallmentDate": "2025-11-19",
+      "failureCode": "NPCI_NOT_MAPPED",
+      "linkage": {
+        "aadhaarSeeded": true,
+        "bankLinked": false,
+        "landSeeded": true,
+        "ekycDone": true
+      }
+    },
+    {
+      "regNo": "UP-DEMO-0002",
+      "name": { "hi": "सुनीता नमूना", "en": "Sunita Sample" },
+      "village": { "hi": "गन्नाखेड़ा", "en": "Gannakhera" },
+      "district": { "hi": "मुज़फ्फरनगर", "en": "Muzaffarnagar" },
+      "installmentsReceived": 8,
+      "lastInstallmentDate": "2025-08-02",
+      "failureCode": "EKYC_PENDING",
+      "linkage": {
+        "aadhaarSeeded": true,
+        "bankLinked": true,
+        "landSeeded": true,
+        "ekycDone": false
+      }
+    },
+    {
+      "regNo": "UP-DEMO-0003",
+      "name": { "hi": "इमरान काल्पनिक", "en": "Imran Fiction" },
+      "village": { "hi": "नहरपुर", "en": "Naharpur" },
+      "district": { "hi": "बागपत", "en": "Baghpat" },
+      "installmentsReceived": 6,
+      "lastInstallmentDate": "2025-04-18",
+      "failureCode": "LAND_NOT_SEEDED",
+      "linkage": {
+        "aadhaarSeeded": true,
+        "bankLinked": true,
+        "landSeeded": false,
+        "ekycDone": true
+      }
+    },
+    {
+      "regNo": "UP-DEMO-0004",
+      "name": { "hi": "कविता डेमो", "en": "Kavita Demo" },
+      "village": { "hi": "आमखेड़ा", "en": "Aamkhera" },
+      "district": { "hi": "सहारनपुर", "en": "Saharanpur" },
+      "installmentsReceived": 14,
+      "lastInstallmentDate": "2026-02-24",
+      "failureCode": "INVALID_ACCOUNT",
+      "linkage": {
+        "aadhaarSeeded": true,
+        "bankLinked": false,
+        "landSeeded": true,
+        "ekycDone": true
+      }
+    },
+    {
+      "regNo": "UP-DEMO-0005",
+      "name": { "hi": "मोहन उदाहरण", "en": "Mohan Example" },
+      "village": { "hi": "सरसोंपुर", "en": "Sarsonpur" },
+      "district": { "hi": "शामली", "en": "Shamli" },
+      "installmentsReceived": 9,
+      "lastInstallmentDate": "2025-11-19",
+      "failureCode": "PHYSICAL_VERIFICATION_PENDING",
+      "linkage": {
+        "aadhaarSeeded": true,
+        "bankLinked": true,
+        "landSeeded": true,
+        "ekycDone": true
+      }
+    },
+    {
+      "regNo": "UP-DEMO-0006",
+      "name": { "hi": "शबनम परीक्षण", "en": "Shabnam Test" },
+      "village": { "hi": "ईखपुर", "en": "Eekhpur" },
+      "district": { "hi": "बुलंदशहर", "en": "Bulandshahr" },
+      "installmentsReceived": 12,
+      "lastInstallmentDate": "2025-08-02",
+      "failureCode": "FLAGGED_INCOME_TAX",
+      "linkage": {
+        "aadhaarSeeded": true,
+        "bankLinked": true,
+        "landSeeded": true,
+        "ekycDone": true
+      }
+    },
+    {
+      "regNo": "UP-DEMO-0007",
+      "name": { "hi": "वीरेंद्र नमूना", "en": "Virendra Sample" },
+      "village": { "hi": "चौपालगढ़", "en": "Chaupalgarh" },
+      "district": { "hi": "हापुड़", "en": "Hapur" },
+      "installmentsReceived": 7,
+      "lastInstallmentDate": "2025-04-18",
+      "failureCode": "FLAGGED_INSTITUTIONAL",
+      "linkage": {
+        "aadhaarSeeded": true,
+        "bankLinked": true,
+        "landSeeded": false,
+        "ekycDone": true
+      }
+    },
+    {
+      "regNo": "UP-DEMO-0008",
+      "name": { "hi": "पूजा काल्पनिक", "en": "Pooja Fiction" },
+      "village": { "hi": "खेतपुरा", "en": "Khetpura" },
+      "district": { "hi": "बिजनौर", "en": "Bijnor" },
+      "installmentsReceived": 16,
+      "lastInstallmentDate": "2026-02-24",
+      "failureCode": "RECOVERY_PENDING",
+      "linkage": {
+        "aadhaarSeeded": true,
+        "bankLinked": true,
+        "landSeeded": true,
+        "ekycDone": true
+      }
+    }
+  ]
+}

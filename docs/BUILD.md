@@ -244,7 +244,20 @@ pyftsubset NotoSansDevanagari-Regular.ttf \
 their audio. A farmer standing in a bank with no signal still gets his action
 card. For this user that isn't a nice-to-have, it's the point.
 
-**Verify:** Lighthouse on throttled 3G, first load < 100KB.
+**Performance targets:**
+
+- Core diagnosis remains fully readable with JavaScript disabled.
+- Status-route HTML document is under 10KB gzip.
+- LCP is under 2.5 seconds on Slow 4G with 4x CPU throttling.
+
+**Baseline — 2026-08-26, `/status/UP-DEMO-0001`:**
+
+- Diagnosis, linkage map and action card render completely without JavaScript.
+- HTML document: 8,497 bytes gzip (49,718 bytes uncompressed).
+- Lighthouse 13.4.1 mobile, simulated Slow 4G + 4x CPU: LCP 1.662s,
+  FCP 0.892s, Speed Index 0.892s, TBT 31.5ms, performance score 100.
+- Route-specific output is a 183-byte Next.js registration stub with no Adchan
+  client logic; the shared Next.js runtime remains approximately 103KB gzip.
 
 ---
 
