@@ -9,6 +9,8 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
 from engine import (
+    DEFAULT_CONFIDENCE_GAP_THRESHOLD,
+    DEFAULT_TOP_CONFIDENCE_THRESHOLD,
     MAX_AUDIO_BYTES,
     AudioInput,
     AudioValidationError,
@@ -27,6 +29,16 @@ class Settings(BaseSettings):
     llm_base_url: AnyHttpUrl
     llm_api_key: str
     llm_model: str
+    llm_top_confidence_threshold: float = Field(
+        default=DEFAULT_TOP_CONFIDENCE_THRESHOLD,
+        ge=0.0,
+        le=1.0,
+    )
+    llm_confidence_gap_threshold: float = Field(
+        default=DEFAULT_CONFIDENCE_GAP_THRESHOLD,
+        ge=0.0,
+        le=1.0,
+    )
 
 
 class DiagnoseRequest(BaseModel):
@@ -81,6 +93,8 @@ async def diagnose(request: Request, payload: DiagnoseRequest) -> DiagnoseRespon
         api_key=settings.llm_api_key,
         base_url=str(settings.llm_base_url),
         model=settings.llm_model,
+        top_confidence_threshold=settings.llm_top_confidence_threshold,
+        confidence_gap_threshold=settings.llm_confidence_gap_threshold,
     )
     return DiagnoseResponse(
         code=result.code,

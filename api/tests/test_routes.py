@@ -9,7 +9,7 @@ os.environ.setdefault("LLM_MODEL", "test-model")
 import httpx
 
 import main
-from engine import TranscriptionResult
+from engine import DiagnosisResult, TranscriptionResult
 
 
 async def fake_transcription(*args: object, **kwargs: object) -> TranscriptionResult:
@@ -92,3 +92,41 @@ def test_cors_allows_configured_origin_only() -> None:
     assert allowed.status_code == 200
     assert allowed.headers["access-control-allow-origin"] == "https://adchan.example"
     assert "access-control-allow-origin" not in denied.headers
+
+
+def test_diagnose_passes_configured_confidence_thresholds(monkeypatch) -> None:
+    reset_limits()
+    received: dict[str, object] = {}
+
+    async def fake_classification(*args: object, **kwargs: object) -> DiagnosisResult:
+        received.update(kwargs)
+        return DiagnosisResult(
+            code="EKYC_PENDING",
+            confidence=0.86,
+            needs_clarification=False,
+            top_code="EKYC_PENDING",
+            second_code="NPCI_NOT_MAPPED",
+            second_confidence=0.2,
+            confidence_gap=0.66,
+            valid_response=True,
+        )
+
+    monkeypatch.setattr(main, "classify_complaint", fake_classification)
+    monkeypatch.setattr(main.settings, "llm_top_confidence_threshold", 0.72)
+    monkeypatch.setattr(main.settings, "llm_confidence_gap_threshold", 0.18)
+
+    response = request(
+        "POST",
+        "/diagnose",
+        json={"complaint": "पोर्टल पर पहचान बाकी दिख रही है", "lang": "hi"},
+    )
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "code": "EKYC_PENDING",
+        "confidence": 0.86,
+        "needsClarification": False,
+        "clarifyingQuestion": None,
+    }
+    assert received["top_confidence_threshold"] == 0.72
+    assert received["confidence_gap_threshold"] == 0.18

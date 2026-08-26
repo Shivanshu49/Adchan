@@ -1,0 +1,3357 @@
+{
+  "timestamp": "20260826T054227Z",
+  "model": "openai/gpt-4o-mini",
+  "base_url": "https://agentrouter.org/v1",
+  "case_file": "/home/shivanshu/Desktop/Code/Adchan/api/evals/cases.jsonl",
+  "tag": "synthetic",
+  "sample": null,
+  "metrics": {
+    "threshold": 0.7,
+    "case_count": 60,
+    "determinate_count": 54,
+    "ambiguous_count": 6,
+    "overall_accuracy": 0.1,
+    "classification_accuracy": 0.0,
+    "clarification_rate": 1.0,
+    "ambiguous_clarification_rate": 1.0,
+    "routed_determinate_count": 0,
+    "route_coverage": 0.0,
+    "misroute_count": 0,
+    "misroute_rate": 0.0,
+    "misroute_rate_among_routed": 0.0,
+    "per_code": {
+      "NPCI_NOT_MAPPED": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 5,
+        "predicted": 0
+      },
+      "EKYC_PENDING": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 5,
+        "predicted": 0
+      },
+      "LAND_NOT_SEEDED": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 5,
+        "predicted": 0
+      },
+      "NAME_MISMATCH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 5,
+        "predicted": 0
+      },
+      "INVALID_IFSC": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 5,
+        "predicted": 0
+      },
+      "ACCOUNT_DORMANT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 5,
+        "predicted": 0
+      },
+      "INVALID_ACCOUNT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 4,
+        "predicted": 0
+      },
+      "PHYSICAL_VERIFICATION_PENDING": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 4,
+        "predicted": 0
+      },
+      "FLAGGED_INCOME_TAX": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 4,
+        "predicted": 0
+      },
+      "FLAGGED_INSTITUTIONAL": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 4,
+        "predicted": 0
+      },
+      "DUPLICATE_BENEFICIARY": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 4,
+        "predicted": 0
+      },
+      "RECOVERY_PENDING": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "support": 4,
+        "predicted": 0
+      }
+    },
+    "confusion_matrix": {
+      "NPCI_NOT_MAPPED": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 5
+      },
+      "EKYC_PENDING": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 5
+      },
+      "LAND_NOT_SEEDED": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 5
+      },
+      "NAME_MISMATCH": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 5
+      },
+      "INVALID_IFSC": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 5
+      },
+      "ACCOUNT_DORMANT": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 5
+      },
+      "INVALID_ACCOUNT": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 4
+      },
+      "PHYSICAL_VERIFICATION_PENDING": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 4
+      },
+      "FLAGGED_INCOME_TAX": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 4
+      },
+      "FLAGGED_INSTITUTIONAL": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 4
+      },
+      "DUPLICATE_BENEFICIARY": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 4
+      },
+      "RECOVERY_PENDING": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 4
+      },
+      "AMBIGUOUS": {
+        "NPCI_NOT_MAPPED": 0,
+        "EKYC_PENDING": 0,
+        "LAND_NOT_SEEDED": 0,
+        "NAME_MISMATCH": 0,
+        "INVALID_IFSC": 0,
+        "ACCOUNT_DORMANT": 0,
+        "INVALID_ACCOUNT": 0,
+        "PHYSICAL_VERIFICATION_PENDING": 0,
+        "FLAGGED_INCOME_TAX": 0,
+        "FLAGGED_INSTITUTIONAL": 0,
+        "DUPLICATE_BENEFICIARY": 0,
+        "RECOVERY_PENDING": 0,
+        "CLARIFY": 6
+      }
+    }
+  },
+  "threshold_sweep": [
+    {
+      "threshold": 0.5,
+      "case_count": 60,
+      "determinate_count": 54,
+      "ambiguous_count": 6,
+      "overall_accuracy": 0.1,
+      "classification_accuracy": 0.0,
+      "clarification_rate": 1.0,
+      "ambiguous_clarification_rate": 1.0,
+      "routed_determinate_count": 0,
+      "route_coverage": 0.0,
+      "misroute_count": 0,
+      "misroute_rate": 0.0,
+      "misroute_rate_among_routed": 0.0,
+      "per_code": {
+        "NPCI_NOT_MAPPED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "EKYC_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "LAND_NOT_SEEDED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "NAME_MISMATCH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_IFSC": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "ACCOUNT_DORMANT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_ACCOUNT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INCOME_TAX": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "RECOVERY_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        }
+      },
+      "confusion_matrix": {
+        "NPCI_NOT_MAPPED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "EKYC_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "LAND_NOT_SEEDED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "NAME_MISMATCH": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_IFSC": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "ACCOUNT_DORMANT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_ACCOUNT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INCOME_TAX": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "RECOVERY_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "AMBIGUOUS": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 6
+        }
+      }
+    },
+    {
+      "threshold": 0.55,
+      "case_count": 60,
+      "determinate_count": 54,
+      "ambiguous_count": 6,
+      "overall_accuracy": 0.1,
+      "classification_accuracy": 0.0,
+      "clarification_rate": 1.0,
+      "ambiguous_clarification_rate": 1.0,
+      "routed_determinate_count": 0,
+      "route_coverage": 0.0,
+      "misroute_count": 0,
+      "misroute_rate": 0.0,
+      "misroute_rate_among_routed": 0.0,
+      "per_code": {
+        "NPCI_NOT_MAPPED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "EKYC_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "LAND_NOT_SEEDED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "NAME_MISMATCH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_IFSC": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "ACCOUNT_DORMANT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_ACCOUNT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INCOME_TAX": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "RECOVERY_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        }
+      },
+      "confusion_matrix": {
+        "NPCI_NOT_MAPPED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "EKYC_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "LAND_NOT_SEEDED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "NAME_MISMATCH": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_IFSC": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "ACCOUNT_DORMANT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_ACCOUNT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INCOME_TAX": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "RECOVERY_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "AMBIGUOUS": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 6
+        }
+      }
+    },
+    {
+      "threshold": 0.6,
+      "case_count": 60,
+      "determinate_count": 54,
+      "ambiguous_count": 6,
+      "overall_accuracy": 0.1,
+      "classification_accuracy": 0.0,
+      "clarification_rate": 1.0,
+      "ambiguous_clarification_rate": 1.0,
+      "routed_determinate_count": 0,
+      "route_coverage": 0.0,
+      "misroute_count": 0,
+      "misroute_rate": 0.0,
+      "misroute_rate_among_routed": 0.0,
+      "per_code": {
+        "NPCI_NOT_MAPPED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "EKYC_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "LAND_NOT_SEEDED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "NAME_MISMATCH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_IFSC": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "ACCOUNT_DORMANT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_ACCOUNT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INCOME_TAX": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "RECOVERY_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        }
+      },
+      "confusion_matrix": {
+        "NPCI_NOT_MAPPED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "EKYC_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "LAND_NOT_SEEDED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "NAME_MISMATCH": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_IFSC": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "ACCOUNT_DORMANT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_ACCOUNT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INCOME_TAX": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "RECOVERY_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "AMBIGUOUS": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 6
+        }
+      }
+    },
+    {
+      "threshold": 0.65,
+      "case_count": 60,
+      "determinate_count": 54,
+      "ambiguous_count": 6,
+      "overall_accuracy": 0.1,
+      "classification_accuracy": 0.0,
+      "clarification_rate": 1.0,
+      "ambiguous_clarification_rate": 1.0,
+      "routed_determinate_count": 0,
+      "route_coverage": 0.0,
+      "misroute_count": 0,
+      "misroute_rate": 0.0,
+      "misroute_rate_among_routed": 0.0,
+      "per_code": {
+        "NPCI_NOT_MAPPED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "EKYC_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "LAND_NOT_SEEDED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "NAME_MISMATCH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_IFSC": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "ACCOUNT_DORMANT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_ACCOUNT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INCOME_TAX": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "RECOVERY_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        }
+      },
+      "confusion_matrix": {
+        "NPCI_NOT_MAPPED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "EKYC_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "LAND_NOT_SEEDED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "NAME_MISMATCH": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_IFSC": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "ACCOUNT_DORMANT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_ACCOUNT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INCOME_TAX": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "RECOVERY_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "AMBIGUOUS": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 6
+        }
+      }
+    },
+    {
+      "threshold": 0.7,
+      "case_count": 60,
+      "determinate_count": 54,
+      "ambiguous_count": 6,
+      "overall_accuracy": 0.1,
+      "classification_accuracy": 0.0,
+      "clarification_rate": 1.0,
+      "ambiguous_clarification_rate": 1.0,
+      "routed_determinate_count": 0,
+      "route_coverage": 0.0,
+      "misroute_count": 0,
+      "misroute_rate": 0.0,
+      "misroute_rate_among_routed": 0.0,
+      "per_code": {
+        "NPCI_NOT_MAPPED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "EKYC_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "LAND_NOT_SEEDED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "NAME_MISMATCH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_IFSC": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "ACCOUNT_DORMANT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_ACCOUNT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INCOME_TAX": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "RECOVERY_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        }
+      },
+      "confusion_matrix": {
+        "NPCI_NOT_MAPPED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "EKYC_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "LAND_NOT_SEEDED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "NAME_MISMATCH": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_IFSC": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "ACCOUNT_DORMANT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_ACCOUNT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INCOME_TAX": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "RECOVERY_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "AMBIGUOUS": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 6
+        }
+      }
+    },
+    {
+      "threshold": 0.75,
+      "case_count": 60,
+      "determinate_count": 54,
+      "ambiguous_count": 6,
+      "overall_accuracy": 0.1,
+      "classification_accuracy": 0.0,
+      "clarification_rate": 1.0,
+      "ambiguous_clarification_rate": 1.0,
+      "routed_determinate_count": 0,
+      "route_coverage": 0.0,
+      "misroute_count": 0,
+      "misroute_rate": 0.0,
+      "misroute_rate_among_routed": 0.0,
+      "per_code": {
+        "NPCI_NOT_MAPPED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "EKYC_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "LAND_NOT_SEEDED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "NAME_MISMATCH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_IFSC": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "ACCOUNT_DORMANT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_ACCOUNT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INCOME_TAX": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "RECOVERY_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        }
+      },
+      "confusion_matrix": {
+        "NPCI_NOT_MAPPED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "EKYC_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "LAND_NOT_SEEDED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "NAME_MISMATCH": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_IFSC": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "ACCOUNT_DORMANT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_ACCOUNT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INCOME_TAX": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "RECOVERY_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "AMBIGUOUS": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 6
+        }
+      }
+    },
+    {
+      "threshold": 0.8,
+      "case_count": 60,
+      "determinate_count": 54,
+      "ambiguous_count": 6,
+      "overall_accuracy": 0.1,
+      "classification_accuracy": 0.0,
+      "clarification_rate": 1.0,
+      "ambiguous_clarification_rate": 1.0,
+      "routed_determinate_count": 0,
+      "route_coverage": 0.0,
+      "misroute_count": 0,
+      "misroute_rate": 0.0,
+      "misroute_rate_among_routed": 0.0,
+      "per_code": {
+        "NPCI_NOT_MAPPED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "EKYC_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "LAND_NOT_SEEDED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "NAME_MISMATCH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_IFSC": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "ACCOUNT_DORMANT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_ACCOUNT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INCOME_TAX": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "RECOVERY_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        }
+      },
+      "confusion_matrix": {
+        "NPCI_NOT_MAPPED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "EKYC_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "LAND_NOT_SEEDED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "NAME_MISMATCH": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_IFSC": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "ACCOUNT_DORMANT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_ACCOUNT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INCOME_TAX": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "RECOVERY_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "AMBIGUOUS": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 6
+        }
+      }
+    },
+    {
+      "threshold": 0.85,
+      "case_count": 60,
+      "determinate_count": 54,
+      "ambiguous_count": 6,
+      "overall_accuracy": 0.1,
+      "classification_accuracy": 0.0,
+      "clarification_rate": 1.0,
+      "ambiguous_clarification_rate": 1.0,
+      "routed_determinate_count": 0,
+      "route_coverage": 0.0,
+      "misroute_count": 0,
+      "misroute_rate": 0.0,
+      "misroute_rate_among_routed": 0.0,
+      "per_code": {
+        "NPCI_NOT_MAPPED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "EKYC_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "LAND_NOT_SEEDED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "NAME_MISMATCH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_IFSC": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "ACCOUNT_DORMANT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_ACCOUNT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INCOME_TAX": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "RECOVERY_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        }
+      },
+      "confusion_matrix": {
+        "NPCI_NOT_MAPPED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "EKYC_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "LAND_NOT_SEEDED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "NAME_MISMATCH": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_IFSC": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "ACCOUNT_DORMANT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_ACCOUNT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INCOME_TAX": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "RECOVERY_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "AMBIGUOUS": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 6
+        }
+      }
+    },
+    {
+      "threshold": 0.9,
+      "case_count": 60,
+      "determinate_count": 54,
+      "ambiguous_count": 6,
+      "overall_accuracy": 0.1,
+      "classification_accuracy": 0.0,
+      "clarification_rate": 1.0,
+      "ambiguous_clarification_rate": 1.0,
+      "routed_determinate_count": 0,
+      "route_coverage": 0.0,
+      "misroute_count": 0,
+      "misroute_rate": 0.0,
+      "misroute_rate_among_routed": 0.0,
+      "per_code": {
+        "NPCI_NOT_MAPPED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "EKYC_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "LAND_NOT_SEEDED": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "NAME_MISMATCH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_IFSC": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "ACCOUNT_DORMANT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 5,
+          "predicted": 0
+        },
+        "INVALID_ACCOUNT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INCOME_TAX": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        },
+        "RECOVERY_PENDING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "support": 4,
+          "predicted": 0
+        }
+      },
+      "confusion_matrix": {
+        "NPCI_NOT_MAPPED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "EKYC_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "LAND_NOT_SEEDED": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "NAME_MISMATCH": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_IFSC": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "ACCOUNT_DORMANT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 5
+        },
+        "INVALID_ACCOUNT": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "PHYSICAL_VERIFICATION_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INCOME_TAX": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "FLAGGED_INSTITUTIONAL": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "DUPLICATE_BENEFICIARY": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "RECOVERY_PENDING": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 4
+        },
+        "AMBIGUOUS": {
+          "NPCI_NOT_MAPPED": 0,
+          "EKYC_PENDING": 0,
+          "LAND_NOT_SEEDED": 0,
+          "NAME_MISMATCH": 0,
+          "INVALID_IFSC": 0,
+          "ACCOUNT_DORMANT": 0,
+          "INVALID_ACCOUNT": 0,
+          "PHYSICAL_VERIFICATION_PENDING": 0,
+          "FLAGGED_INCOME_TAX": 0,
+          "FLAGGED_INSTITUTIONAL": 0,
+          "DUPLICATE_BENEFICIARY": 0,
+          "RECOVERY_PENDING": 0,
+          "CLARIFY": 6
+        }
+      }
+    }
+  ],
+  "threshold_recommendation": {
+    "threshold": 0.7,
+    "status": "inconclusive",
+    "reason": "Every threshold produced identical results. The deployed classifier currently emits binary confidence values, so this dataset cannot calibrate 0.70 yet."
+  },
+  "predictions": [
+    {
+      "id": "synth-001",
+      "expected": "NPCI_NOT_MAPPED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-002",
+      "expected": "NPCI_NOT_MAPPED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-003",
+      "expected": "NPCI_NOT_MAPPED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-004",
+      "expected": "NPCI_NOT_MAPPED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-005",
+      "expected": "NPCI_NOT_MAPPED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-006",
+      "expected": "EKYC_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-007",
+      "expected": "EKYC_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-008",
+      "expected": "EKYC_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-009",
+      "expected": "EKYC_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-010",
+      "expected": "EKYC_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-011",
+      "expected": "LAND_NOT_SEEDED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-012",
+      "expected": "LAND_NOT_SEEDED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-013",
+      "expected": "LAND_NOT_SEEDED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-014",
+      "expected": "LAND_NOT_SEEDED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-015",
+      "expected": "LAND_NOT_SEEDED",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-016",
+      "expected": "NAME_MISMATCH",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-017",
+      "expected": "NAME_MISMATCH",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-018",
+      "expected": "NAME_MISMATCH",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-019",
+      "expected": "NAME_MISMATCH",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-020",
+      "expected": "NAME_MISMATCH",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-021",
+      "expected": "INVALID_IFSC",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-022",
+      "expected": "INVALID_IFSC",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-023",
+      "expected": "INVALID_IFSC",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-024",
+      "expected": "INVALID_IFSC",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-025",
+      "expected": "INVALID_IFSC",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-026",
+      "expected": "ACCOUNT_DORMANT",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-027",
+      "expected": "ACCOUNT_DORMANT",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-028",
+      "expected": "ACCOUNT_DORMANT",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-029",
+      "expected": "ACCOUNT_DORMANT",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-030",
+      "expected": "ACCOUNT_DORMANT",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-031",
+      "expected": "INVALID_ACCOUNT",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-032",
+      "expected": "INVALID_ACCOUNT",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-033",
+      "expected": "INVALID_ACCOUNT",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-034",
+      "expected": "INVALID_ACCOUNT",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-035",
+      "expected": "PHYSICAL_VERIFICATION_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-036",
+      "expected": "PHYSICAL_VERIFICATION_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-037",
+      "expected": "PHYSICAL_VERIFICATION_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-038",
+      "expected": "PHYSICAL_VERIFICATION_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-039",
+      "expected": "FLAGGED_INCOME_TAX",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-040",
+      "expected": "FLAGGED_INCOME_TAX",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-041",
+      "expected": "FLAGGED_INCOME_TAX",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-042",
+      "expected": "FLAGGED_INCOME_TAX",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-043",
+      "expected": "FLAGGED_INSTITUTIONAL",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-044",
+      "expected": "FLAGGED_INSTITUTIONAL",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-045",
+      "expected": "FLAGGED_INSTITUTIONAL",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-046",
+      "expected": "FLAGGED_INSTITUTIONAL",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-047",
+      "expected": "DUPLICATE_BENEFICIARY",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-048",
+      "expected": "DUPLICATE_BENEFICIARY",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-049",
+      "expected": "DUPLICATE_BENEFICIARY",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-050",
+      "expected": "DUPLICATE_BENEFICIARY",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-051",
+      "expected": "RECOVERY_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-052",
+      "expected": "RECOVERY_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-053",
+      "expected": "RECOVERY_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-054",
+      "expected": "RECOVERY_PENDING",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-055",
+      "expected": "AMBIGUOUS",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-056",
+      "expected": "AMBIGUOUS",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-057",
+      "expected": "AMBIGUOUS",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-058",
+      "expected": "AMBIGUOUS",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-059",
+      "expected": "AMBIGUOUS",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    },
+    {
+      "id": "synth-060",
+      "expected": "AMBIGUOUS",
+      "source": "synthetic",
+      "code": "UNKNOWN",
+      "confidence": 0.0,
+      "needs_clarification": true
+    }
+  ]
+}

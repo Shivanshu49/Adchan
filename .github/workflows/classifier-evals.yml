@@ -1,0 +1,44 @@
+name: Classifier evals
+
+on:
+  pull_request:
+    paths:
+      - "api/engine.py"
+      - "api/prompt*.py"
+      - "api/prompts/**"
+      - "api/evals/**"
+      - "shared/failures.json"
+      - ".github/workflows/classifier-evals.yml"
+  push:
+    paths:
+      - "api/engine.py"
+      - "api/prompt*.py"
+      - "api/prompts/**"
+      - "api/evals/**"
+      - "shared/failures.json"
+      - ".github/workflows/classifier-evals.yml"
+
+jobs:
+  synthetic-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      LLM_MODEL: ${{ secrets.LLM_MODEL }}
+      LLM_TOP_CONFIDENCE_THRESHOLD: ${{ vars.LLM_TOP_CONFIDENCE_THRESHOLD || '0.70' }}
+      LLM_CONFIDENCE_GAP_THRESHOLD: ${{ vars.LLM_CONFIDENCE_GAP_THRESHOLD || '0.15' }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: api/uv.lock
+      - name: Install locked API dependencies
+        run: uv sync --frozen --project api
+      - name: Run classifier eval and enforce misroute budget
+        run: >-
+          uv run --project api python api/evals/run.py
+          --tag synthetic
+          --fail-misroute-rate 0.10

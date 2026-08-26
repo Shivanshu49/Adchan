@@ -1,7 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import localFont from "next/font/local";
 
+import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import "./globals.css";
+
+
+const notoSansDevanagari = localFont({
+  src: "../../public/fonts/noto-hi-subset.woff2",
+  variable: "--font-noto-hi",
+  display: "swap",
+  weight: "400",
+  style: "normal",
+  fallback: ["system-ui", "sans-serif"],
+});
+
 
 export const metadata: Metadata = {
   title: {
@@ -9,6 +22,8 @@ export const metadata: Metadata = {
     template: "%s · अड़चन",
   },
   description: "PM-KISAN की रुकी किस्त का कारण और अगला कदम, साफ़ हिंदी में।",
+  manifest: "/manifest.json",
+  icons: { icon: "/icon.svg", apple: "/icon.svg" },
 };
 
 export default function RootLayout({
@@ -17,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="hi">
+    <html lang="hi" className={notoSansDevanagari.variable}>
       <body>
         <a
           href="#main-content"
@@ -47,7 +62,30 @@ export default function RootLayout({
           <div className="flex-1">{children}</div>
 
           <footer className="mt-auto border-t-2 border-[#1d2330] bg-[#e5ded1]">
-            <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-6 text-[#1d2330] sm:px-6">
+            <div className="mx-auto flex w-full max-w-6xl flex-col gap-5 px-4 py-6 text-[#1d2330] sm:px-6">
+              <nav aria-label="परियोजना के बारे में" className="grid gap-2 sm:grid-cols-3">
+                <Link
+                  href="/whats-real"
+                  prefetch={false}
+                  className="flex min-h-12 items-center border-b-2 border-[#1d2330] text-[18px] font-black hover:text-[#8f2d24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#8f2d24]"
+                >
+                  क्या असली है?
+                </Link>
+                <Link
+                  href="/how-it-works"
+                  prefetch={false}
+                  className="flex min-h-12 items-center border-b-2 border-[#1d2330] text-[18px] font-black hover:text-[#8f2d24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#8f2d24]"
+                >
+                  यह कैसे काम करता है
+                </Link>
+                <Link
+                  href="/research"
+                  prefetch={false}
+                  className="flex min-h-12 items-center border-b-2 border-[#1d2330] text-[18px] font-black hover:text-[#8f2d24] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#8f2d24]"
+                >
+                  शोध और साक्षात्कार
+                </Link>
+              </nav>
               <p className="text-[18px] font-black">
                 स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।
               </p>
@@ -57,6 +95,7 @@ export default function RootLayout({
             </div>
           </footer>
         </div>
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );

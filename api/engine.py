@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import math
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
@@ -35,6 +36,10 @@ def _load_failure_context() -> tuple[tuple[str, ...], str]:
 
 
 FAILURE_CODES, FAILURE_CONTEXT = _load_failure_context()
+INSUFFICIENT_INFO = "INSUFFICIENT_INFO"
+CLASSIFICATION_CODES = FAILURE_CODES + (INSUFFICIENT_INFO,)
+DEFAULT_TOP_CONFIDENCE_THRESHOLD = 0.70
+DEFAULT_CONFIDENCE_GAP_THRESHOLD = 0.15
 
 
 @dataclass(frozen=True)
@@ -57,6 +62,11 @@ class DiagnosisResult:
     confidence: float
     needs_clarification: bool
     clarifying_question: str | None = None
+    top_code: str | None = None
+    second_code: str | None = None
+    second_confidence: float = 0.0
+    confidence_gap: float = 0.0
+    valid_response: bool = False
 
 
 class AudioValidationError(ValueError):
@@ -172,15 +182,87 @@ def clarification_for(lang: Literal["hi", "en"]) -> str:
     return "Please share the portal message or describe why the installment appears to be blocked."
 
 
-def normalize_classification(raw_code: object, lang: Literal["hi", "en"]) -> DiagnosisResult:
-    if not isinstance(raw_code, str) or raw_code not in FAILURE_CODES:
+def _confidence(value: object) -> float | None:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    confidence = float(value)
+    if not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0:
+        return None
+    return confidence
+
+
+def normalize_classification(
+    raw: object,
+    lang: Literal["hi", "en"],
+    *,
+    top_confidence_threshold: float = DEFAULT_TOP_CONFIDENCE_THRESHOLD,
+    confidence_gap_threshold: float = DEFAULT_CONFIDENCE_GAP_THRESHOLD,
+) -> DiagnosisResult:
+    if not 0.0 <= top_confidence_threshold <= 1.0:
+        raise ValueError("top confidence threshold must be between 0 and 1")
+    if not 0.0 <= confidence_gap_threshold <= 1.0:
+        raise ValueError("confidence gap threshold must be between 0 and 1")
+
+    if not isinstance(raw, dict):
         return DiagnosisResult(
             code="UNKNOWN",
             confidence=0.0,
             needs_clarification=True,
             clarifying_question=clarification_for(lang),
         )
-    return DiagnosisResult(code=raw_code, confidence=1.0, needs_clarification=False)
+
+    top_code = raw.get("top_code")
+    second_code = raw.get("second_code")
+    top_confidence = _confidence(raw.get("top_confidence"))
+    second_confidence = _confidence(raw.get("second_confidence"))
+    raw_question = raw.get("clarifyingQuestion")
+    question = raw_question.strip() if isinstance(raw_question, str) else ""
+
+    if (
+        top_code not in CLASSIFICATION_CODES
+        or second_code not in CLASSIFICATION_CODES
+        or top_confidence is None
+        or second_confidence is None
+        or top_confidence < second_confidence
+        or not question
+        or (top_code == second_code and top_code != INSUFFICIENT_INFO)
+    ):
+        return DiagnosisResult(
+            code="UNKNOWN",
+            confidence=0.0,
+            needs_clarification=True,
+            clarifying_question=clarification_for(lang),
+        )
+
+    confidence_gap = top_confidence - second_confidence
+    if top_code == INSUFFICIENT_INFO:
+        return DiagnosisResult(
+            code="UNKNOWN",
+            confidence=top_confidence,
+            needs_clarification=True,
+            clarifying_question=question,
+            top_code=top_code,
+            second_code=second_code,
+            second_confidence=second_confidence,
+            confidence_gap=confidence_gap,
+            valid_response=True,
+        )
+
+    needs_clarification = (
+        top_confidence < top_confidence_threshold
+        or confidence_gap < confidence_gap_threshold
+    )
+    return DiagnosisResult(
+        code="UNKNOWN" if needs_clarification else top_code,
+        confidence=top_confidence,
+        needs_clarification=needs_clarification,
+        clarifying_question=question if needs_clarification else None,
+        top_code=top_code,
+        second_code=second_code,
+        second_confidence=second_confidence,
+        confidence_gap=confidence_gap,
+        valid_response=True,
+    )
 
 
 async def classify_complaint(
@@ -190,15 +272,24 @@ async def classify_complaint(
     api_key: str | None,
     base_url: str,
     model: str,
+    top_confidence_threshold: float = DEFAULT_TOP_CONFIDENCE_THRESHOLD,
+    confidence_gap_threshold: float = DEFAULT_CONFIDENCE_GAP_THRESHOLD,
     client: httpx.AsyncClient | None = None,
 ) -> DiagnosisResult:
     if not api_key or not complaint.strip():
         return normalize_classification(None, lang)
 
     system_prompt = (
-        "You classify PM-KISAN installment failures. Return ONLY one FailureCode in the "
-        "required JSON object. Never return advice, a remedy, an office name, a document "
-        "list, or explanatory prose.\n\nAllowed taxonomy:\n" + FAILURE_CONTEXT
+        "You classify PM-KISAN installment failures. Return ONLY the required JSON object. "
+        "Never return advice, a remedy, an office name, a document list, or explanatory "
+        "prose. INSUFFICIENT_INFO is a refusal, not a failure. If the complaint does not "
+        "contain enough information to identify one specific failure, set top_code to "
+        "INSUFFICIENT_INFO and ask one concise clarifyingQuestion in the user's language. "
+        "Do not guess between plausible codes. Report calibrated probabilities for the top "
+        "and second choices; do not inflate confidence. The second choice must be the next "
+        "most plausible enum value. Always provide a concise clarifyingQuestion that would "
+        "help distinguish the top two choices, even when the classification is clear.\n\n"
+        "Allowed failure taxonomy:\n" + FAILURE_CONTEXT
     )
     schema = {
         "type": "json_schema",
@@ -207,8 +298,20 @@ async def classify_complaint(
             "strict": True,
             "schema": {
                 "type": "object",
-                "properties": {"code": {"type": "string", "enum": list(FAILURE_CODES)}},
-                "required": ["code"],
+                "properties": {
+                    "top_code": {"type": "string", "enum": list(CLASSIFICATION_CODES)},
+                    "top_confidence": {"type": "number", "minimum": 0, "maximum": 1},
+                    "second_code": {"type": "string", "enum": list(CLASSIFICATION_CODES)},
+                    "second_confidence": {"type": "number", "minimum": 0, "maximum": 1},
+                    "clarifyingQuestion": {"type": "string"},
+                },
+                "required": [
+                    "top_code",
+                    "top_confidence",
+                    "second_code",
+                    "second_confidence",
+                    "clarifyingQuestion",
+                ],
                 "additionalProperties": False,
             },
         },
@@ -223,7 +326,10 @@ async def classify_complaint(
                 "model": model,
                 "messages": [
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": complaint.strip()},
+                    {
+                        "role": "user",
+                        "content": f"Language: {lang}\nComplaint: {complaint.strip()}",
+                    },
                 ],
                 "response_format": schema,
                 "temperature": 0,
@@ -232,7 +338,12 @@ async def classify_complaint(
         response.raise_for_status()
         content = response.json()["choices"][0]["message"]["content"]
         parsed = json.loads(content)
-        return normalize_classification(parsed.get("code"), lang)
+        return normalize_classification(
+            parsed,
+            lang,
+            top_confidence_threshold=top_confidence_threshold,
+            confidence_gap_threshold=confidence_gap_threshold,
+        )
     except (httpx.HTTPError, KeyError, IndexError, TypeError, ValueError):
         return normalize_classification(None, lang)
     finally:

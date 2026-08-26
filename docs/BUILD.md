@@ -227,22 +227,50 @@ is only worth something if you were willing to be surprised by it.
 
 ## Phase 6 — Performance & offline (5h)
 
-**Font subsetting** — the single highest-leverage perf decision, and nobody else
-will do it. Noto Sans Devanagari is 300KB+; you know your entire Hindi vocabulary
-in advance because it's all in `failures.json`.
+**Font subsetting** — the Hindi vocabulary is bounded by the shared taxonomy and
+demo personas, so the shipped font contains only the Devanagari glyphs used by
+those contracts plus digits, ₹ and basic punctuation.
 
 ```bash
 pip install fonttools brotli
-python scripts/extract_hindi_strings.py > hindi-chars.txt
-pyftsubset NotoSansDevanagari-Regular.ttf \
+python scripts/extract_hindi_chars.py
+
+# The development machine has Google's Noto variable font installed. Pin it to
+# Regular first; a downloaded NotoSansDevanagari-Regular.ttf can be used directly.
+fonttools varLib.instancer \
+  '/usr/share/fonts/google-noto-vf/NotoSansDevanagari[wght].ttf' \
+  wght=400 --output=/tmp/NotoSansDevanagari-Regular.ttf
+
+pyftsubset /tmp/NotoSansDevanagari-Regular.ttf \
   --text-file=hindi-chars.txt --flavor=woff2 --layout-features='*' \
   --output-file=web/public/fonts/noto-hi-subset.woff2
 ```
-→ ~20KB.
 
-**Service worker** — hand-rolled, no PWA plugin. Cache all 12 failure cards and
-their audio. A farmer standing in a bank with no signal still gets his action
-card. For this user that isn't a nice-to-have, it's the point.
+The source variable TTF is 276,816 bytes; its Regular instance is 193,496
+bytes; the shipped WOFF2 subset is 29,688 bytes (84.7% smaller than the Regular
+TTF). `next/font/local` loads it with `font-display: swap`.
+
+**Regeneration rule:** rerun the extractor and `pyftsubset` whenever text in
+`shared/failures.json` or `shared/personas.json` changes. Otherwise a newly
+introduced Devanagari character may render as tofu (□) on devices without a
+suitable fallback font. Also bump `CACHE_NAME` in `web/public/sw.js` whenever
+the worker's cache schema or versioned content changes, so existing
+installations replace stale assets.
+
+**Service worker** — hand-rolled, no PWA plugin. Keep install-time transfer
+small for metered connections, then cache the status case the citizen actually
+opens. A farmer standing in a bank with no signal still gets that action card.
+For this user that isn't a nice-to-have, it's the point.
+
+The implemented worker installs only `public/offline.html`. After the window
+`load` event, the server-rendered registration script caches the current status
+HTML, its hashed Next CSS/font and the two MP3s present on that page. For demo
+0001 that is 184,704 audio bytes, rather than downloading roughly 2.47MB of all
+24 recordings. Audio for another failure is cached lazily on its first request
+or when that status page is visited. These resources use cache-first.
+`/diagnose` and `/transcribe` use network-first and return a Hindi 503
+explanation when the network is absent. An uncached navigation receives
+`public/offline.html`.
 
 **Performance targets:**
 
@@ -256,8 +284,51 @@ card. For this user that isn't a nice-to-have, it's the point.
 - HTML document: 8,497 bytes gzip (49,718 bytes uncompressed).
 - Lighthouse 13.4.1 mobile, simulated Slow 4G + 4x CPU: LCP 1.662s,
   FCP 0.892s, Speed Index 0.892s, TBT 31.5ms, performance score 100.
-- Route-specific output is a 183-byte Next.js registration stub with no Adchan
-  client logic; the shared Next.js runtime remains approximately 103KB gzip.
+- Route-specific output is a 170-byte Next.js stub with no Adchan React client
+  logic; the only authored browser code is the after-load inline service-worker
+  registrar. The shared Next.js runtime remains approximately 103KB gzip.
+
+**Font/offline verification — 2026-08-26:**
+
+We ship a 29KB subsetted font despite a measured 325ms median LCP regression
+under Lighthouse Slow 4G, because the failure mode of relying on system
+Devanagari is not "slower" but "unreadable." Devanagari coverage on low-end
+Android is inconsistent, and missing glyphs render the diagnosis as tofu (□).
+We accept a measured 325ms cost to eliminate an unmeasured but catastrophic
+failure. Lighthouse's simulated link is also more favourable than real rural
+connections, where controlling total bytes matters more than the simulation
+suggests. The regression is reported explicitly because it is evidence that we
+measured the decision rather than assuming the subset would be faster.
+
+Five Lighthouse 13.4.1 runs per variant used the same mobile, simulated Slow 4G
+and 4x CPU configuration:
+
+| Variant | Run 1 LCP | Run 2 LCP | Run 3 LCP | Run 4 LCP | Run 5 LCP | Median LCP | Median FCP | CLS (all runs) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 29KB local subset | 1.587s | 1.818s | 1.894s | 1.944s | 1.792s | 1.818s | 0.837s | 0 |
+| System Devanagari fallback | 1.453s | 1.664s | 1.492s | 1.494s | 1.664s | 1.494s | 0.842s | 0 |
+| Measured difference | +0.135s | +0.154s | +0.402s | +0.450s | +0.129s | **+0.325s** | -0.006s | 0 |
+
+`next/font/local` emits a WOFF2 preload in the generated status document's
+`<head>`; the request is initiated by that link, not discovered late from CSS.
+A separate transport-throttled browser trace saw fallback text paint before the
+WOFF2 completed, so `font-display: swap` does not create an invisible-text
+period. The subsequent swap caused a small horizontal reflow in the header
+disclaimer and village label (CLS 0.00139); the diagnosis headline's box did not
+move.
+
+- The rebuilt status HTML is 53,528 bytes raw and 9,757 bytes with gzip, still
+  inside the 10KB document target after adding footer links and SW registration.
+- After visiting demo 0001, cache inventory contains six responses: that status
+  HTML, one CSS file, one hashed font, `offline.html`, and only the two
+  `NPCI_NOT_MAPPED` MP3s. With the production origin fully stopped, the worker
+  served those resources from cache: diagnosis, linkage map and action card
+  rendered, and both recordings remained available. Visiting demo 0002 then
+  added exactly its status HTML and two `EKYC_PENDING` recordings; the other 20
+  MP3s remained uncached.
+- Offline limitations: speech transcription, free-text LLM diagnosis,
+  WhatsApp/external links, and live government status cannot work. They require
+  a network; an uncached navigation receives the Hindi offline explanation.
 
 ---
 

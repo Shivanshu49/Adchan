@@ -1,0 +1,19 @@
+{
+  "name": "अड़चन — PM-KISAN किस्त सहायता",
+  "short_name": "अड़चन",
+  "description": "रुकी PM-KISAN किस्त का कारण और अगला कदम, साफ़ हिंदी में।",
+  "lang": "hi-IN",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f1e8",
+  "theme_color": "#1d2330",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
