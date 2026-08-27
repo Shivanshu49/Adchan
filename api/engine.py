@@ -6,14 +6,12 @@ import asyncio
 import json
 import math
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Literal
 
 import httpx
 
+from failure_data import FAILURES
 
-ROOT = Path(__file__).resolve().parents[1]
-FAILURES_SOURCE = ROOT / "shared" / "failures.json"
 SARVAM_STT_URL = "https://api.sarvam.ai/speech-to-text"
 SARVAM_STT_MODEL = "saaras:v3"
 SARVAM_LANGUAGE = "hi-IN"
@@ -25,17 +23,16 @@ MAX_AUDIO_BYTES = 25 * 1024 * 1024
 MAX_AUDIO_SECONDS = 60.0
 
 
-def _load_failure_context() -> tuple[tuple[str, ...], str]:
-    failures = json.loads(FAILURES_SOURCE.read_text(encoding="utf-8"))["failures"]
-    codes = tuple(failure["code"] for failure in failures)
+def _build_failure_context() -> tuple[tuple[str, ...], str]:
+    codes = tuple(str(failure["code"]) for failure in FAILURES)
     context = "\n".join(
         f'- {failure["code"]}: {failure["portalText"]}; {failure["plain"]["hi"]}'
-        for failure in failures
+        for failure in FAILURES
     )
     return codes, context
 
 
-FAILURE_CODES, FAILURE_CONTEXT = _load_failure_context()
+FAILURE_CODES, FAILURE_CONTEXT = _build_failure_context()
 INSUFFICIENT_INFO = "INSUFFICIENT_INFO"
 CLASSIFICATION_CODES = FAILURE_CODES + (INSUFFICIENT_INFO,)
 DEFAULT_TOP_CONFIDENCE_THRESHOLD = 0.70
