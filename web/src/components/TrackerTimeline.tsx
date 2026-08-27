@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import MockBadge from "@/components/MockBadge";
+import Link from "@/components/PlainLink";
 import type { TrackerRecord } from "@/lib/tracker-api";
 import type { Failure } from "@/types/failures";
 

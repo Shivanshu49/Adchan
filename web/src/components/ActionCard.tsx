@@ -1,4 +1,5 @@
-import { markActionDone } from "@/actions/tracker";
+import type { ReactNode } from "react";
+
 import MockBadge from "@/components/MockBadge";
 import type { Failure } from "@/types/failures";
 import type { Persona } from "@/types/personas";
@@ -7,7 +8,7 @@ interface ActionCardProps {
   failure: Failure;
   persona: Persona;
   mode?: "diagnosis" | "tracker";
-  markedDoneAt?: string | null;
+  trackerControl?: ReactNode;
 }
 
 
@@ -15,7 +16,7 @@ export default function ActionCard({
   failure,
   persona,
   mode = "diagnosis",
-  markedDoneAt = null,
+  trackerControl,
 }: ActionCardProps) {
   const shareText = [
     `PM-KISAN डेमो रिकॉर्ड: ${persona.regNo}`,
@@ -115,25 +116,7 @@ export default function ActionCard({
         </a>
       ) : (
         <div className="no-print border-t border-[var(--rule)] p-5 sm:p-6">
-          {markedDoneAt ? (
-            <div>
-              <MockBadge hi="नमूना tracker" />
-              <p className="status-working mt-3 text-[26px] font-semibold">आपने यह कदम पूरा किया</p>
-              <p className="mt-2 text-[19px]">
-                दर्ज समय: {new Intl.DateTimeFormat("hi-IN", { dateStyle: "long", timeStyle: "short", timeZone: "Asia/Kolkata" }).format(new Date(markedDoneAt))}
-              </p>
-            </div>
-          ) : (
-            <div>
-              <MockBadge hi="नमूना tracker" />
-              <h3 className="mt-3 text-[26px] font-semibold">दफ़्तर वाला काम पूरा हो गया?</h3>
-              <p className="mt-2 text-[19px]">पूरा होने पर तारीख़ प्रगति में जुड़ जाएगी।</p>
-              <form action={markActionDone} className="mt-5">
-                <input type="hidden" name="regNo" value={persona.regNo} />
-                <button type="submit" className="primary-action w-full">मैंने कर लिया</button>
-              </form>
-            </div>
-          )}
+          {trackerControl}
         </div>
       )}
 

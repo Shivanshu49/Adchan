@@ -7,11 +7,13 @@ import { redirect } from "next/navigation";
 
 import { getPersonaAndFailure } from "@/lib/data";
 import {
+  DIAGNOSIS_COOKIE,
   MOCK_COOKIE_OPTIONS,
   SESSION_COOKIE,
+  getMockSessionId,
   hasDiagnosisReceipt,
 } from "@/lib/mock-auth";
-import { createTrackerRecord } from "@/lib/tracker-api";
+import { createTrackerRecord, deleteTrackerSession } from "@/lib/tracker-api";
 
 
 function formString(formData: FormData, key: string) {
@@ -50,4 +52,21 @@ export async function completeMockLogin(formData: FormData) {
   }
 
   redirect(`/tracker/${encodeURIComponent(regNo)}?storage=${storage}`);
+}
+
+
+export async function resetDemoState() {
+  const sessionId = await getMockSessionId();
+  if (sessionId) {
+    try {
+      await deleteTrackerSession(sessionId);
+    } catch {
+      // Removing the httpOnly cookie still makes old state unreachable if the API is down.
+    }
+  }
+
+  const cookieStore = await cookies();
+  cookieStore.delete(SESSION_COOKIE);
+  cookieStore.delete(DIAGNOSIS_COOKIE);
+  redirect("/?reset=done");
 }

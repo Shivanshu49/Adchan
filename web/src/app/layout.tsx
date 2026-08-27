@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import localFont from "next/font/local";
 
+import { resetDemoState } from "@/actions/mock-auth";
+import Link from "@/components/PlainLink";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import "./globals.css";
 
@@ -42,14 +43,24 @@ export default function RootLayout({
         </a>
         <div className="flex min-h-svh flex-col">
           <header className="border-b border-[var(--rule)] bg-[var(--surface)]">
-            <div className="mx-auto flex w-full max-w-[560px] flex-col gap-2 px-5 py-4">
-              <Link
-                href="/"
-                prefetch={false}
-                className="flex min-h-14 w-fit items-center text-[var(--ink)] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
-              >
-                <span className="text-[24px] font-semibold">अड़चन</span>
-              </Link>
+            <div className="mx-auto w-full max-w-[560px] px-5 py-3">
+              <div className="flex items-center justify-between gap-3">
+                <Link
+                  href="/"
+                  prefetch={false}
+                  className="flex min-h-12 w-fit items-center text-[var(--ink)] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+                >
+                  <span className="text-[24px] font-semibold">अड़चन</span>
+                </Link>
+                <div className="flex items-center gap-3 text-[15px] font-semibold">
+                  <Link href="/whats-real" prefetch={false} className="header-action">
+                    क्या असली है?
+                  </Link>
+                  <form action={resetDemoState}>
+                    <button type="submit" className="header-action">डेमो रीसेट करें</button>
+                  </form>
+                </div>
+              </div>
               <p className="text-[15px] leading-[1.5] text-[var(--ink)]">
                 स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।
               </p>

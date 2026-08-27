@@ -38,6 +38,7 @@ async function trackerRequest(
   const response = await fetch(`${apiBaseUrl()}${path}`, {
     ...init,
     cache: "no-store",
+    signal: init?.signal ?? AbortSignal.timeout(5_000),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -93,4 +94,22 @@ export function saveTrackerReminder(
     method: "POST",
     body: JSON.stringify({ failureCode, reminderAt }),
   });
+}
+
+
+export async function deleteTrackerSession(sessionId: string) {
+  const response = await fetch(`${apiBaseUrl()}/tracker/session`, {
+    method: "DELETE",
+    cache: "no-store",
+    signal: AbortSignal.timeout(5_000),
+    headers: {
+      Accept: "application/json",
+      "X-Session-ID": sessionId,
+    },
+  });
+
+  if (!response.ok) {
+    throw new TrackerApiError("Tracker reset failed", response.status);
+  }
+  return response.json() as Promise<{ cleared: number }>;
 }

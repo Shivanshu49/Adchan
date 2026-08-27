@@ -1,7 +1,6 @@
-import Link from "next/link";
-
 import DemoRegistrationList from "@/components/DemoRegistrationList";
 import MockBadge from "@/components/MockBadge";
+import Link from "@/components/PlainLink";
 
 
 export default function StatusNotFound() {

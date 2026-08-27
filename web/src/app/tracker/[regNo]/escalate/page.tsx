@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { mockSubmitGrievance } from "@/actions/tracker";
 import MockBadge from "@/components/MockBadge";
 import { escalationIsAvailable } from "@/components/TrackerTimeline";
+import Link from "@/components/PlainLink";
 import { getPersonaAndFailure } from "@/lib/data";
 import { getMockSessionId } from "@/lib/mock-auth";
 import { getTrackerRecord } from "@/lib/tracker-api";
@@ -31,7 +31,7 @@ export default async function EscalationPage({ params, searchParams }: Escalatio
   const { regNo } = await params;
   const query = await searchParams;
   const match = getPersonaAndFailure(regNo);
-  if (!match) notFound();
+  if (!match) redirect("/");
 
   const sessionId = await getMockSessionId();
   if (!sessionId) redirect(`/status/${encodeURIComponent(regNo)}`);

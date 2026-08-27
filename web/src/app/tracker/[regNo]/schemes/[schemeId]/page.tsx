@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import MockBadge from "@/components/MockBadge";
+import Link from "@/components/PlainLink";
 import { getPersonaAndFailure } from "@/lib/data";
 import { getMockSessionId } from "@/lib/mock-auth";
 import schemes from "@/lib/schemes";
@@ -19,7 +19,8 @@ export default async function SchemePacketPage({ params }: SchemePacketPageProps
   const { regNo, schemeId } = await params;
   const match = getPersonaAndFailure(regNo);
   const scheme = schemes.find((item) => item.id === schemeId);
-  if (!match || !scheme) notFound();
+  if (!match) redirect("/");
+  if (!scheme) redirect(`/tracker/${encodeURIComponent(regNo)}/schemes`);
   if (!(await getMockSessionId())) redirect(`/status/${encodeURIComponent(regNo)}`);
 
   const packetFields = [

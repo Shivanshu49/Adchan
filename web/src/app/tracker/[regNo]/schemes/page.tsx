@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import MockBadge from "@/components/MockBadge";
+import Link from "@/components/PlainLink";
 import { getPersonaAndFailure } from "@/lib/data";
 import { getMockSessionId } from "@/lib/mock-auth";
 import schemes from "@/lib/schemes";
@@ -18,7 +18,7 @@ interface SchemesPageProps {
 export default async function SchemesPage({ params }: SchemesPageProps) {
   const { regNo } = await params;
   const match = getPersonaAndFailure(regNo);
-  if (!match) notFound();
+  if (!match) redirect("/");
   if (!(await getMockSessionId())) redirect(`/status/${encodeURIComponent(regNo)}`);
 
   return (

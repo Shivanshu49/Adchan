@@ -88,7 +88,47 @@ audio {
   text-decoration: none;
 }
 
+.header-action {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  border: 0;
+  border-bottom: 2px solid var(--ink);
+  padding: 0;
+  color: var(--ink);
+  background: transparent;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.demo-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.demo-quick-link {
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  padding: 6px 4px;
+  color: var(--ink);
+  background: var(--surface);
+  text-decoration: none;
+}
+
 .touch-link:focus-visible,
+.header-action:focus-visible,
+.demo-quick-link:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,

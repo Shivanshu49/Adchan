@@ -10,7 +10,13 @@ import {
   getTrackerRecord,
   markTrackerDone,
   saveTrackerReminder,
+  type TrackerRecord,
 } from "@/lib/tracker-api";
+
+
+export type TrackerMutationResult =
+  | { ok: true; record: TrackerRecord }
+  | { ok: false; message: string };
 
 
 function formString(formData: FormData, key: string) {
@@ -30,44 +36,50 @@ async function trackerContext(formData: FormData) {
 }
 
 
-export async function markActionDone(formData: FormData) {
+export async function markActionDone(formData: FormData): Promise<TrackerMutationResult> {
   const context = await trackerContext(formData);
   try {
-    await markTrackerDone(
+    const record = await markTrackerDone(
       context.sessionId,
       context.regNo,
       context.failure.code,
     );
+    if (!record) {
+      return { ok: false, message: "काम सेव नहीं हुआ। बदलाव वापस कर दिया गया—फिर कोशिश करें।" };
+    }
+    return { ok: true, record };
   } catch {
-    redirect(`/tracker/${encodeURIComponent(context.regNo)}?error=storage`);
+    return { ok: false, message: "काम सेव नहीं हुआ। बदलाव वापस कर दिया गया—फिर कोशिश करें।" };
   }
-  redirect(`/tracker/${encodeURIComponent(context.regNo)}?saved=done`);
 }
 
 
-export async function setReminder(formData: FormData) {
+export async function setReminder(formData: FormData): Promise<TrackerMutationResult> {
   const context = await trackerContext(formData);
   const reminderDate = formString(formData, "reminderDate");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(reminderDate)) {
-    redirect(`/tracker/${encodeURIComponent(context.regNo)}?error=reminder`);
+    return { ok: false, message: "याद दिलाने की सही तारीख़ चुनें।" };
   }
 
   const reminderAt = new Date(`${reminderDate}T09:00:00+05:30`);
   if (Number.isNaN(reminderAt.getTime())) {
-    redirect(`/tracker/${encodeURIComponent(context.regNo)}?error=reminder`);
+    return { ok: false, message: "याद दिलाने की सही तारीख़ चुनें।" };
   }
 
   try {
-    await saveTrackerReminder(
+    const record = await saveTrackerReminder(
       context.sessionId,
       context.regNo,
       context.failure.code,
       reminderAt.toISOString(),
     );
+    if (!record) {
+      return { ok: false, message: "तारीख़ सेव नहीं हुई। पुरानी तारीख़ वापस रख दी गई—फिर कोशिश करें।" };
+    }
+    return { ok: true, record };
   } catch {
-    redirect(`/tracker/${encodeURIComponent(context.regNo)}?error=storage`);
+    return { ok: false, message: "तारीख़ सेव नहीं हुई। पुरानी तारीख़ वापस रख दी गई—फिर कोशिश करें।" };
   }
-  redirect(`/tracker/${encodeURIComponent(context.regNo)}?saved=reminder`);
 }
 
 

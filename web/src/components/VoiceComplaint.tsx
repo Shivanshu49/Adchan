@@ -20,8 +20,26 @@ interface DiagnosePayload {
   clarifyingQuestion?: string | null;
 }
 
-const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
+const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const MAX_RECORDING_MS = 59_000;
+
+
+class ReviewApiError extends Error {
+  constructor(readonly status: number, readonly stage: "diagnose" | "transcribe") {
+    super(`${stage} request failed`);
+  }
+}
+
+
+function failureMessage(error: unknown, stage: "diagnose" | "transcribe") {
+  if (error instanceof ReviewApiError && error.status === 429) {
+    return "एक मिनट में बहुत ज़्यादा कोशिशें हुईं। थोड़ी देर रुकें; ऊपर के आठ नमूना निदान अभी भी पूरी तरह काम करते हैं।";
+  }
+  if (stage === "transcribe") {
+    return "आवाज़ की ऑनलाइन सेवा अभी उपलब्ध नहीं है। नीचे लिखकर कोशिश करें; ऊपर के आठ नमूना निदान भी काम करते हैं।";
+  }
+  return "ऑनलाइन जाँच सेवा तक अभी पहुँचा नहीं जा सका। ऊपर के आठ नमूना नंबरों से तैयार निदान और अगला कदम अभी भी काम करते हैं।";
+}
 
 
 export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
@@ -59,10 +77,11 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     setState("diagnosing");
     const response = await fetch(`${API_URL}/diagnose`, {
       method: "POST",
+      signal: AbortSignal.timeout(12_000),
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ complaint: text, lang: "hi" }),
     });
-    if (!response.ok) throw new Error("diagnose failed");
+    if (!response.ok) throw new ReviewApiError(response.status, "diagnose");
     const result = (await response.json()) as DiagnosePayload;
     if (result.needsClarification) {
       setMessage(result.clarifyingQuestion ?? "कृपया अपनी परेशानी थोड़ी और साफ़ बताएँ।");
@@ -86,8 +105,12 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     const formData = new FormData();
     formData.append("audio", blob, `recording.${extension}`);
     formData.append("duration_seconds", String(Math.min(60, Math.max(0.1, durationSeconds))));
-    const response = await fetch(`${API_URL}/transcribe`, { method: "POST", body: formData });
-    if (!response.ok) throw new Error("transcription failed");
+    const response = await fetch(`${API_URL}/transcribe`, {
+      method: "POST",
+      body: formData,
+      signal: AbortSignal.timeout(20_000),
+    });
+    if (!response.ok) throw new ReviewApiError(response.status, "transcribe");
     const result = (await response.json()) as { text: string; provider: string };
     setComplaint(result.text);
     await diagnose(result.text);
@@ -103,6 +126,7 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
   const startRecording = async () => {
     setMessage("");
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
+      setMessage("इस ब्राउज़र में माइक्रोफ़ोन रिकॉर्डिंग उपलब्ध नहीं है। नीचे लिखें; ऊपर के आठ नमूना निदान भी काम करते हैं।");
       complaintRef.current?.focus();
       return;
     }
@@ -121,8 +145,9 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
         const duration = (Date.now() - startedAtRef.current) / 1000;
         const blob = new Blob(chunksRef.current, { type: recorder.mimeType || "audio/webm" });
         recorderRef.current = null;
-        void sendRecording(blob, duration).catch(() => {
-          setMessage("आवाज़ समझ नहीं आई। नीचे अपनी परेशानी लिखकर भेजें।");
+        void sendRecording(blob, duration).catch((error: unknown) => {
+          const stage = error instanceof ReviewApiError ? error.stage : "transcribe";
+          setMessage(failureMessage(error, stage));
           setState("idle");
           complaintRef.current?.focus();
         });
@@ -137,7 +162,7 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
       );
       stopTimerRef.current = setTimeout(stopRecording, MAX_RECORDING_MS);
     } catch {
-      // Permission denial is deliberately quiet: focus the equivalent text path.
+      setMessage("माइक्रोफ़ोन की अनुमति नहीं मिली। नीचे लिखकर बताएँ; ऊपर के आठ नमूना निदान भी काम करते हैं।");
       setState("idle");
       complaintRef.current?.focus();
     }
@@ -150,8 +175,8 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     setMessage("");
     try {
       await diagnose(text);
-    } catch {
-      setMessage("अभी जाँच नहीं हो पाई। थोड़ी देर बाद फिर कोशिश करें।");
+    } catch (error) {
+      setMessage(failureMessage(error, "diagnose"));
       setState("idle");
     }
   };

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { completeMockLogin } from "@/actions/mock-auth";
 import MockBadge from "@/components/MockBadge";
+import Link from "@/components/PlainLink";
 import { getPersonaAndFailure } from "@/lib/data";
 import { getMockSessionId, hasDiagnosisReceipt } from "@/lib/mock-auth";
 
@@ -25,9 +25,11 @@ export default async function LoginPage({ params, searchParams }: LoginPageProps
   const { regNo } = await params;
   const { error } = await searchParams;
   const match = getPersonaAndFailure(regNo);
-  if (!match) notFound();
+  if (!match) redirect("/");
 
-  if (await getMockSessionId()) redirect(`/tracker/${encodeURIComponent(regNo)}`);
+  if (await getMockSessionId()) {
+    redirect(`/status/${encodeURIComponent(regNo)}/login/start`);
+  }
   if (!(await hasDiagnosisReceipt(regNo))) redirect(`/status/${encodeURIComponent(regNo)}`);
 
   return (

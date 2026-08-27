@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound } from "next/navigation";
 
 import ActionCard from "@/components/ActionCard";
 import DiagnosisCard from "@/components/DiagnosisCard";
 import LinkageChain from "@/components/LinkageChain";
 import MockBadge from "@/components/MockBadge";
+import Link from "@/components/PlainLink";
 import failures from "@/types/failures";
 import personas from "@/types/personas";
+import StatusNotFound from "./not-found";
 
 
 interface StatusPageProps {
@@ -45,12 +45,12 @@ export default async function StatusPage({ params }: StatusPageProps) {
   const persona = personas.find((item) => item.regNo === regNo);
 
   if (!persona) {
-    notFound();
+    return <StatusNotFound />;
   }
 
   const failure = failures.find((item) => item.code === persona.failureCode);
   if (!failure) {
-    notFound();
+    return <StatusNotFound />;
   }
 
   return (

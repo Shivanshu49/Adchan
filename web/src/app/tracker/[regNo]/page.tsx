@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
-import { setReminder } from "@/actions/tracker";
 import ActionCard from "@/components/ActionCard";
 import MockBadge from "@/components/MockBadge";
-import TrackerTimeline from "@/components/TrackerTimeline";
+import OptimisticDoneControl from "@/components/OptimisticDoneControl";
+import OptimisticReminder from "@/components/OptimisticReminder";
+import OptimisticTrackerTimeline from "@/components/OptimisticTrackerTimeline";
+import Link from "@/components/PlainLink";
+import TrackerOptimisticProvider from "@/components/TrackerOptimisticProvider";
 import { getPersonaAndFailure } from "@/lib/data";
 import { getMockSessionId } from "@/lib/mock-auth";
 import { getTrackerRecord, type TrackerRecord } from "@/lib/tracker-api";
@@ -29,7 +31,7 @@ export default async function TrackerPage({ params, searchParams }: TrackerPageP
   const { regNo } = await params;
   const query = await searchParams;
   const match = getPersonaAndFailure(regNo);
-  if (!match) notFound();
+  if (!match) redirect("/");
 
   const sessionId = await getMockSessionId();
   if (!sessionId) redirect(`/status/${encodeURIComponent(regNo)}`);
@@ -79,44 +81,22 @@ export default async function TrackerPage({ params, searchParams }: TrackerPageP
             <MockBadge hi="नमूना tracker" />
           </div>
           <p className="mt-3 text-[19px] leading-[1.6]">
-            निदान और अगला कदम अभी भी काम करते हैं। प्रगति सेव करने के लिए API में DATABASE_URL और बनाया गया schema चाहिए।
+            आपकी प्रगति अभी पढ़ी या सेव नहीं हो सकती। निदान, अगला दफ़्तर, कागज़ और बोलने की पंक्ति अभी भी काम करते हैं।
           </p>
         </section>
       ) : (
-        <>
-          <div className="mt-8"><TrackerTimeline record={record} failure={match.failure} /></div>
+        <TrackerOptimisticProvider initialRecord={record}>
+          <div className="mt-8"><OptimisticTrackerTimeline failure={match.failure} /></div>
 
-          <section className="document-card mt-8 p-5 sm:p-6" aria-labelledby="reminder-title">
-            <div className="flex flex-wrap items-center gap-2">
-              <h2 id="reminder-title" className="text-[28px] font-semibold">कब दोबारा देखना है?</h2>
-              <MockBadge hi="नमूना reminder" />
-            </div>
-            <p className="mt-3 text-[19px] leading-[1.6]">
-              यह केवल तारीख़ रखता है; SMS या WhatsApp संदेश नहीं भेजता।
-            </p>
-            {record.reminderAt && (
-              <p className="status-working mt-3 text-[19px] font-semibold">
-                सेव तारीख़: {new Intl.DateTimeFormat("hi-IN", { dateStyle: "long", timeZone: "Asia/Kolkata" }).format(new Date(record.reminderAt))}
-              </p>
-            )}
-            <form action={setReminder} className="mt-5 grid gap-4">
-              <input type="hidden" name="regNo" value={regNo} />
-              <label className="text-[19px] font-semibold">
-                तारीख़
-                <input
-                  type="date"
-                  name="reminderDate"
-                  required
-                  defaultValue={defaultReminderDate()}
-                  className="mt-2 block min-h-14 w-full rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-3 py-2 text-[19px]"
-                />
-              </label>
-              <button type="submit" className="primary-action w-full">तारीख़ याद रखें</button>
-            </form>
-          </section>
+          <OptimisticReminder defaultDate={defaultReminderDate()} />
 
           <div className="mt-8">
-            <ActionCard failure={match.failure} persona={match.persona} mode="tracker" markedDoneAt={record.markedDoneAt} />
+            <ActionCard
+              failure={match.failure}
+              persona={match.persona}
+              mode="tracker"
+              trackerControl={<OptimisticDoneControl />}
+            />
           </div>
 
           <section className="document-card mt-8 p-5 sm:p-6">
@@ -132,7 +112,7 @@ export default async function TrackerPage({ params, searchParams }: TrackerPageP
               योजनाएँ और पैकेट देखें
             </Link>
           </section>
-        </>
+        </TrackerOptimisticProvider>
       )}
     </main>
   );

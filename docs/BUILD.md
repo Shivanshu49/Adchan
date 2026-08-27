@@ -341,6 +341,37 @@ ask who you are.*
 
 **Tracker** — mark done, set reminder, check back. Postgres, post-login only.
 
+### Judging window only — keep Neon Free awake
+
+Neon Free suspends a compute after about five idle minutes. During the judging
+window, `.github/workflows/keep-neon-warm.yml` invokes
+`/api/cron/keep-neon-warm` every five minutes. The protected route sends a
+synthetic, read-only tracker lookup through the API; the row is intentionally
+absent, but its indexed `SELECT` resets Neon's idle timer. No farmer identifier
+is used and no row is written.
+
+Before the judging window:
+
+1. In the Vercel project, set server-only `API_BASE_URL` to the Fly API origin.
+2. Generate a random value of at least 16 characters and set it as
+   `CRON_SECRET` in Vercel so the route can verify its Bearer token.
+3. Add the same value as the GitHub repository Actions secret `CRON_SECRET`.
+4. Confirm scheduled runs in GitHub → Actions → **Keep Neon warm during
+   judging**. An absent or wrong secret returns 401; an unreachable API/database
+   returns 503.
+5. Before a demo or submission, open that workflow and choose **Run workflow**.
+   The `workflow_dispatch` trigger performs the same warm-up immediately.
+
+GitHub Actions cron is best-effort and can drift when runners are under load.
+Because its shortest supported interval is five minutes, a delayed run can
+occasionally miss Neon's five-minute suspend window. Use the manual trigger just
+before a high-stakes demo. This is deliberately a **judging-window measure, not
+a production pattern**: it consumes Neon compute and should be disabled after
+judging. At real scale, use a paid Neon tier and disable scale to zero instead
+of manufacturing traffic. See the current
+[GitHub scheduled-workflow behavior](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+and [Neon scale-to-zero behavior](https://neon.com/docs/introduction/scale-to-zero).
+
 **Adjacent schemes** — 5–6 only (PMFBY, KCC, PM-KMY, Soil Health Card). Argument:
 *you already proved your land and identity for PM-KISAN — why prove it again for
 every other scheme?* "Apply" generates a **pre-filled packet + document checklist**,
