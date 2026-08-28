@@ -37,7 +37,7 @@ export default function OptimisticDoneControl() {
         <p
           role="status"
           aria-live="polite"
-          className={`${doneError ? "state-broken" : "state-working"} mt-4 p-3 text-[17px] font-semibold`}
+          className={`${doneError ? "state-broken" : "state-working"} mt-4 p-3 text-[19px] font-semibold`}
         >
           {doneMessage}
         </p>

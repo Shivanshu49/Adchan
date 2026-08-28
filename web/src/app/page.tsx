@@ -19,7 +19,7 @@ export default async function Home({ searchParams }: HomeProps) {
     <main id="main-content" className="page-shell">
       <ApiWarmup />
       {reset === "done" && (
-        <p role="status" className="state-working mb-6 p-4 text-[17px] font-semibold">
+        <p role="status" className="state-working mb-6 p-4 text-[19px] font-semibold">
           इस ब्राउज़र का डेमो साफ़ हो गया। अब किसी भी नमूना नंबर से फिर शुरू करें।
         </p>
       )}
@@ -45,7 +45,7 @@ export default async function Home({ searchParams }: HomeProps) {
             src="/kishan-banner.webp"
             alt=""
             fill
-            sizes="(max-width: 430px) 32vw, (max-width: 760px) 38vw, 320px"
+            sizes="(max-width: 560px) calc(100vw - 28px), 510px"
             priority
           />
         </div>
@@ -83,7 +83,7 @@ export default async function Home({ searchParams }: HomeProps) {
           />
           <button type="submit" className="primary-action registration-submit">देखें</button>
         </div>
-        <p id="reg-help" className="mt-2 text-[17px] text-[var(--c-muted)]">🔒 कोई लॉगिन नहीं। कोई कैप्चा नहीं।</p>
+        <p id="reg-help" className="mt-2 text-[19px] text-[var(--c-muted)]">🔒 कोई लॉगिन नहीं। कोई कैप्चा नहीं।</p>
       </form>
 
       <section id="demo-numbers" className="demo-panel mt-6 scroll-mt-4" aria-labelledby="demo-title">
@@ -91,8 +91,8 @@ export default async function Home({ searchParams }: HomeProps) {
           <h2 id="demo-title" className="text-[22px] font-semibold">आठ नमूना किसान</h2>
           <MockBadge />
         </div>
-        <p className="mt-1 text-[17px] text-[var(--c-muted)]">किसी नंबर को छूकर पूरा निदान देखें।</p>
-        <p className="mt-2 font-mono text-[15px] font-semibold">UP-DEMO- <span className="secondary-copy font-sans" lang="en">Tap 0001–0008</span></p>
+        <p className="mt-1 text-[19px] text-[var(--c-muted)]">किसी नंबर को छूकर पूरा निदान देखें।</p>
+        <p className="mt-2 font-mono text-[19px] font-semibold">UP-DEMO- <span className="secondary-copy font-sans" lang="en">Tap 0001–0008</span></p>
         <div className="mt-3"><DemoRegistrationList compact /></div>
       </section>
     </main>

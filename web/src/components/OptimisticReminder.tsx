@@ -54,7 +54,7 @@ export default function OptimisticReminder({ defaultDate }: { defaultDate: strin
         <p
           role="status"
           aria-live="polite"
-          className={`${reminderError ? "state-broken" : "state-working"} mt-4 p-3 text-[17px] font-semibold`}
+          className={`${reminderError ? "state-broken" : "state-working"} mt-4 p-3 text-[19px] font-semibold`}
         >
           {reminderMessage}
         </p>

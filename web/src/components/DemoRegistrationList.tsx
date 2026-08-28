@@ -20,7 +20,7 @@ export default function DemoRegistrationList({ compact = false }: DemoRegistrati
             aria-label={compact ? `${persona.regNo}, ${persona.name.hi}, ${persona.district.hi}` : undefined}
           >
             <span className="min-w-0">
-              <span className={compact ? "block font-mono text-[15px] font-semibold tracking-tight" : "block font-mono text-[19px] font-semibold tracking-tight"}>
+              <span className="block font-mono text-[19px] font-semibold tracking-tight">
                 {compact ? persona.regNo.slice(-4) : persona.regNo}
               </span>
               <span className={compact ? "sr-only" : "mt-1 block text-[19px] leading-snug"}>

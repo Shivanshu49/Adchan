@@ -14,7 +14,7 @@ export default function RouteError({ reset }: { error: Error & { digest?: string
         <p className="mt-4 text-[19px] leading-[1.6]">
           इस पन्ने की कोई जानकारी बदली या जमा नहीं हुई। दोबारा कोशिश कर सकते हैं। तैयार नमूना निदान ऑनलाइन सेवा बंद होने पर भी काम करते हैं।
         </p>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <div className="mt-6 grid gap-3">
           <button type="button" onClick={reset} className="primary-action w-full">पन्ना फिर खोलें</button>
           <Link href="/#demo-numbers" className="touch-link justify-center">नमूना निदान देखें</Link>
         </div>

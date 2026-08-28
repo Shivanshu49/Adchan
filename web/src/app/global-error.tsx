@@ -20,7 +20,7 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
             <button type="button" onClick={reset} style={{ minHeight: 56, border: 0, borderRadius: 14, padding: "12px 20px", color: "#FFFFFF", background: "#38422B", font: "inherit", fontWeight: 700 }}>
               पन्ना फिर खोलें
             </button>
-            <p><Link href="/#demo-numbers" style={{ color: "inherit", fontWeight: 700 }}>नमूना निदान देखें</Link></p>
+            <p><Link href="/#demo-numbers" style={{ display: "inline-flex", minHeight: 56, alignItems: "center", color: "inherit", fontWeight: 700 }}>नमूना निदान देखें</Link></p>
           </section>
         </main>
         <footer style={{ borderTop: "1px solid #CCD5C0" }}>

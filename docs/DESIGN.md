@@ -126,8 +126,9 @@ round, and never English-only.
 ### Layout
 
 ```
-Outer shell max width 900px, centered; reading content max width 780px. Content
-stays a single readable column, while the hero may place live text beside art.
+Outer shell and reading content max width 560px, centered. Content stays a
+single readable column at every breakpoint; the linkage chain is the only
+element that switches from stacked on mobile to inline on wider screens.
 Vertical rhythm: 8px base. Sections separated by 32px.
 Side padding: 20px.
 Touch targets: 56px minimum height. (48 is the accessibility floor; he has
@@ -153,10 +154,11 @@ The whole screen answers one question. No hero, no feature grid, no logo lockup.
 │   नहीं आया?                     │
 │                                │
 │   ┌──────────────────────────┐ │
-│   │  🎤  बोलकर बताइए          │ │  ← 72px tall. PRIMARY.
+│   │ अपनी परेशानी लिखें          │ │  ← large text area. PRIMARY.
 │   └──────────────────────────┘ │
 │                                │
-│   ── या ──                     │
+│   [आवाज़ सेवा अभी उपलब्ध नहीं — │  ← 56px. SECONDARY.
+│    नीचे लिखकर बताइए]             │
 │                                │
 │   ┌──────────────────────────┐ │
 │   │ रजिस्ट्रेशन नंबर डालिए      │ │  ← 56px
@@ -170,9 +172,9 @@ The whole screen answers one question. No hero, no feature grid, no logo lockup.
 └────────────────────────────────┘
 ```
 
-The mic is the primary action and physically larger than the text field. That
-ordering *is* the accessibility argument — put it where a reviewer sees it in
-the first two seconds of the video.
+The complaint text field is the primary action while voice classification is
+unavailable. The voice control sits below it and carries the single unavailable
+message. Do not repeat that message elsewhere on the screen.
 
 Demo numbers on the page, tappable. A reviewer must never hunt for credentials.
 

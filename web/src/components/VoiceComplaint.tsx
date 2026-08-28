@@ -1,9 +1,9 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-type State = "idle" | "recording" | "transcribing" | "diagnosing";
+type State = "idle" | "diagnosing";
 
 interface DemoMatch {
   code: string;
@@ -21,24 +21,20 @@ interface DiagnosePayload {
 }
 
 const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
-const MAX_RECORDING_MS = 59_000;
 const ONLINE_REQUEST_TIMEOUT_MS = 60_000;
 const WAKE_NOTICE_DELAY_MS = 3_000;
 
 
 class ReviewApiError extends Error {
-  constructor(readonly status: number, readonly stage: "diagnose" | "transcribe") {
-    super(`${stage} request failed`);
+  constructor(readonly status: number) {
+    super("diagnose request failed");
   }
 }
 
 
-function failureMessage(error: unknown, stage: "diagnose" | "transcribe") {
+function failureMessage(error: unknown) {
   if (error instanceof ReviewApiError && error.status === 429) {
     return "एक मिनट में बहुत ज़्यादा कोशिशें हुईं। थोड़ी देर रुकें; ऊपर के आठ नमूना निदान अभी भी पूरी तरह काम करते हैं।";
-  }
-  if (stage === "transcribe") {
-    return "आवाज़ की ऑनलाइन सेवा अभी उपलब्ध नहीं है। नीचे लिखकर कोशिश करें; ऊपर के आठ नमूना निदान भी काम करते हैं।";
   }
   return "ऑनलाइन जाँच सेवा तक अभी पहुँचा नहीं जा सका। ऊपर के आठ नमूना नंबरों से तैयार निदान और अगला कदम अभी भी काम करते हैं।";
 }
@@ -48,29 +44,10 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
   const router = useRouter();
   const [state, setState] = useState<State>("idle");
   const [complaint, setComplaint] = useState("");
-  const [seconds, setSeconds] = useState(0);
   const [message, setMessage] = useState("");
   const [showWakeNotice, setShowWakeNotice] = useState(false);
-  const recorderRef = useRef<MediaRecorder | null>(null);
-  const streamRef = useRef<MediaStream | null>(null);
-  const chunksRef = useRef<Blob[]>([]);
-  const startedAtRef = useRef(0);
-  const stopTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const tickTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const wakeNoticeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const complaintRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const clearTimers = () => {
-    if (stopTimerRef.current) clearTimeout(stopTimerRef.current);
-    if (tickTimerRef.current) clearInterval(tickTimerRef.current);
-    stopTimerRef.current = null;
-    tickTimerRef.current = null;
-  };
-
-  const stopTracks = () => {
-    streamRef.current?.getTracks().forEach((track) => track.stop());
-    streamRef.current = null;
-  };
 
   const startOnlineWait = () => {
     if (wakeNoticeTimerRef.current) clearTimeout(wakeNoticeTimerRef.current);
@@ -87,12 +64,6 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     setShowWakeNotice(false);
   };
 
-  useEffect(() => () => {
-    clearTimers();
-    if (wakeNoticeTimerRef.current) clearTimeout(wakeNoticeTimerRef.current);
-    stopTracks();
-  }, []);
-
   const diagnose = async (text: string) => {
     setState("diagnosing");
     startOnlineWait();
@@ -103,7 +74,7 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ complaint: text, lang: "hi" }),
       });
-      if (!response.ok) throw new ReviewApiError(response.status, "diagnose");
+      if (!response.ok) throw new ReviewApiError(response.status);
       const result = (await response.json()) as DiagnosePayload;
       if (result.needsClarification) {
         setMessage(result.clarifyingQuestion ?? "कृपया अपनी परेशानी थोड़ी और साफ़ बताएँ।");
@@ -123,82 +94,6 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     }
   };
 
-  const sendRecording = async (blob: Blob, durationSeconds: number) => {
-    setState("transcribing");
-    setMessage("");
-    startOnlineWait();
-    const extension = blob.type.includes("ogg") ? "ogg" : blob.type.includes("mp4") ? "m4a" : "webm";
-    const formData = new FormData();
-    formData.append("audio", blob, `recording.${extension}`);
-    formData.append("duration_seconds", String(Math.min(60, Math.max(0.1, durationSeconds))));
-    let result: { text: string; provider: string };
-    try {
-      const response = await fetch(`${API_URL}/transcribe`, {
-        method: "POST",
-        body: formData,
-        signal: AbortSignal.timeout(ONLINE_REQUEST_TIMEOUT_MS),
-      });
-      if (!response.ok) throw new ReviewApiError(response.status, "transcribe");
-      result = (await response.json()) as { text: string; provider: string };
-    } finally {
-      finishOnlineWait();
-    }
-    setComplaint(result.text);
-    await diagnose(result.text);
-  };
-
-  const stopRecording = () => {
-    clearTimers();
-    const recorder = recorderRef.current;
-    if (recorder?.state === "recording") recorder.stop();
-    stopTracks();
-  };
-
-  const startRecording = async () => {
-    setMessage("");
-    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
-      setMessage("इस ब्राउज़र में माइक्रोफ़ोन रिकॉर्डिंग उपलब्ध नहीं है। नीचे लिखें; ऊपर के आठ नमूना निदान भी काम करते हैं।");
-      complaintRef.current?.focus();
-      return;
-    }
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      streamRef.current = stream;
-      const preferredTypes = ["audio/webm;codecs=opus", "audio/ogg;codecs=opus", "audio/mp4"];
-      const mimeType = preferredTypes.find((type) => MediaRecorder.isTypeSupported(type));
-      const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
-      recorderRef.current = recorder;
-      chunksRef.current = [];
-      recorder.ondataavailable = (event) => {
-        if (event.data.size) chunksRef.current.push(event.data);
-      };
-      recorder.onstop = () => {
-        const duration = (Date.now() - startedAtRef.current) / 1000;
-        const blob = new Blob(chunksRef.current, { type: recorder.mimeType || "audio/webm" });
-        recorderRef.current = null;
-        void sendRecording(blob, duration).catch((error: unknown) => {
-          const stage = error instanceof ReviewApiError ? error.stage : "transcribe";
-          setMessage(failureMessage(error, stage));
-          setState("idle");
-          complaintRef.current?.focus();
-        });
-      };
-      startedAtRef.current = Date.now();
-      setSeconds(0);
-      setState("recording");
-      recorder.start(500);
-      tickTimerRef.current = setInterval(
-        () => setSeconds(Math.floor((Date.now() - startedAtRef.current) / 1000)),
-        1000,
-      );
-      stopTimerRef.current = setTimeout(stopRecording, MAX_RECORDING_MS);
-    } catch {
-      setMessage("माइक्रोफ़ोन की अनुमति नहीं मिली। नीचे लिखकर बताएँ; ऊपर के आठ नमूना निदान भी काम करते हैं।");
-      setState("idle");
-      complaintRef.current?.focus();
-    }
-  };
-
   const submitText = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const text = complaint.trim();
@@ -207,56 +102,16 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     try {
       await diagnose(text);
     } catch (error) {
-      setMessage(failureMessage(error, "diagnose"));
+      setMessage(failureMessage(error));
       setState("idle");
     }
   };
 
-  const busy = state === "transcribing" || state === "diagnosing";
-  const buttonText = state === "recording"
-    ? `रिकॉर्डिंग रोकें · ${seconds}s`
-    : state === "transcribing"
-      ? "आवाज़ लिखी जा रही है…"
-      : state === "diagnosing"
-        ? "अड़चन खोजी जा रही है…"
-        : "बोलकर परेशानी बताएँ";
+  const busy = state === "diagnosing";
 
   return (
-    <div className="voice-shell">
-      <button
-        type="button"
-        onClick={state === "recording" ? stopRecording : startRecording}
-        disabled={busy}
-        className="voice-card"
-        aria-pressed={state === "recording"}
-      >
-        <span className="voice-waves-icon" aria-hidden="true">
-          <span className="voice-wave" />
-          <span className="voice-wave" />
-          <span className="voice-mic">
-            {state === "recording" ? (
-              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="7" width="10" height="10" rx="1" /></svg>
-            ) : (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="9" y="2" width="6" height="12" rx="3" />
-                <path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8" />
-              </svg>
-            )}
-          </span>
-        </span>
-        <span className="voice-copy">
-          <span className="voice-heading">{buttonText}</span>
-          <span className="voice-subheading">
-            {state === "recording" ? "हो जाए तो यहीं छूकर रोकें" : "अपनी अड़चन अपनी भाषा में कहें"}
-          </span>
-        </span>
-      </button>
-
-      <div className="voice-input-panel">
-        <p className="text-[17px] leading-[1.55] text-[var(--c-muted)]">
-          अधिकतम 60 सेकंड। माइक्रोफ़ोन न चले तो नीचे लिखें।
-        </p>
-
+    <div className="complaint-shell">
+      <div className="complaint-panel">
         {showWakeNotice && (
           <div
             role="status"
@@ -266,9 +121,7 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
             <p className="section-label">ऑनलाइन सेवा शुरू हो रही है…</p>
             <p className="mt-2 text-[19px] font-semibold leading-[1.55]">
               मुफ़्त सेवा कुछ देर खाली रहने पर सो जाती है। पन्ना खुला रखें—
-              {state === "transcribing"
-                ? "आपकी आवाज़ भेजी जा रही है, दोबारा बोलने की ज़रूरत नहीं।"
-                : "आपकी बात मिल गई है और जाँच जारी है।"}
+              आपकी बात मिल गई है और जाँच जारी है।
             </p>
             <p className="secondary-copy mt-2" lang="en">
               The free server is waking up. Keep this page open; you do not need to try again.
@@ -276,9 +129,9 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
           </div>
         )}
 
-        <form onSubmit={submitText} className="mt-4 border-t border-[var(--c-sage)] pt-4">
-          <label htmlFor="complaint" className="block text-[19px] font-semibold">
-            या अपनी परेशानी लिखें
+        <form onSubmit={submitText}>
+          <label htmlFor="complaint" className="block text-[24px] font-semibold leading-[1.4]">
+            अपनी परेशानी लिखें
             <span className="secondary-copy ml-2" lang="en">/ Type instead</span>
           </label>
           <textarea
@@ -286,23 +139,35 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
             id="complaint"
             value={complaint}
             onChange={(event) => setComplaint(event.target.value)}
-            rows={3}
+            rows={4}
             maxLength={4000}
             placeholder="जैसे: पोर्टल पर eKYC बाकी दिखा रहा है…"
-            className="mt-3 w-full rounded-[14px] border-2 border-[var(--c-moss)] bg-[var(--c-card-bg)] px-4 py-3 text-[19px] leading-[1.6] focus:border-[var(--c-dark-olive)] focus:outline-none"
+            className="complaint-textarea mt-3 w-full rounded-[14px] border-[3px] border-[var(--c-dark-olive)] bg-[var(--c-card-bg)] px-4 py-3 text-[19px] leading-[1.6] focus:outline-none"
           />
           <button
             type="submit"
-            disabled={busy || state === "recording"}
+            disabled={busy}
             className="primary-action mt-3 w-full disabled:cursor-wait disabled:opacity-60"
           >
             परेशानी की वजह खोजें
           </button>
         </form>
-        <p className="mt-3 min-h-8 text-[19px] font-semibold" role="status" aria-live="polite">
-          {message}
-        </p>
+        {message && (
+          <p className="state-working mt-4 p-4 text-[19px] font-semibold" role="status" aria-live="polite">
+            {message}
+          </p>
+        )}
       </div>
+
+      <button type="button" disabled className="voice-card">
+        <span className="voice-mic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="9" y="2" width="6" height="12" rx="3" />
+            <path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8" />
+          </svg>
+        </span>
+        <span>आवाज़ सेवा अभी उपलब्ध नहीं — नीचे लिखकर बताइए</span>
+      </button>
     </div>
   );
 }
