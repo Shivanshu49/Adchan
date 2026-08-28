@@ -7,7 +7,9 @@ import {
   startTransition,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
@@ -29,6 +31,13 @@ interface TrackerOptimisticContextValue {
 }
 
 const TrackerOptimisticContext = createContext<TrackerOptimisticContextValue | null>(null);
+const WAKE_NOTICE_DELAY_MS = 3_000;
+
+
+function clearWakeTimer(timerRef: { current: ReturnType<typeof setTimeout> | null }) {
+  if (timerRef.current) clearTimeout(timerRef.current);
+  timerRef.current = null;
+}
 
 
 export function useOptimisticTracker() {
@@ -53,6 +62,13 @@ export default function TrackerOptimisticProvider({
   const [reminderPending, setReminderPending] = useState(false);
   const [reminderMessage, setReminderMessage] = useState<string | null>(null);
   const [reminderError, setReminderError] = useState(false);
+  const doneWakeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const reminderWakeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    clearWakeTimer(doneWakeTimerRef);
+    clearWakeTimer(reminderWakeTimerRef);
+  }, []);
 
   const markDone = useCallback(() => {
     if (donePending || record.markedDoneAt) return;
@@ -63,11 +79,18 @@ export default function TrackerOptimisticProvider({
     setDoneMessage("काम पूरा मान लिया गया—पृष्ठभूमि में सेव हो रहा है…");
     setDoneError(false);
     setDonePending(true);
+    clearWakeTimer(doneWakeTimerRef);
+    doneWakeTimerRef.current = setTimeout(() => {
+      setDoneMessage(
+        "ऑनलाइन सेवा शुरू हो रही है… पन्ना खुला रखें; काम सेव होते ही पुष्टि दिखेगी।",
+      );
+    }, WAKE_NOTICE_DELAY_MS);
 
     const formData = new FormData();
     formData.set("regNo", record.regNo);
     void markActionDone(formData)
       .then((result) => {
+        clearWakeTimer(doneWakeTimerRef);
         if (!result.ok) {
           setRecord((current) => ({ ...current, markedDoneAt: previousMarkedDoneAt }));
           setDoneMessage(result.message);
@@ -80,11 +103,15 @@ export default function TrackerOptimisticProvider({
         startTransition(() => router.refresh());
       })
       .catch(() => {
+        clearWakeTimer(doneWakeTimerRef);
         setRecord((current) => ({ ...current, markedDoneAt: previousMarkedDoneAt }));
         setDoneMessage("काम सेव नहीं हुआ। बदलाव वापस कर दिया गया—फिर कोशिश करें।");
         setDoneError(true);
       })
-      .finally(() => setDonePending(false));
+      .finally(() => {
+        clearWakeTimer(doneWakeTimerRef);
+        setDonePending(false);
+      });
   }, [donePending, record.markedDoneAt, record.regNo, router]);
 
   const saveReminder = useCallback((event: FormEvent<HTMLFormElement>) => {
@@ -111,10 +138,17 @@ export default function TrackerOptimisticProvider({
     setReminderMessage("नई तारीख़ रख ली गई—पृष्ठभूमि में सेव हो रही है…");
     setReminderError(false);
     setReminderPending(true);
+    clearWakeTimer(reminderWakeTimerRef);
+    reminderWakeTimerRef.current = setTimeout(() => {
+      setReminderMessage(
+        "ऑनलाइन सेवा शुरू हो रही है… पन्ना खुला रखें; तारीख़ सेव होते ही पुष्टि दिखेगी।",
+      );
+    }, WAKE_NOTICE_DELAY_MS);
     formData.set("regNo", record.regNo);
 
     void setReminder(formData)
       .then((result) => {
+        clearWakeTimer(reminderWakeTimerRef);
         if (!result.ok) {
           setRecord((current) => ({ ...current, reminderAt: previousReminderAt }));
           setReminderMessage(result.message);
@@ -127,11 +161,15 @@ export default function TrackerOptimisticProvider({
         startTransition(() => router.refresh());
       })
       .catch(() => {
+        clearWakeTimer(reminderWakeTimerRef);
         setRecord((current) => ({ ...current, reminderAt: previousReminderAt }));
         setReminderMessage("तारीख़ सेव नहीं हुई। पुरानी तारीख़ वापस रख दी गई—फिर कोशिश करें।");
         setReminderError(true);
       })
-      .finally(() => setReminderPending(false));
+      .finally(() => {
+        clearWakeTimer(reminderWakeTimerRef);
+        setReminderPending(false);
+      });
   }, [record.regNo, record.reminderAt, reminderPending, router]);
 
   const value = useMemo(() => ({

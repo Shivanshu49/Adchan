@@ -82,7 +82,7 @@ exact office, documents and script to fix it.
 
 ## Stack
 web/ Next.js 15 App Router + TS + Tailwind → Vercel
-api/ FastAPI → Fly.io (bom region, min_machines_running = 1)
+api/ FastAPI → Render (Singapore, free Docker service)
 shared/failures.json is the single source of truth for both.
 ```
 
@@ -90,12 +90,17 @@ shared/failures.json is the single source of truth for both.
 submission link is never a last-minute panic.
 
 ```bash
-cd web && npx vercel --prod && cd ..
-cd api && fly launch --region bom && cd ..
+npx vercel --prod
 ```
 
-Fly: set `min_machines_running = 1` in `fly.toml`. Free-tier cold starts will
-kill you during judging.
+The Render service builds with `api/` as its root and `api/Dockerfile`. On the
+free tier it sleeps after roughly 15 idle minutes. Budget about **50 seconds**
+for the first cold request; observed wake-up times vary, and subsequent requests
+are fast. The landing page starts a speculative `/health` request immediately.
+Voice and text checks wait up to 60 seconds, tracker calls wait up to 30 seconds,
+and user actions still in flight after three seconds explain in Hindi that the
+service is waking. The judging warm-up below reduces, but does not eliminate,
+that first-request delay.
 
 ---
 
@@ -341,34 +346,36 @@ ask who you are.*
 
 **Tracker** — mark done, set reminder, check back. Postgres, post-login only.
 
-### Judging window only — keep Neon Free awake
+### Judging window only — keep Render and Neon awake
 
 Neon Free suspends a compute after about five idle minutes. During the judging
 window, `.github/workflows/keep-neon-warm.yml` invokes
-`/api/cron/keep-neon-warm` every five minutes. The protected route sends a
-synthetic, read-only tracker lookup through the API; the row is intentionally
-absent, but its indexed `SELECT` resets Neon's idle timer. No farmer identifier
-is used and no row is written.
+the Render `/health` route and then `/api/cron/keep-neon-warm` every ten minutes.
+The health request wakes the API before the protected route sends a synthetic,
+read-only tracker lookup through it. The row is intentionally absent, but its
+indexed `SELECT` resets Neon's idle timer. No farmer identifier is used and no
+row is written.
 
 Before the judging window:
 
-1. In the Vercel project, set server-only `API_BASE_URL` to the Fly API origin.
+1. In the Vercel project, set `API_BASE_URL` and `NEXT_PUBLIC_API_URL` to
+   `https://adchan.onrender.com`.
 2. Generate a random value of at least 16 characters and set it as
    `CRON_SECRET` in Vercel so the route can verify its Bearer token.
 3. Add the same value as the GitHub repository Actions secret `CRON_SECRET`.
-4. Confirm scheduled runs in GitHub → Actions → **Keep Neon warm during
-   judging**. An absent or wrong secret returns 401; an unreachable API/database
-   returns 503.
+4. Confirm scheduled runs in GitHub → Actions → **Keep Render and Neon warm
+   during judging**. An absent or wrong secret returns 401; an unreachable
+   API/database returns 503.
 5. Before a demo or submission, open that workflow and choose **Run workflow**.
    The `workflow_dispatch` trigger performs the same warm-up immediately.
 
 GitHub Actions cron is best-effort and can drift when runners are under load.
-Because its shortest supported interval is five minutes, a delayed run can
-occasionally miss Neon's five-minute suspend window. Use the manual trigger just
-before a high-stakes demo. This is deliberately a **judging-window measure, not
-a production pattern**: it consumes Neon compute and should be disabled after
-judging. At real scale, use a paid Neon tier and disable scale to zero instead
-of manufacturing traffic. See the current
+At a ten-minute cadence this reduces first-hit risk but cannot guarantee that a
+Neon compute with a five-minute idle window remains continuously awake. Use the
+manual trigger just before a high-stakes demo. This is deliberately a
+**judging-window measure, not a production pattern**: it consumes Neon compute
+and should be disabled after judging. At real scale, use paid service tiers
+instead of manufacturing traffic. See the current
 [GitHub scheduled-workflow behavior](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
 and [Neon scale-to-zero behavior](https://neon.com/docs/introduction/scale-to-zero).
 

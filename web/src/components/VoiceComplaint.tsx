@@ -22,6 +22,8 @@ interface DiagnosePayload {
 
 const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const MAX_RECORDING_MS = 59_000;
+const ONLINE_REQUEST_TIMEOUT_MS = 60_000;
+const WAKE_NOTICE_DELAY_MS = 3_000;
 
 
 class ReviewApiError extends Error {
@@ -48,12 +50,14 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
   const [complaint, setComplaint] = useState("");
   const [seconds, setSeconds] = useState(0);
   const [message, setMessage] = useState("");
+  const [showWakeNotice, setShowWakeNotice] = useState(false);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const startedAtRef = useRef(0);
   const stopTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const tickTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const wakeNoticeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const complaintRef = useRef<HTMLTextAreaElement | null>(null);
 
   const clearTimers = () => {
@@ -68,50 +72,77 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     streamRef.current = null;
   };
 
+  const startOnlineWait = () => {
+    if (wakeNoticeTimerRef.current) clearTimeout(wakeNoticeTimerRef.current);
+    setShowWakeNotice(false);
+    wakeNoticeTimerRef.current = setTimeout(
+      () => setShowWakeNotice(true),
+      WAKE_NOTICE_DELAY_MS,
+    );
+  };
+
+  const finishOnlineWait = () => {
+    if (wakeNoticeTimerRef.current) clearTimeout(wakeNoticeTimerRef.current);
+    wakeNoticeTimerRef.current = null;
+    setShowWakeNotice(false);
+  };
+
   useEffect(() => () => {
     clearTimers();
+    if (wakeNoticeTimerRef.current) clearTimeout(wakeNoticeTimerRef.current);
     stopTracks();
   }, []);
 
   const diagnose = async (text: string) => {
     setState("diagnosing");
-    const response = await fetch(`${API_URL}/diagnose`, {
-      method: "POST",
-      signal: AbortSignal.timeout(12_000),
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ complaint: text, lang: "hi" }),
-    });
-    if (!response.ok) throw new ReviewApiError(response.status, "diagnose");
-    const result = (await response.json()) as DiagnosePayload;
-    if (result.needsClarification) {
-      setMessage(result.clarifyingQuestion ?? "कृपया अपनी परेशानी थोड़ी और साफ़ बताएँ।");
-      setState("idle");
-      complaintRef.current?.focus();
-      return;
+    startOnlineWait();
+    try {
+      const response = await fetch(`${API_URL}/diagnose`, {
+        method: "POST",
+        signal: AbortSignal.timeout(ONLINE_REQUEST_TIMEOUT_MS),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ complaint: text, lang: "hi" }),
+      });
+      if (!response.ok) throw new ReviewApiError(response.status, "diagnose");
+      const result = (await response.json()) as DiagnosePayload;
+      if (result.needsClarification) {
+        setMessage(result.clarifyingQuestion ?? "कृपया अपनी परेशानी थोड़ी और साफ़ बताएँ।");
+        setState("idle");
+        complaintRef.current?.focus();
+        return;
+      }
+      const match = matches.find((item) => item.code === result.code);
+      if (!match) {
+        setMessage("इस समस्या का डेमो रिकॉर्ड अभी उपलब्ध नहीं है। नीचे दिया कोई डेमो नंबर चुनें।");
+        setState("idle");
+        return;
+      }
+      router.push(`/status/${match.regNo}`);
+    } finally {
+      finishOnlineWait();
     }
-    const match = matches.find((item) => item.code === result.code);
-    if (!match) {
-      setMessage("इस समस्या का डेमो रिकॉर्ड अभी उपलब्ध नहीं है। नीचे दिया कोई डेमो नंबर चुनें।");
-      setState("idle");
-      return;
-    }
-    router.push(`/status/${match.regNo}`);
   };
 
   const sendRecording = async (blob: Blob, durationSeconds: number) => {
     setState("transcribing");
     setMessage("");
+    startOnlineWait();
     const extension = blob.type.includes("ogg") ? "ogg" : blob.type.includes("mp4") ? "m4a" : "webm";
     const formData = new FormData();
     formData.append("audio", blob, `recording.${extension}`);
     formData.append("duration_seconds", String(Math.min(60, Math.max(0.1, durationSeconds))));
-    const response = await fetch(`${API_URL}/transcribe`, {
-      method: "POST",
-      body: formData,
-      signal: AbortSignal.timeout(20_000),
-    });
-    if (!response.ok) throw new ReviewApiError(response.status, "transcribe");
-    const result = (await response.json()) as { text: string; provider: string };
+    let result: { text: string; provider: string };
+    try {
+      const response = await fetch(`${API_URL}/transcribe`, {
+        method: "POST",
+        body: formData,
+        signal: AbortSignal.timeout(ONLINE_REQUEST_TIMEOUT_MS),
+      });
+      if (!response.ok) throw new ReviewApiError(response.status, "transcribe");
+      result = (await response.json()) as { text: string; provider: string };
+    } finally {
+      finishOnlineWait();
+    }
     setComplaint(result.text);
     await diagnose(result.text);
   };
@@ -205,6 +236,25 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
       <p className="mt-3 text-[19px] leading-[1.6]">
         अधिकतम 60 सेकंड। माइक्रोफ़ोन न चले तो नीचे लिखें।
       </p>
+
+      {showWakeNotice && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="state-working mt-4 border-l-[8px] p-4"
+        >
+          <p className="section-label text-[var(--working)]">ऑनलाइन सेवा शुरू हो रही है…</p>
+          <p className="mt-2 text-[19px] font-semibold leading-[1.55]">
+            मुफ़्त सेवा कुछ देर खाली रहने पर सो जाती है। पन्ना खुला रखें—
+            {state === "transcribing"
+              ? "आपकी आवाज़ भेजी जा रही है, दोबारा बोलने की ज़रूरत नहीं।"
+              : "आपकी बात मिल गई है और जाँच जारी है।"}
+          </p>
+          <p className="secondary-copy mt-2" lang="en">
+            The free server is waking up. Keep this page open; you do not need to try again.
+          </p>
+        </div>
+      )}
 
       <form onSubmit={submitText} className="mt-5 border-t border-[var(--rule)] pt-5">
         <label htmlFor="complaint" className="block text-[19px] font-semibold">

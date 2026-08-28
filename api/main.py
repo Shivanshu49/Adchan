@@ -216,7 +216,12 @@ async def run_tracker_operation(operation) -> TrackerResponse:
 
 
 def deployment_commit() -> str:
-    for name in ("GIT_COMMIT_SHA", "SOURCE_VERSION", "VERCEL_GIT_COMMIT_SHA"):
+    for name in (
+        "GIT_COMMIT_SHA",
+        "SOURCE_VERSION",
+        "VERCEL_GIT_COMMIT_SHA",
+        "RENDER_GIT_COMMIT",
+    ):
         candidate = os.getenv(name, "").strip()
         if re.fullmatch(r"[0-9a-fA-F]{7,64}", candidate):
             return candidate.lower()
@@ -224,6 +229,11 @@ def deployment_commit() -> str:
     image_ref = os.getenv("FLY_IMAGE_REF", "")
     image_digest = re.search(r"sha256:([0-9a-fA-F]{64})", image_ref)
     return image_digest.group(1).lower() if image_digest else "local"
+
+
+@app.get("/")
+async def root() -> dict[str, str]:
+    return {"service": "Adchan API", "health": "/health"}
 
 
 @app.get("/health")

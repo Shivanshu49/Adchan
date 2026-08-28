@@ -1,22 +1,9 @@
 name: Classifier evals
 
+# Run on demand until a working classifier provider is configured in
+# repository secrets.
 on:
-  pull_request:
-    paths:
-      - "api/engine.py"
-      - "api/prompt*.py"
-      - "api/prompts/**"
-      - "api/evals/**"
-      - "shared/failures.json"
-      - ".github/workflows/classifier-evals.yml"
-  push:
-    paths:
-      - "api/engine.py"
-      - "api/prompt*.py"
-      - "api/prompts/**"
-      - "api/evals/**"
-      - "shared/failures.json"
-      - ".github/workflows/classifier-evals.yml"
+  workflow_dispatch:
 
 jobs:
   synthetic-baseline:

@@ -14,7 +14,7 @@ function formatDoneAt(value: string) {
 
 
 export default function OptimisticDoneControl() {
-  const { record, donePending, doneMessage, doneError, markDone } = useOptimisticTracker();
+  const { record, doneMessage, doneError, markDone } = useOptimisticTracker();
 
   return (
     <div>
@@ -39,7 +39,7 @@ export default function OptimisticDoneControl() {
           aria-live="polite"
           className={`${doneError ? "state-broken" : "state-working"} mt-4 p-3 text-[17px] font-semibold`}
         >
-          {donePending ? "काम पूरा मान लिया गया—पृष्ठभूमि में सेव हो रहा है…" : doneMessage}
+          {doneMessage}
         </p>
       )}
     </div>

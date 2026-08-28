@@ -151,6 +151,24 @@ def test_health_includes_version_and_deployment_commit(monkeypatch) -> None:
     }
 
 
+def test_root_identifies_service_and_health_route() -> None:
+    response = request("GET", "/")
+
+    assert response.status_code == 200
+    assert response.json() == {"service": "Adchan API", "health": "/health"}
+
+
+def test_health_uses_render_deployment_commit(monkeypatch) -> None:
+    for name in ("GIT_COMMIT_SHA", "SOURCE_VERSION", "VERCEL_GIT_COMMIT_SHA"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setenv("RENDER_GIT_COMMIT", "FD25011ABCDEF0")
+
+    response = request("GET", "/health")
+
+    assert response.status_code == 200
+    assert response.json()["commit"] == "fd25011abcdef0"
+
+
 def test_dependency_failure_is_hindi_and_sanitized(monkeypatch) -> None:
     reset_limits()
 

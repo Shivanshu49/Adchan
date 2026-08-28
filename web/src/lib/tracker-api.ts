@@ -1,6 +1,9 @@
 import type { FailureCode } from "@/types/failures";
 
 
+const TRACKER_REQUEST_TIMEOUT_MS = 30_000;
+
+
 export interface TrackerRecord {
   readonly sessionId: string;
   readonly regNo: string;
@@ -38,7 +41,7 @@ async function trackerRequest(
   const response = await fetch(`${apiBaseUrl()}${path}`, {
     ...init,
     cache: "no-store",
-    signal: init?.signal ?? AbortSignal.timeout(5_000),
+    signal: init?.signal ?? AbortSignal.timeout(TRACKER_REQUEST_TIMEOUT_MS),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -101,7 +104,7 @@ export async function deleteTrackerSession(sessionId: string) {
   const response = await fetch(`${apiBaseUrl()}/tracker/session`, {
     method: "DELETE",
     cache: "no-store",
-    signal: AbortSignal.timeout(5_000),
+    signal: AbortSignal.timeout(TRACKER_REQUEST_TIMEOUT_MS),
     headers: {
       Accept: "application/json",
       "X-Session-ID": sessionId,

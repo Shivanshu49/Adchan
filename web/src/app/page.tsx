@@ -1,3 +1,4 @@
+import ApiWarmup from "@/components/ApiWarmup";
 import DemoRegistrationList from "@/components/DemoRegistrationList";
 import MockBadge from "@/components/MockBadge";
 import VoiceComplaint from "@/components/VoiceComplaint";
@@ -14,6 +15,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <main id="main-content" className="page-shell">
+      <ApiWarmup />
       {reset === "done" && (
         <p role="status" className="state-working mb-6 p-4 text-[17px] font-semibold">
           इस ब्राउज़र का डेमो साफ़ हो गया। अब किसी भी नमूना नंबर से फिर शुरू करें।
