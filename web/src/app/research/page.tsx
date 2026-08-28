@@ -51,9 +51,9 @@ export default function ResearchPage() {
         <p className="mt-3 text-[19px] leading-[1.6]">
           सभी गिनतियाँ जानबूझकर खाली हैं। Synthetic नमूना लाभार्थी इस table में नहीं गिने जाएँगे।
         </p>
-        <div className="mt-5 overflow-x-auto rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)]">
+        <div className="mt-5 overflow-x-auto rounded-[14px] border-2 border-[var(--c-ink)] bg-[var(--c-card-bg)]">
           <table className="w-full min-w-[720px] border-collapse text-left text-[19px]">
-            <thead className="border-b-2 border-[var(--ink)]">
+            <thead className="border-b-2 border-[var(--c-ink)]">
               <tr>
                 <th className="p-4">कारण कोड<span className="secondary-copy block" lang="en">FailureCode</span></th>
                 <th className="p-4">नागरिक के लिए कारण</th>
@@ -63,7 +63,7 @@ export default function ResearchPage() {
             </thead>
             <tbody>
               {failures.map((failure) => (
-                <tr key={failure.code} className="border-b border-[var(--rule)] align-top last:border-b-0">
+                <tr key={failure.code} className="border-b border-[var(--c-sage)] align-top last:border-b-0">
                   <th className="p-4 font-mono text-[15px]" scope="row">{failure.code}</th>
                   <td className="p-4">{failure.plain.hi}</td>
                   <td className="p-4 text-[24px] font-semibold">—</td>
@@ -88,13 +88,13 @@ export default function ResearchPage() {
             ["फोन के प्रकार", "Device types", "__"],
             ["साक्षात्कार की तारीख़ें", "Interview dates", "__ से __"],
           ].map(([hi, en, value]) => (
-            <div key={en} className="border-t border-[var(--rule)] pt-4 first:border-t-0 first:pt-0">
+            <div key={en} className="border-t border-[var(--c-sage)] pt-4 first:border-t-0 first:pt-0">
               <dt className="text-[19px] font-semibold">{hi}<span className="secondary-copy block" lang="en">{en}</span></dt>
               <dd className="mt-2 text-[22px] font-semibold">{value}</dd>
             </div>
           ))}
         </dl>
-        <p className="mt-5 border-t border-[var(--rule)] pt-5 text-[19px] font-semibold leading-[1.6]">
+        <p className="mt-5 border-t border-[var(--c-sage)] pt-5 text-[19px] font-semibold leading-[1.6]">
           हर कथन के लिए सूचित सहमति, कोई आधार या खाता नंबर नहीं, field और synthetic स्रोत अलग, और नकारात्मक निष्कर्ष भी प्रकाशित होंगे। Sample और भर्ती की योजना fieldwork से पहले दर्ज होगी।
         </p>
       </section>

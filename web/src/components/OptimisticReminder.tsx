@@ -43,7 +43,7 @@ export default function OptimisticReminder({ defaultDate }: { defaultDate: strin
             name="reminderDate"
             required
             defaultValue={defaultDate}
-            className="mt-2 block min-h-14 w-full rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-3 py-2 text-[19px]"
+            className="mt-2 block min-h-14 w-full rounded-[14px] border-2 border-[var(--c-ink)] bg-[var(--c-card-bg)] px-3 py-2 text-[19px]"
           />
         </label>
         <button type="submit" disabled={reminderPending} className="primary-action w-full disabled:cursor-wait disabled:opacity-75">

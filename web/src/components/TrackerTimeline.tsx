@@ -41,7 +41,7 @@ export default function TrackerTimeline({ record, failure }: TrackerTimelineProp
 
   return (
     <section className="document-card" aria-labelledby="timeline-title">
-      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--rule)] p-5 sm:p-6">
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--c-sage)] p-5 sm:p-6">
         <div>
           <p className="section-label">निदान से समाधान तक</p>
           <h2 id="timeline-title" className="mt-2 text-[28px] font-semibold">आपकी प्रगति</h2>
@@ -51,14 +51,14 @@ export default function TrackerTimeline({ record, failure }: TrackerTimelineProp
 
       <ol>
         {steps.map((step, index) => (
-          <li key={step.en} className="grid grid-cols-[44px_1fr] gap-4 border-b border-[var(--rule)] p-5 last:border-b-0 sm:p-6">
+          <li key={step.en} className="grid grid-cols-[44px_1fr] gap-4 border-b border-[var(--c-sage)] p-5 last:border-b-0 sm:p-6">
             <span
               className={`flex h-11 w-11 items-center justify-center border-2 font-semibold ${
                 step.state === "done"
                   ? "status-working"
                   : step.state === "alert"
                     ? "status-broken"
-                    : "border-[var(--ink)]"
+                    : "border-[var(--c-ink)]"
               }`}
               aria-hidden="true"
             >

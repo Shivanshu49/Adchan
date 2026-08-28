@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>adchan</title>
+  <link rel="icon" type="image/png" href="logo1.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,600,0,0"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="site-wrapper">
+    <main class="main-card" id="home">
+
+      <!-- Topbar: Logo, Language, Profile -->
+      <header class="topbar">
+        <a href="#home" class="logo-link" aria-label="adchan">
+          <img src="logo1.png" alt="adchan" class="logo-img">
+        </a>
+
+        <div class="topbar-actions">
+          <div class="lang-dropdown-box" id="lang-box">
+            <button type="button" class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false">
+              <span id="cur-lang">हिंदी</span>
+              <span class="dropdown-arrow">⌄</span>
+            </button>
+            <div class="lang-menu" id="lang-menu">
+              <button type="button" class="lang-opt active" data-lang="hi">हिंदी</button>
+              <button type="button" class="lang-opt" data-lang="en">English</button>
+              <button type="button" class="lang-opt" data-lang="mr">मराठी</button>
+              <button type="button" class="lang-opt" data-lang="gu">ગુજરાતી</button>
+            </div>
+          </div>
+
+          <button type="button" class="profile-circle-btn" id="profile-toggle-btn" aria-label="प्रोफाइल">
+            <span class="material-symbols-outlined">person</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Hero Banner -->
+      <section class="hero-card">
+        <img src="kishan-banner-250px.png" alt="नमस्ते किसान! आसान जानकारी, सही समय पर" class="hero-img">
+      </section>
+
+      <!-- Voice Action Pill ("बोलकर बताइए") -->
+      <section class="voice-section">
+        <button type="button" class="voice-card" id="voice-btn" aria-label="बोलकर बताइए">
+          <div class="voice-waves-icon">
+            <span class="v-wave"></span>
+            <span class="v-wave"></span>
+            <div class="v-mic">
+              <span class="material-symbols-outlined">mic</span>
+            </div>
+          </div>
+          <div class="voice-copy">
+            <span class="voice-heading">बोलकर बताइए</span>
+            <span class="voice-subheading">आपको कैसे मदद करे?</span>
+          </div>
+        </button>
+      </section>
+
+      <!-- Registration Search Card -->
+      <section class="registration-card">
+        <div class="reg-title-row">
+          <span class="material-symbols-outlined reg-icon">badge</span>
+          <h2 class="reg-title">रजिस्ट्रेशन नंबर डालिए</h2>
+        </div>
+
+        <form class="reg-form" id="reg-form">
+          <div class="reg-input-wrapper">
+            <span class="material-symbols-outlined reg-search-ico">search</span>
+            <input type="text" id="reg-input" class="reg-input" placeholder="रजिस्ट्रेशन नंबर डालिए" autocomplete="off">
+          </div>
+          <button type="submit" class="reg-submit-btn">खोजें</button>
+        </form>
+
+        <div class="reg-footer-note">
+          <span class="material-symbols-outlined lock-ico">lock</span>
+          <span id="form-note">जानकारी सुरक्षित है</span>
+        </div>
+      </section>
+
+      <!-- Starting 4 Icons on Home Screen -->
+      <section class="home-tools-grid">
+        <!-- 1. स्थिति -->
+        <button type="button" class="tool-btn" data-tool="status">
+          <div class="tool-icon-wrap">
+            <svg class="tool-svg" viewBox="0 0 100 100">
+              <path
+                d="M38 18 C38 14, 62 14, 62 18 C65 24, 69 28, 73 28 C78 28, 78 33, 75 37 C82 48, 85 64, 78 78 C71 90, 29 90, 22 78 C15 64, 18 48, 25 37 C22 33, 22 28, 27 28 C31 28, 35 24, 38 18 Z"
+                fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" stroke-linejoin="round" />
+              <path d="M33 30 Q50 35 67 30" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+              <text x="50" y="65" font-family="'Hind', sans-serif" font-size="34" font-weight="700" text-anchor="middle"
+                fill="#38422B">₹</text>
+            </svg>
+          </div>
+          <span class="tool-label">स्थिति</span>
+        </button>
+
+        <!-- 2. e-KYC -->
+        <button type="button" class="tool-btn" data-tool="ekyc">
+          <div class="tool-icon-wrap">
+            <svg class="tool-svg" viewBox="0 0 100 100">
+              <path d="M50 14 L78 26 C78 52, 68 76, 50 86 C32 76, 22 52, 22 26 Z" fill="#CCD5C0" stroke="#38422B"
+                stroke-width="4.5" stroke-linejoin="round" />
+              <path d="M36 50 L46 60 L65 38" stroke="#38422B" stroke-width="5.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <span class="tool-label">e-KYC</span>
+        </button>
+
+        <!-- 3. पंजीकरण -->
+        <button type="button" class="tool-btn" data-tool="registration">
+          <div class="tool-icon-wrap">
+            <svg class="tool-svg" viewBox="0 0 100 100">
+              <rect x="24" y="16" width="46" height="66" rx="8" fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+              <line x1="34" y1="32" x2="56" y2="32" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+              <line x1="34" y1="44" x2="54" y2="44" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+              <path d="M56 78 L78 54 L84 60 L62 84 L54 86 Z" fill="#9FB873" stroke="#38422B" stroke-width="3.5"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <span class="tool-label">पंजीकरण</span>
+        </button>
+
+        <!-- 4. योजनाएं -->
+        <button type="button" class="tool-btn" data-tool="schemes">
+          <div class="tool-icon-wrap">
+            <svg class="tool-svg" viewBox="0 0 100 100">
+              <path d="M50 16 L50 24" stroke="#000000" stroke-width="3" />
+              <path d="M50 16 C55 14, 60 18, 64 16 L64 22 C60 24, 55 20, 50 22 Z" fill="#9FB873" stroke="#38422B"
+                stroke-width="2.5" />
+              <path d="M30 38 C30 25, 70 25, 70 38 Z" fill="#000000" stroke="#38422B" stroke-width="4.5" />
+              <rect x="22" y="38" width="56" height="6" rx="2" fill="#38422B" />
+              <rect x="27" y="44" width="8" height="26" fill="#38422B" />
+              <rect x="41" y="44" width="8" height="26" fill="#38422B" />
+              <rect x="53" y="44" width="8" height="26" fill="#38422B" />
+              <rect x="67" y="44" width="8" height="26" fill="#38422B" />
+              <rect x="14" y="76" width="72" height="7" rx="2" fill="#38422B" />
+            </svg>
+          </div>
+          <span class="tool-label">योजनाएं</span>
+        </button>
+      </section>
+
+      <!-- Bottom Quick Links (Exact as mockup) -->
+      <footer class="bottom-links">
+        <button type="button" class="bottom-link-btn" data-info="genuine">
+          <span class="material-symbols-outlined b-icon">verified_user</span>
+          <span>क्या असली है</span>
+        </button>
+        <button type="button" class="bottom-link-btn" data-info="how">
+          <span class="material-symbols-outlined b-icon">help</span>
+          <span>कैसे काम करता है</span>
+        </button>
+        <button type="button" class="bottom-link-btn" data-info="research">
+          <span class="material-symbols-outlined b-icon">menu_book</span>
+          <span>शोध</span>
+        </button>
+        <button type="button" class="bottom-link-btn" id="reset-btn">
+          <span class="material-symbols-outlined b-icon">restart_alt</span>
+          <span>डेमो रीसेट करें</span>
+        </button>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- PROFILE DRAWER: ALL 12 FEATURES IN PROFILE SECTION             -->
+  <!-- ============================================================== -->
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="profile-drawer" id="profile-drawer" aria-label="प्रोफाइल एवं सेवाएं">
+
+    <div class="drawer-header">
+      <h3 class="drawer-title">मेरा प्रोफ़ाइल</h3>
+      <button type="button" class="drawer-close" id="drawer-close" aria-label="बंद करें">×</button>
+    </div>
+
+    <div class="drawer-user-box">
+      <div class="user-avatar-circle">
+        <span>क</span>
+      </div>
+      <div class="user-meta">
+        <strong>किसान साथी</strong>
+        <small>अपना खाता बनाएं</small>
+      </div>
+    </div>
+
+    <!-- All 12 Icons & Features -->
+    <div class="drawer-12-container">
+      <h4 class="drawer-subhead">सभी सेवाएं</h4>
+
+      <div class="drawer-grid-12">
+
+        <!-- 1. स्थिति -->
+        <button type="button" class="d-tool-btn" data-tool="status">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <path
+                d="M38 18 C38 14, 62 14, 62 18 C65 24, 69 28, 73 28 C78 28, 78 33, 75 37 C82 48, 85 64, 78 78 C71 90, 29 90, 22 78 C15 64, 18 48, 25 37 C22 33, 22 28, 27 28 C31 28, 35 24, 38 18 Z"
+                fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+              <text x="50" y="65" font-family="'Hind', sans-serif" font-size="34" font-weight="700" text-anchor="middle"
+                fill="#38422B">₹</text>
+            </svg>
+          </div>
+          <span>स्थिति</span>
+        </button>
+
+        <!-- 2. e-KYC -->
+        <button type="button" class="d-tool-btn" data-tool="ekyc">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <path d="M50 14 L78 26 C78 52, 68 76, 50 86 C32 76, 22 52, 22 26 Z" fill="#CCD5C0" stroke="#38422B"
+                stroke-width="4.5" />
+              <path d="M36 50 L46 60 L65 38" stroke="#38422B" stroke-width="5.5" stroke-linecap="round" />
+            </svg>
+          </div>
+          <span>e-KYC</span>
+        </button>
+
+        <!-- 3. पंजीकरण -->
+        <button type="button" class="d-tool-btn" data-tool="registration">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <rect x="24" y="16" width="46" height="66" rx="8" fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+              <line x1="34" y1="32" x2="56" y2="32" stroke="#38422B" stroke-width="4" />
+              <line x1="34" y1="44" x2="54" y2="44" stroke="#38422B" stroke-width="4" />
+              <path d="M56 78 L78 54 L84 60 L62 84 L54 86 Z" fill="#9FB873" stroke="#38422B" stroke-width="3" />
+            </svg>
+          </div>
+          <span>पंजीकरण</span>
+        </button>
+
+        <!-- 4. योजनाएं -->
+        <button type="button" class="d-tool-btn" data-tool="schemes">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <path d="M50 16 L50 24" stroke="#38422B" stroke-width="3" />
+              <path d="M30 38 C30 25, 70 25, 70 38 Z" fill="#CCD5C0" stroke="#38422B" stroke-width="4" />
+              <rect x="22" y="38" width="56" height="5" fill="#38422B" />
+              <rect x="14" y="76" width="72" height="7" fill="#38422B" rx="2" />
+            </svg>
+          </div>
+          <span>योजनाएं</span>
+        </button>
+
+        <!-- 5. फसल -->
+        <button type="button" class="d-tool-btn" data-tool="crops">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <path d="M50 82 L50 48" stroke="#38422B" stroke-width="5" stroke-linecap="round" />
+              <path d="M50 56 C32 56 22 42 22 28 C38 28 50 40 50 56 Z" fill="#9FB873" stroke="#38422B"
+                stroke-width="4" />
+              <path d="M50 48 C68 48 78 34 78 20 C62 20 50 32 50 48 Z" fill="#9FB873" stroke="#38422B"
+                stroke-width="4" />
+              <ellipse cx="50" cy="84" rx="28" ry="6" fill="#38422B" />
+            </svg>
+          </div>
+          <span>फसल</span>
+        </button>
+
+        <!-- 6. मौसम -->
+        <button type="button" class="d-tool-btn" data-tool="weather">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <circle cx="62" cy="38" r="16" fill="#9AA458" stroke="#38422B" stroke-width="3.5" />
+              <path
+                d="M32 72 C22 72 16 64 16 54 C16 45 23 38 32 38 C35 30 43 24 53 24 C65 24 74 33 74 45 C78 45 82 49 82 55 C82 64 74 72 65 72 Z"
+                fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+            </svg>
+          </div>
+          <span>मौसम</span>
+        </button>
+
+        <!-- 7. उर्वरक -->
+        <button type="button" class="d-tool-btn" data-tool="fertilizer">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <path d="M34 22 C34 16 66 16 66 22 L76 34 L76 80 C76 86 66 88 50 88 C34 88 24 86 24 80 L24 34 Z"
+                fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+              <ellipse cx="50" cy="56" rx="14" ry="18" fill="#9FB873" stroke="#38422B" stroke-width="3.5" />
+            </svg>
+          </div>
+          <span>उर्वरक</span>
+        </button>
+
+        <!-- 8. कैलकुलेटर -->
+        <button type="button" class="d-tool-btn" data-tool="calculator">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <rect x="24" y="16" width="52" height="68" rx="10" fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+              <rect x="32" y="25" width="36" height="15" rx="4" fill="#38422B" />
+              <circle cx="37" cy="50" r="4" fill="#38422B" />
+              <circle cx="50" cy="50" r="4" fill="#38422B" />
+              <circle cx="63" cy="50" r="4" fill="#38422B" />
+              <circle cx="50" cy="62" r="4" fill="#38422B" />
+              <circle cx="63" cy="74" r="4" fill="#9FB873" />
+            </svg>
+          </div>
+          <span>कैलकुलेटर</span>
+        </button>
+
+        <!-- 9. सूचनाएं -->
+        <button type="button" class="d-tool-btn" data-tool="notifications">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <path d="M22 42 L38 34 L66 22 L66 78 L38 66 L22 58 Z" fill="#CCD5C0" stroke="#38422B"
+                stroke-width="4.5" />
+              <path d="M38 66 L38 84 C38 86 34 88 30 88 L26 88 L26 60" stroke="#38422B" stroke-width="4" />
+            </svg>
+          </div>
+          <span>सूचनाएं</span>
+        </button>
+
+        <!-- 10. सहायता -->
+        <button type="button" class="d-tool-btn" data-tool="help">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <path d="M24 55 C24 35 34 22 50 22 C66 22 76 35 76 55" stroke="#38422B" stroke-width="5" fill="none" />
+              <rect x="18" y="52" width="12" height="22" rx="6" fill="#38422B" />
+              <rect x="70" y="52" width="12" height="22" rx="6" fill="#38422B" />
+            </svg>
+          </div>
+          <span>सहायता</span>
+        </button>
+
+        <!-- 11. वीडियो -->
+        <button type="button" class="d-tool-btn" data-tool="videos">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <rect x="18" y="26" width="64" height="48" rx="12" fill="#38422B" />
+              <polygon points="44,38 64,50 44,62" fill="#FFFFFF" />
+            </svg>
+          </div>
+          <span>वीडियो</span>
+        </button>
+
+        <!-- 12. प्रोफाइल -->
+        <button type="button" class="d-tool-btn" data-tool="profile">
+          <div class="d-icon-box">
+            <svg class="d-svg" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="36" fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+              <circle cx="50" cy="40" r="14" fill="#38422B" />
+              <path d="M26 74 C28 60 38 56 50 56 C62 56 72 60 74 74" fill="#38422B" />
+            </svg>
+          </div>
+          <span>प्रोफाइल</span>
+        </button>
+
+      </div>
+    </div>
+
+    <div class="drawer-bottom-action">
+      <button type="button" class="drawer-login-btn">लॉग इन / साइन अप</button>
+    </div>
+
+  </aside>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: FOR SERVICES & INFO                                     -->
+  <!-- ============================================================== -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal-window">
+      <div class="modal-head">
+        <h3 id="modal-title">विवरण</h3>
+        <button type="button" class="modal-close-btn" id="modal-close-btn">×</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- VOICE MODAL (OPENS ONLY ON VOICE BUTTON CLICK)                 -->
+  <!-- ============================================================== -->
+  <div class="voice-backdrop" id="voice-backdrop">
+    <div class="voice-popup">
+      <button type="button" class="voice-close-btn" id="voice-close-btn">×</button>
+
+      <div class="voice-orb" id="voice-orb">
+        <div class="v-ring v-ring-1"></div>
+        <div class="v-ring v-ring-2"></div>
+        <div class="v-orb-center">
+          <span class="material-symbols-outlined">mic</span>
+        </div>
+      </div>
+
+      <h3 class="voice-modal-heading" id="voice-heading">बोलकर बताइए</h3>
+      <p class="voice-modal-sub" id="voice-sub">आपकी बात सुनी जा रही है...</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

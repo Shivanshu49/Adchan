@@ -16,7 +16,7 @@ export default function DemoRegistrationList({ compact = false }: DemoRegistrati
           <Link
             href={`/status/${persona.regNo}`}
             prefetch={false}
-            className={compact ? "demo-quick-link" : "flex min-h-14 items-center justify-between gap-4 rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-4 py-3 text-[var(--ink)] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"}
+            className={compact ? "demo-quick-link" : "flex min-h-14 items-center justify-between gap-4 rounded-[14px] border-2 border-[var(--c-ink)] bg-[var(--c-card-bg)] px-4 py-3 text-[var(--c-ink)] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-[var(--c-ink)]"}
             aria-label={compact ? `${persona.regNo}, ${persona.name.hi}, ${persona.district.hi}` : undefined}
           >
             <span className="min-w-0">

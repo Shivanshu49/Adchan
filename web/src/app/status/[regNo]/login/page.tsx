@@ -67,7 +67,7 @@ export default async function LoginPage({ params, searchParams }: LoginPageProps
           कोई भी 10 अंकों का काल्पनिक नंबर चलेगा। नंबर सेव नहीं होगा और कोई SMS नहीं भेजा जाएगा।
         </p>
 
-        <div className="mt-6 border-2 border-[var(--ink)] p-5">
+        <div className="mt-6 border-2 border-[var(--c-ink)] p-5">
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-[19px] font-semibold">नमूना OTP स्क्रीन पर है</p>
             <MockBadge hi="नमूना OTP" />
@@ -94,7 +94,7 @@ export default async function LoginPage({ params, searchParams }: LoginPageProps
               maxLength={10}
               required
               placeholder="0000000000"
-              className="mt-3 min-h-14 w-full rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-4 py-3 font-mono text-[21px] font-semibold"
+              className="mt-3 min-h-14 w-full rounded-[14px] border-2 border-[var(--c-ink)] bg-[var(--c-card-bg)] px-4 py-3 font-mono text-[21px] font-semibold"
             />
           </div>
           <div>
@@ -109,7 +109,7 @@ export default async function LoginPage({ params, searchParams }: LoginPageProps
               maxLength={6}
               required
               defaultValue="123456"
-              className="mt-3 min-h-14 w-full rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-4 py-3 font-mono text-[21px] font-semibold tracking-[0.15em]"
+              className="mt-3 min-h-14 w-full rounded-[14px] border-2 border-[var(--c-ink)] bg-[var(--c-card-bg)] px-4 py-3 font-mono text-[21px] font-semibold tracking-[0.15em]"
             />
           </div>
           <button type="submit" className="primary-action w-full">नमूना लॉगिन करें</button>

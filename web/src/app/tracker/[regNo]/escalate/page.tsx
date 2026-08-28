@@ -100,7 +100,7 @@ export default async function EscalationPage({ params, searchParams }: Escalatio
         <input type="hidden" name="regNo" value={regNo} />
 
         <section className="document-card" aria-labelledby="hindi-summary-title">
-          <div className="border-b border-[var(--rule)] p-5 sm:p-6">
+          <div className="border-b border-[var(--c-sage)] p-5 sm:p-6">
             <p className="section-label">आपके नाम से क्या कहा जाएगा</p>
             <h2 id="hindi-summary-title" className="mt-2 text-[28px] font-semibold">साफ़ हिंदी सार</h2>
           </div>
@@ -109,14 +109,14 @@ export default async function EscalationPage({ params, searchParams }: Escalatio
             <p><strong>आपकी स्थिति:</strong> {match.failure.plain.hi}</p>
             <p><strong>तारीख़ें:</strong> आख़िरी दर्ज किस्त {new Intl.DateTimeFormat("hi-IN", { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${match.persona.lastInstallmentDate}T00:00:00Z`))} थी। निदान के बाद {match.failure.typicalDays} दिन का सामान्य समय पूरा हो चुका है।</p>
             <p><strong>अब तक:</strong> मसौदे में लिखा है कि आपने कारण और {match.failure.office.hi} वाला रास्ता देखा और सामान्य समय तक इंतज़ार किया। अगर आपने कुछ अलग किया है तो नीचे अंग्रेज़ी लिखावट बदलें।</p>
-            <p className="border-l-4 border-[var(--ink)] pl-4 font-semibold">
+            <p className="border-l-4 border-[var(--c-ink)] pl-4 font-semibold">
               हिंदी सार अपने-आप नहीं बदलता। जमा करने से पहले इसे अंग्रेज़ी मसौदे से मिलाकर पढ़ें।
             </p>
           </div>
         </section>
 
         <section className="document-card mt-8" aria-labelledby="english-draft-title">
-          <div className="border-b border-[var(--rule)] p-5 sm:p-6">
+          <div className="border-b border-[var(--c-sage)] p-5 sm:p-6">
             <p className="section-label">बदलने योग्य औपचारिक अंग्रेज़ी</p>
             <h2 id="english-draft-title" className="mt-2 text-[28px] font-semibold">CPGRAMS शिकायत का मसौदा</h2>
             <p className="secondary-copy mt-1" lang="en">Editable formal English required by the receiving system</p>
@@ -132,7 +132,7 @@ export default async function EscalationPage({ params, searchParams }: Escalatio
                     required
                     defaultValue={value}
                     lang="en"
-                    className="mt-2 min-h-14 w-full rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-3 py-2 text-[19px] font-normal"
+                    className="mt-2 min-h-14 w-full rounded-[14px] border-2 border-[var(--c-ink)] bg-[var(--c-card-bg)] px-3 py-2 text-[19px] font-normal"
                   />
                 ) : (
                   <textarea
@@ -141,7 +141,7 @@ export default async function EscalationPage({ params, searchParams }: Escalatio
                     rows={name === "attempts" ? 6 : 4}
                     defaultValue={value}
                     lang="en"
-                    className="mt-2 w-full rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-3 py-3 text-[19px] font-normal leading-[1.6]"
+                    className="mt-2 w-full rounded-[14px] border-2 border-[var(--c-ink)] bg-[var(--c-card-bg)] px-3 py-3 text-[19px] font-normal leading-[1.6]"
                   />
                 )}
               </label>

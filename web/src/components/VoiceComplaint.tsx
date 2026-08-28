@@ -222,66 +222,87 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
         : "बोलकर परेशानी बताएँ";
 
   return (
-    <div className="document-card p-5 sm:p-6">
+    <div className="voice-shell">
       <button
         type="button"
         onClick={state === "recording" ? stopRecording : startRecording}
         disabled={busy}
-        className="flex min-h-[72px] w-full items-center justify-center gap-3 rounded-[4px] border-2 border-[var(--ink)] bg-[var(--ink)] px-5 py-4 text-[21px] font-semibold text-[var(--surface)] disabled:cursor-wait disabled:opacity-60"
+        className="voice-card"
         aria-pressed={state === "recording"}
       >
-        <span aria-hidden="true" className="text-[26px]">{state === "recording" ? "■" : "●"}</span>
-        {buttonText}
+        <span className="voice-waves-icon" aria-hidden="true">
+          <span className="voice-wave" />
+          <span className="voice-wave" />
+          <span className="voice-mic">
+            {state === "recording" ? (
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="7" width="10" height="10" rx="1" /></svg>
+            ) : (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="9" y="2" width="6" height="12" rx="3" />
+                <path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8" />
+              </svg>
+            )}
+          </span>
+        </span>
+        <span className="voice-copy">
+          <span className="voice-heading">{buttonText}</span>
+          <span className="voice-subheading">
+            {state === "recording" ? "हो जाए तो यहीं छूकर रोकें" : "अपनी अड़चन अपनी भाषा में कहें"}
+          </span>
+        </span>
       </button>
-      <p className="mt-3 text-[19px] leading-[1.6]">
-        अधिकतम 60 सेकंड। माइक्रोफ़ोन न चले तो नीचे लिखें।
-      </p>
 
-      {showWakeNotice && (
-        <div
-          role="status"
-          aria-live="polite"
-          className="state-working mt-4 border-l-[8px] p-4"
-        >
-          <p className="section-label text-[var(--working)]">ऑनलाइन सेवा शुरू हो रही है…</p>
-          <p className="mt-2 text-[19px] font-semibold leading-[1.55]">
-            मुफ़्त सेवा कुछ देर खाली रहने पर सो जाती है। पन्ना खुला रखें—
-            {state === "transcribing"
-              ? "आपकी आवाज़ भेजी जा रही है, दोबारा बोलने की ज़रूरत नहीं।"
-              : "आपकी बात मिल गई है और जाँच जारी है।"}
-          </p>
-          <p className="secondary-copy mt-2" lang="en">
-            The free server is waking up. Keep this page open; you do not need to try again.
-          </p>
-        </div>
-      )}
+      <div className="voice-input-panel">
+        <p className="text-[17px] leading-[1.55] text-[var(--c-muted)]">
+          अधिकतम 60 सेकंड। माइक्रोफ़ोन न चले तो नीचे लिखें।
+        </p>
 
-      <form onSubmit={submitText} className="mt-5 border-t border-[var(--rule)] pt-5">
-        <label htmlFor="complaint" className="block text-[19px] font-semibold">
-          या अपनी परेशानी लिखें
-          <span className="secondary-copy ml-2" lang="en">/ Type instead</span>
-        </label>
-        <textarea
-          ref={complaintRef}
-          id="complaint"
-          value={complaint}
-          onChange={(event) => setComplaint(event.target.value)}
-          rows={3}
-          maxLength={4000}
-          placeholder="जैसे: पोर्टल पर eKYC बाकी दिखा रहा है…"
-          className="mt-3 w-full rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-4 py-3 text-[19px] leading-[1.6] placeholder:text-[var(--ink)] placeholder:opacity-60"
-        />
-        <button
-          type="submit"
-          disabled={busy || state === "recording"}
-          className="mt-3 flex min-h-14 w-full items-center justify-center rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)] px-5 py-3 text-[19px] font-semibold text-[var(--ink)] disabled:cursor-wait disabled:opacity-60"
-        >
-          परेशानी की वजह खोजें
-        </button>
-      </form>
-      <p className="mt-3 min-h-8 text-[19px] font-semibold" role="status" aria-live="polite">
-        {message}
-      </p>
+        {showWakeNotice && (
+          <div
+            role="status"
+            aria-live="polite"
+            className="state-working mt-4 border-l-[8px] p-4"
+          >
+            <p className="section-label">ऑनलाइन सेवा शुरू हो रही है…</p>
+            <p className="mt-2 text-[19px] font-semibold leading-[1.55]">
+              मुफ़्त सेवा कुछ देर खाली रहने पर सो जाती है। पन्ना खुला रखें—
+              {state === "transcribing"
+                ? "आपकी आवाज़ भेजी जा रही है, दोबारा बोलने की ज़रूरत नहीं।"
+                : "आपकी बात मिल गई है और जाँच जारी है।"}
+            </p>
+            <p className="secondary-copy mt-2" lang="en">
+              The free server is waking up. Keep this page open; you do not need to try again.
+            </p>
+          </div>
+        )}
+
+        <form onSubmit={submitText} className="mt-4 border-t border-[var(--c-sage)] pt-4">
+          <label htmlFor="complaint" className="block text-[19px] font-semibold">
+            या अपनी परेशानी लिखें
+            <span className="secondary-copy ml-2" lang="en">/ Type instead</span>
+          </label>
+          <textarea
+            ref={complaintRef}
+            id="complaint"
+            value={complaint}
+            onChange={(event) => setComplaint(event.target.value)}
+            rows={3}
+            maxLength={4000}
+            placeholder="जैसे: पोर्टल पर eKYC बाकी दिखा रहा है…"
+            className="mt-3 w-full rounded-[14px] border-2 border-[var(--c-moss)] bg-[var(--c-card-bg)] px-4 py-3 text-[19px] leading-[1.6] focus:border-[var(--c-dark-olive)] focus:outline-none"
+          />
+          <button
+            type="submit"
+            disabled={busy || state === "recording"}
+            className="primary-action mt-3 w-full disabled:cursor-wait disabled:opacity-60"
+          >
+            परेशानी की वजह खोजें
+          </button>
+        </form>
+        <p className="mt-3 min-h-8 text-[19px] font-semibold" role="status" aria-live="polite">
+          {message}
+        </p>
+      </div>
     </div>
   );
 }

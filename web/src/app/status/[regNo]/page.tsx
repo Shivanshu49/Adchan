@@ -72,7 +72,7 @@ export default async function StatusPage({ params }: StatusPageProps) {
         </div>
         <div className="mt-4">
           <div>
-            <h1 id="beneficiary-title" className="text-[30px] font-semibold leading-[1.3] text-[var(--ink)]">
+            <h1 id="beneficiary-title" className="text-[30px] font-semibold leading-[1.3] text-[var(--c-ink)]">
               {persona.name.hi}
             </h1>
             <p className="secondary-copy mt-1" lang="en">
@@ -86,7 +86,7 @@ export default async function StatusPage({ params }: StatusPageProps) {
             </p>
           </div>
 
-          <dl className="mt-5 grid gap-4 border-t border-[var(--rule)] pt-4">
+          <dl className="mt-5 grid gap-4 border-t border-[var(--c-sage)] pt-4">
             <div className="grid gap-1">
               <dt className="text-[19px] font-semibold">रजिस्ट्रेशन नंबर</dt>
               <dd className="font-mono text-[19px] font-semibold">{persona.regNo}</dd>

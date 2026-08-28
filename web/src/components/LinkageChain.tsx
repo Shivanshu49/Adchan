@@ -35,7 +35,7 @@ export default function LinkageChain({ linkage, brokenLink }: LinkageChainProps)
         <p className="section-label">रिकॉर्ड की कड़ियाँ</p>
         <MockBadge hi="नमूना जुड़ाव" />
       </div>
-      <h2 id="chain-title" className="mt-2 text-[28px] font-semibold leading-[1.3] text-[var(--ink)]">
+      <h2 id="chain-title" className="mt-2 text-[28px] font-semibold leading-[1.3] text-[var(--c-ink)]">
         पैसा कहाँ अटका है?
       </h2>
       <p className="secondary-copy mt-1" lang="en">

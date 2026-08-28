@@ -80,24 +80,28 @@ That distinction is real and no other product makes it.
 ### Color
 
 ```css
---ink:        #1A1A1A;   /* all text. near-black, not pure — less glare in sun */
---paper:      #FAF8F5;   /* background. warm off-white, not white */
---rule:       #D6D1C9;   /* hairlines, dividers, inactive chain links */
+--c-dark-olive: #38422B;
+--c-moss:       #6E7753;
+--c-sage:       #CCD5C0;
+--c-leaf:       #9FB873;
+--c-olive:      #9AA458;
+--c-bg:         #F2F4ED;
+--c-card-bg:    #FFFFFF;
+--c-card-tint:  #FBFDF6;
+--c-ink:        #21291B;
+--c-muted:      #56644D;
 
---broken:     #C1272D;   /* the ONE red. broken link, blocked state. nothing else */
---working:    #1B7A3D;   /* the ONE green. connected link, done state. nothing else */
-
---surface:    #FFFFFF;   /* raised cards only */
---mock:       #6B5B95;   /* mock-data badges ONLY — never used for content */
+--c-linkage-broken:  #C1272D; /* broken linkage node/connector only */
+--c-linkage-working: #1B7A3D; /* working linkage node/connector only */
 ```
 
 Notes:
 - **No saffron, no white-green-saffron combinations, no Ashoka blue.** That is
   the Indian flag palette and the brief bans looking like an official product.
-- Contrast: `--ink` on `--paper` is ~15:1. Well past WCAG AAA. That is
+- Contrast: `--c-ink` on `--c-bg` is 13.55:1. Well past WCAG AAA. That is
   deliberate — this screen is read outdoors.
-- `--mock` is purple because it appears nowhere else in the product, so a
-  reviewer instantly learns "purple = not real."
+- Mocked badges use dark olive with a visible `MOCKED` or equivalent label;
+  colour is never their only signal.
 
 ### Type
 
@@ -122,7 +126,8 @@ round, and never English-only.
 ### Layout
 
 ```
-Max width 560px, centered. Single column. Never two columns, at any breakpoint.
+Outer shell max width 900px, centered; reading content max width 780px. Content
+stays a single readable column, while the hero may place live text beside art.
 Vertical rhythm: 8px base. Sections separated by 32px.
 Side padding: 20px.
 Touch targets: 56px minimum height. (48 is the accessibility floor; he has

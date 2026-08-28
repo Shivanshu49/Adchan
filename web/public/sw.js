@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "adchan-offline-";
-const CACHE_NAME = `${CACHE_PREFIX}v4`;
+const CACHE_NAME = `${CACHE_PREFIX}v5`;
 
 // Keep install-time transfer tiny. Build-hashed CSS/font URLs and the two audio
 // files for the page being viewed are sent by the page after window.load.

@@ -10,7 +10,7 @@ interface DiagnosisCardProps {
 export default function DiagnosisCard({ failure }: DiagnosisCardProps) {
   return (
     <section className="document-card print-card" aria-labelledby="diagnosis-title">
-      <div className="border-b border-[var(--rule)] px-5 py-4">
+      <div className="border-b border-[var(--c-sage)] px-5 py-4">
         <div className="flex flex-wrap items-center gap-2">
           <p className="section-label">किस्त क्यों रुकी</p>
           <MockBadge hi="नमूना निदान" />
@@ -21,13 +21,13 @@ export default function DiagnosisCard({ failure }: DiagnosisCardProps) {
       <div className="p-5 sm:p-6">
         <h2
           id="diagnosis-title"
-          className="text-[32px] font-semibold leading-[1.35] tracking-[-0.01em] text-[var(--ink)]"
+          className="text-[32px] font-semibold leading-[1.35] tracking-[-0.01em] text-[var(--c-ink)]"
         >
           {failure.plain.hi}
         </h2>
         <p className="secondary-copy mt-3" lang="en">{failure.plain.en}</p>
 
-        <div className="no-print mt-6 border-t border-[var(--rule)] pt-5">
+        <div className="no-print mt-6 border-t border-[var(--c-sage)] pt-5">
           <p className="text-[19px] font-semibold">▶ कारण सुनिए</p>
           <p className="secondary-copy mt-1" lang="en">Listen to the diagnosis</p>
           <audio
@@ -41,12 +41,12 @@ export default function DiagnosisCard({ failure }: DiagnosisCardProps) {
           </audio>
         </div>
 
-        <details className="mt-6 border-t border-[var(--rule)]">
+        <details className="mt-6 border-t border-[var(--c-sage)]">
           <summary className="flex min-h-14 cursor-pointer items-center text-[19px] font-semibold">
             तकनीकी जानकारी
             <span className="secondary-copy ml-2" lang="en">/ Technical details</span>
           </summary>
-          <div className="mb-4 border-l-4 border-[var(--rule)] pl-4">
+          <div className="mb-4 border-l-4 border-[var(--c-sage)] pl-4">
             <p className="text-[15px] leading-[1.5]">{failure.portalText}</p>
             <code className="mt-2 block break-all font-mono text-[15px] font-semibold">
               {failure.code}

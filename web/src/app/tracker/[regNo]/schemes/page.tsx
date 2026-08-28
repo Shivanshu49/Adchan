@@ -42,7 +42,7 @@ export default async function SchemesPage({ params }: SchemesPageProps) {
       <section className="mt-8 grid gap-6" aria-label="दूसरी किसान योजनाएँ">
         {schemes.map((scheme) => (
           <article key={scheme.id} className="document-card">
-            <div className="border-b border-[var(--rule)] p-5 sm:p-6">
+            <div className="border-b border-[var(--c-sage)] p-5 sm:p-6">
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="text-[28px] font-semibold leading-[1.35]">{scheme.name.hi}</h2>
                 <MockBadge hi="नमूना packet" />
@@ -53,7 +53,7 @@ export default async function SchemesPage({ params }: SchemesPageProps) {
               <p className="text-[19px] font-semibold leading-[1.6]">{scheme.purpose.hi}</p>
               <p className="secondary-copy mt-1" lang="en">{scheme.purpose.en}</p>
 
-              <div className="mt-5 border-l-4 border-[var(--ink)] pl-4">
+              <div className="mt-5 border-l-4 border-[var(--c-ink)] pl-4">
                 <p className="section-label">सिर्फ़ प्रकाशित पात्रता</p>
                 <p className="mt-2 text-[19px] leading-[1.6]">{scheme.documentedEligibility.hi}</p>
               </div>
@@ -68,7 +68,7 @@ export default async function SchemesPage({ params }: SchemesPageProps) {
         ))}
       </section>
 
-      <p className="mt-8 border-t border-[var(--rule)] pt-5 text-[19px] leading-[1.6]">
+      <p className="mt-8 border-t border-[var(--c-sage)] pt-5 text-[19px] leading-[1.6]">
         <strong>ईमानदार सीमा:</strong> केवल ये चार योजनाएँ शामिल हैं। कोई पात्रता नियम अनुमान से नहीं जोड़ा गया; आधिकारिक स्रोत हर पैकेट पर दिया है।
       </p>
     </main>

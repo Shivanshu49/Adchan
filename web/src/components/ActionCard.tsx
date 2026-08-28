@@ -30,13 +30,13 @@ export default function ActionCard({
 
   return (
     <section className="action-card document-card print-card" aria-labelledby="action-title">
-      <div className="print-only action-card-section border-b-2 border-[var(--ink)]">
+      <div className="print-only action-card-section border-b-2 border-[var(--c-ink)]">
         <p className="text-[14pt] font-semibold">अड़चन · करने का पर्चा</p>
         <p>{persona.name.hi} · {persona.regNo}</p>
         <p className="mt-1 text-[10pt]">स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।</p>
       </div>
 
-      <header className="action-card-section flex flex-wrap items-start justify-between gap-3 border-b border-[var(--rule)] p-5 sm:p-6">
+      <header className="action-card-section flex flex-wrap items-start justify-between gap-3 border-b border-[var(--c-sage)] p-5 sm:p-6">
         <div>
           <p className="section-label">अगला कदम</p>
           <h2 id="action-title" className="mt-2 text-[28px] font-semibold leading-[1.3]">अब क्या करना है</h2>
@@ -44,18 +44,18 @@ export default function ActionCard({
         <MockBadge hi="नमूना मार्गदर्शन" />
       </header>
 
-      <div className="action-card-section border-b border-[var(--rule)] p-5 sm:p-6">
+      <div className="action-card-section border-b border-[var(--c-sage)] p-5 sm:p-6">
         <p className="section-label">1 · कहाँ जाएँ</p>
         <p className="mt-2 text-[26px] font-semibold leading-[1.35]">{failure.office.hi}</p>
         <p className="secondary-copy mt-1" lang="en">{failure.office.en}</p>
       </div>
 
-      <div className="action-card-section border-b border-[var(--rule)] p-5 sm:p-6">
+      <div className="action-card-section border-b border-[var(--c-sage)] p-5 sm:p-6">
         <p className="section-label">2 · साथ क्या ले जाएँ</p>
         <ol className="mt-4 space-y-4">
           {failure.documents.map((document, index) => (
             <li key={document.hi} className="flex gap-4 text-[19px] leading-[1.6]">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-[var(--ink)] font-semibold" aria-hidden="true">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-[var(--c-ink)] font-semibold" aria-hidden="true">
                 {index + 1}
               </span>
               <span>
@@ -71,14 +71,14 @@ export default function ActionCard({
         <p className="section-label">3 · काउंटर पर क्या कहें</p>
         <p className="secondary-copy mt-1" lang="en">Say this at the counter</p>
 
-        <blockquote className="action-script mt-4 border-4 border-[var(--ink)] bg-[var(--surface)] p-5 sm:p-6">
+        <blockquote className="action-script mt-4 border-4 border-[var(--c-ink)] bg-[var(--c-card-bg)] p-5 sm:p-6">
           <p className="text-[24px] font-medium leading-[1.5]">“{failure.script.hi}”</p>
-          <p className="secondary-copy mt-4 border-t border-[var(--rule)] pt-3" lang="en">
+          <p className="secondary-copy mt-4 border-t border-[var(--c-sage)] pt-3" lang="en">
             “{failure.script.en}”
           </p>
 
           {failure.script.hi !== "—" && (
-            <div className="no-print mt-5 border-t-2 border-[var(--ink)] pt-4">
+            <div className="no-print mt-5 border-t-2 border-[var(--c-ink)] pt-4">
               <p className="text-[21px] font-semibold">▶ यही वाक्य सुनिए</p>
               <p className="secondary-copy mt-1" lang="en">Listen and repeat</p>
               <audio
@@ -115,12 +115,12 @@ export default function ActionCard({
           प्रगति सेव करें
         </a>
       ) : (
-        <div className="no-print border-t border-[var(--rule)] p-5 sm:p-6">
+        <div className="no-print border-t border-[var(--c-sage)] p-5 sm:p-6">
           {trackerControl}
         </div>
       )}
 
-      <p className="print-only action-card-section border-t border-[var(--ink)] text-[10pt]">
+      <p className="print-only action-card-section border-t border-[var(--c-ink)] text-[10pt]">
         यह नमूना मार्गदर्शन है। दफ़्तर और दस्तावेज़ की जानकारी अभी क्षेत्र में सत्यापित नहीं हुई है।
       </p>
     </section>

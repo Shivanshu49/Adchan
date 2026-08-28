@@ -65,9 +65,9 @@ export default function HowItWorksPage() {
         <p className="section-label">जुड़ने का रास्ता</p>
         <h2 id="integration-title" className="mt-2 text-[28px] font-semibold leading-[1.35]">पाँच असली व्यवस्थाएँ, पाँच पहुँच के रास्ते</h2>
         <p className="secondary-copy mt-1" lang="en">Integration path</p>
-        <div className="mt-5 overflow-x-auto rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)]">
+        <div className="mt-5 overflow-x-auto rounded-[14px] border-2 border-[var(--c-ink)] bg-[var(--c-card-bg)]">
           <table className="w-full min-w-[720px] border-collapse text-left text-[19px]">
-            <thead className="border-b-2 border-[var(--ink)]">
+            <thead className="border-b-2 border-[var(--c-ink)]">
               <tr>
                 <th className="p-4">व्यवस्था<span className="secondary-copy block" lang="en">System</span></th>
                 <th className="p-4">ज़रूरी पहुँच<span className="secondary-copy block" lang="en">Access needed</span></th>
@@ -76,7 +76,7 @@ export default function HowItWorksPage() {
             </thead>
             <tbody>
               {SYSTEMS.map((row) => (
-                <tr key={row.en} className="border-b border-[var(--rule)] align-top last:border-b-0">
+                <tr key={row.en} className="border-b border-[var(--c-sage)] align-top last:border-b-0">
                   <th className="p-4 font-semibold" scope="row">{row.hi}<span className="secondary-copy block" lang="en">{row.en}</span></th>
                   <td className="p-4 font-semibold">{row.accessHi}<span className="secondary-copy block" lang="en">{row.accessEn}</span></td>
                   <td className="p-4 leading-[1.6]">{row.detail}</td>
@@ -110,9 +110,9 @@ export default function HowItWorksPage() {
         <p className="mt-4 text-[19px] leading-[1.6]">
           पहले हर tracker operation नया Postgres connection खोलता था। उसमें लगभग 2.15 सेकंड statement preparation और type discovery पर लगते और connection बंद होते ही वह काम फेंक दिया जाता था। FastAPI startup पर 1–5 connections का साझा pool रखने से वही तैयारी reuse हुई और गर्म operation 4.6 सेकंड से करीब 600 मिलीसेकंड पर आ गया। असली Postgres execution लगभग 0.1 मिलीसेकंड था; समय network और connection lifecycle में था।
         </p>
-        <div className="mt-5 overflow-x-auto rounded-[4px] border-2 border-[var(--ink)] bg-[var(--surface)]">
+        <div className="mt-5 overflow-x-auto rounded-[14px] border-2 border-[var(--c-ink)] bg-[var(--c-card-bg)]">
           <table className="w-full min-w-[640px] border-collapse text-left text-[19px]">
-            <thead className="border-b-2 border-[var(--ink)]">
+            <thead className="border-b-2 border-[var(--c-ink)]">
               <tr>
                 <th className="p-4">माप<span className="secondary-copy block" lang="en">Measurement</span></th>
                 <th className="p-4">हर call पर नया connection<span className="secondary-copy block" lang="en">Before</span></th>
@@ -120,17 +120,17 @@ export default function HowItWorksPage() {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-[var(--rule)] align-top">
+              <tr className="border-b border-[var(--c-sage)] align-top">
                 <th className="p-4 font-semibold" scope="row">Statement तैयारी<span className="secondary-copy block" lang="en">Preparation + type discovery</span></th>
                 <td className="p-4">2.15s हर operation; फिर discarded</td>
                 <td className="p-4">Pooled connection पर एक बार; फिर reused</td>
               </tr>
-              <tr className="border-b border-[var(--rule)] align-top">
+              <tr className="border-b border-[var(--c-sage)] align-top">
                 <th className="p-4 font-semibold" scope="row">एक गर्म tracker operation<span className="secondary-copy block" lang="en">Warm operation</span></th>
                 <td className="p-4 font-semibold">4.6s</td>
                 <td className="p-4 font-semibold">~600ms</td>
               </tr>
-              <tr className="border-b border-[var(--rule)] align-top">
+              <tr className="border-b border-[var(--c-sage)] align-top">
                 <th className="p-4 font-semibold" scope="row">चार-operation tracker path<span className="secondary-copy block" lang="en">Create → done → reminder → read</span></th>
                 <td className="p-4">18.80s</td>
                 <td className="p-4">2.43s</td>

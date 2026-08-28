@@ -61,8 +61,8 @@ export default function WhatsRealPage() {
       </header>
 
       <section className="mt-8 grid gap-6" aria-label="प्रोटोटाइप की स्थिति">
-        <article className="document-card border-[3px] border-[var(--working)] p-5 sm:p-6">
-          <p className="section-label text-[var(--working)]">आज काम करता है</p>
+        <article className="document-card border-[3px] border-[var(--c-moss)] p-5 sm:p-6">
+          <p className="section-label">आज काम करता है</p>
           <p className="secondary-copy mt-1" lang="en">Works today</p>
           <ul className="mt-5 list-disc space-y-3 pl-6 text-[19px] leading-[1.6]">
             {WORKS_TODAY.map((item) => <li key={item}>{item}</li>)}
@@ -90,14 +90,14 @@ export default function WhatsRealPage() {
       </section>
 
       <section className="document-card mt-8" aria-labelledby="limitations-title">
-        <div className="border-b border-[var(--rule)] p-5 sm:p-6">
+        <div className="border-b border-[var(--c-sage)] p-5 sm:p-6">
           <p className="section-label">ज्ञात सीमाएँ</p>
           <h2 id="limitations-title" className="mt-2 text-[28px] font-semibold">जो हमें अभी नहीं पता</h2>
           <p className="secondary-copy mt-1" lang="en">Known limitations</p>
         </div>
         <ol>
           {LIMITATIONS.map((limitation, index) => (
-            <li key={limitation} className="border-b border-[var(--rule)] p-5 text-[19px] leading-[1.6] last:border-b-0 sm:p-6">
+            <li key={limitation} className="border-b border-[var(--c-sage)] p-5 text-[19px] leading-[1.6] last:border-b-0 sm:p-6">
               <strong>{index + 1}.</strong> {limitation}
             </li>
           ))}

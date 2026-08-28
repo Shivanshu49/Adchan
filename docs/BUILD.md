@@ -16,7 +16,7 @@ video, your README, and your 250-word summary.
 | What to do next | Nothing | Office + documents + the sentence to say |
 | Language | English, dense | Hindi first, voice in and out |
 | If you can't read | Unusable | Fully usable — speak and listen |
-| On 2G | Heavy, often times out | < 100KB first load |
+| On a slow phone/network | Heavy, often times out | Diagnosis readable without JS; <10KB gzip HTML; LCP <2.5s |
 | No signal at the bank | Nothing | Works offline (service worker) |
 | Wrongly declared ineligible | Recovery notice, no guidance | Tells you that you can contest, drafts the response |
 | When self-service fails | Dead end | Pre-filled CPGRAMS grievance |
@@ -77,7 +77,9 @@ exact office, documents and script to fix it.
   All user-facing remedy text comes from shared/failures.json.
 - No real Aadhaar/PAN/account numbers anywhere, including tests.
 - Hindi is primary, English secondary.
-- Mobile-first. <100KB first load. Server components by default.
+- Mobile-first. Core diagnosis readable without JavaScript, representative
+  status HTML under 10KB gzip, and LCP under 2.5s on simulated Slow 4G with 4x
+  CPU throttling. Server components by default.
 - Anything mocked carries a visible badge in the UI.
 
 ## Stack
@@ -281,18 +283,22 @@ routes bypass the worker completely and are never written to Cache Storage.
 **Performance targets:**
 
 - Core diagnosis remains fully readable with JavaScript disabled.
-- Status-route HTML document is under 10KB gzip.
+- Representative core-diagnosis HTML document is under 10KB gzip.
 - LCP is under 2.5 seconds on Slow 4G with 4x CPU throttling.
 
-**Baseline — 2026-08-26, `/status/UP-DEMO-0001`:**
+**Current baseline — 2026-08-28, `/status/UP-DEMO-0001`:**
 
 - Diagnosis, linkage map and action card render completely without JavaScript.
-- HTML document: 8,497 bytes gzip (49,718 bytes uncompressed).
-- Lighthouse 13.4.1 mobile, simulated Slow 4G + 4x CPU: LCP 1.662s,
-  FCP 0.892s, Speed Index 0.892s, TBT 31.5ms, performance score 100.
-- Route-specific output is a 170-byte Next.js stub with no Adchan React client
+- HTML document: 9,775 bytes gzip (56,081 bytes uncompressed).
+- Three Lighthouse 13.4.1 mobile runs, simulated Slow 4G + 4x CPU: median LCP
+  1.721s, median FCP 0.925s, median Speed Index 0.925s, median TBT 29ms, CLS 0,
+  performance score 100 and accessibility score 100.
+- Route-specific output is a 157-byte Next.js stub with no Adchan React client
   logic; the only authored browser code is the after-load inline service-worker
   registrar. The shared Next.js runtime remains approximately 103KB gzip.
+- There is no JavaScript byte ceiling: the former bundle budget was below the
+  framework runtime by itself. The no-JS rendering, compressed document size
+  and throttled LCP checks are the release gates instead.
 
 **Font/offline verification — 2026-08-26:**
 
@@ -323,8 +329,9 @@ period. The subsequent swap caused a small horizontal reflow in the header
 disclaimer and village label (CLS 0.00139); the diagnosis headline's box did not
 move.
 
-- The rebuilt status HTML is 53,528 bytes raw and 9,757 bytes with gzip, still
-  inside the 10KB document target after adding footer links and SW registration.
+- The current representative status HTML is 56,081 bytes raw and 9,775 bytes
+  with gzip, still inside the 10KB document target after adding footer links and
+  SW registration.
 - After visiting demo 0001, cache inventory contains six responses: that status
   HTML, one CSS file, one hashed font, `offline.html`, and only the two
   `NPCI_NOT_MAPPED` MP3s. With the production origin fully stopped, the worker

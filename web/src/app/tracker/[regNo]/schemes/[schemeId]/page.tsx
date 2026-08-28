@@ -50,12 +50,12 @@ export default async function SchemePacketPage({ params }: SchemePacketPageProps
       </header>
 
       <section className="document-card print-card mt-8" aria-labelledby="packet-title">
-        <div className="border-b border-[var(--rule)] p-5 sm:p-6">
+        <div className="border-b border-[var(--c-sage)] p-5 sm:p-6">
           <h2 id="packet-title" className="text-[28px] font-semibold">पहले से भरा पैकेट</h2>
         </div>
         <dl>
           {packetFields.map(([label, hi, en]) => (
-            <div key={label} className="border-b border-[var(--rule)] p-5 last:border-b-0 sm:p-6">
+            <div key={label} className="border-b border-[var(--c-sage)] p-5 last:border-b-0 sm:p-6">
               <dt className="section-label">{label}</dt>
               <dd className="mt-2">
                 <p className="text-[20px] font-semibold">{hi}</p>
@@ -67,13 +67,13 @@ export default async function SchemePacketPage({ params }: SchemePacketPageProps
       </section>
 
       <section className="document-card print-card mt-8" aria-labelledby="checklist-title">
-        <div className="border-b border-[var(--rule)] p-5 sm:p-6">
+        <div className="border-b border-[var(--c-sage)] p-5 sm:p-6">
           <h2 id="checklist-title" className="text-[28px] font-semibold">दस्तावेज़ों की सूची</h2>
         </div>
         <ol className="p-5 sm:p-6">
           {scheme.documents.map((document, index) => (
-            <li key={document.en} className="flex gap-4 border-b border-[var(--rule)] py-4 first:pt-0 last:border-b-0 last:pb-0">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-[var(--ink)] font-semibold" aria-hidden="true">{index + 1}</span>
+            <li key={document.en} className="flex gap-4 border-b border-[var(--c-sage)] py-4 first:pt-0 last:border-b-0 last:pb-0">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-[var(--c-ink)] font-semibold" aria-hidden="true">{index + 1}</span>
               <span>
                 <strong className="block text-[19px] font-semibold">{document.hi}</strong>
                 <span className="secondary-copy" lang="en">{document.en}</span>
@@ -87,7 +87,7 @@ export default async function SchemePacketPage({ params }: SchemePacketPageProps
         <h2 className="text-[26px] font-semibold">कहाँ ले जाएँ</h2>
         <p className="mt-3 text-[20px] font-semibold leading-[1.6]">{scheme.applyAt.hi}</p>
         <p className="secondary-copy mt-1" lang="en">{scheme.applyAt.en}</p>
-        <div className="mt-6 border-t border-[var(--rule)] pt-5">
+        <div className="mt-6 border-t border-[var(--c-sage)] pt-5">
           <h2 className="text-[26px] font-semibold">जो अभी पक्का नहीं</h2>
           <p className="mt-3 text-[19px] leading-[1.6]">{scheme.uncertainty.hi}</p>
           <p className="secondary-copy mt-1" lang="en">{scheme.uncertainty.en}</p>

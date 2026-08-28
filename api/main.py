@@ -142,7 +142,7 @@ async def rate_limit_exceeded_handler(request: Request, error: RateLimitExceeded
         content=f"""<!doctype html>
 <html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>थोड़ी देर बाद कोशिश करें · अड़चन</title>
-<style>body{{margin:0;background:#faf8f5;color:#1a1a1a;font:19px/1.6 sans-serif}}main,header,footer{{max-width:560px;margin:auto;padding:24px 20px}}main{{min-height:55vh}}section{{border:2px solid #c1272d;background:#fff;padding:20px}}a{{color:inherit;font-weight:700}}small{{font-size:15px}}</style>
+<style>body{{margin:0;background:#F2F4ED;color:#21291B;font:19px/1.6 sans-serif}}main,header,footer{{max-width:780px;margin:auto;padding:24px 20px}}main{{min-height:55vh}}section{{border:2px solid #CCD5C0;border-radius:22px;background:#FBFDF6;padding:20px;box-shadow:0 4px 20px rgba(56,66,43,.08)}}a{{display:inline-flex;min-height:56px;align-items:center;border:2px solid #6e7753;border-radius:14px;padding:8px 14px;color:inherit;font-weight:700;text-decoration:none}}small{{font-size:15px;color:#56644D}}</style>
 </head><body><header><strong>अड़चन</strong><br><small>स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।</small></header>
 <main><section><h1>एक मिनट में बहुत ज़्यादा कोशिशें हुईं</h1><p>ऑनलाइन आवाज़ और लिखी शिकायत की जाँच कुछ देर के लिए रोकी गई है। इससे आपका कोई डेटा नहीं खोया।</p><p>तैयार नमूना निदान, अगला कार्यालय और दस्तावेज़ अभी भी पूरी तरह काम करते हैं।</p><p><a href="{demo_url}">आठ नमूना नंबरों से निदान देखें</a></p></section></main>
 <footer>स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।</footer></body></html>""",
