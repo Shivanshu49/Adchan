@@ -233,3 +233,39 @@ def test_classifier_schema_contains_refusal_and_ranked_confidence() -> None:
         assert result.second_code == "NPCI_NOT_MAPPED"
 
     asyncio.run(run())
+
+
+def test_classifier_backend_failure_is_logged_not_silent(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """A dead LLM provider must not be indistinguishable from a genuinely
+    ambiguous complaint: both currently return the same UNKNOWN/needs-
+    clarification result, but only a total backend outage should show up in
+    the logs so it can be told apart from calibrated uncertainty."""
+
+    async def run() -> None:
+        async def handler(request: httpx.Request) -> httpx.Response:
+            return httpx.Response(401, json={"error": "invalid api key"})
+
+        client = httpx.AsyncClient(transport=httpx.MockTransport(handler))
+        try:
+            with caplog.at_level("WARNING", logger="engine"):
+                result = await engine.classify_complaint(
+                    "बैंक वाले बोले DBT चालू नहीं है",
+                    "hi",
+                    api_key="expired-key",
+                    base_url="https://gateway.example/v1",
+                    model="test-model",
+                    client=client,
+                )
+        finally:
+            await client.aclose()
+
+        assert result.code == "UNKNOWN"
+        assert result.needs_clarification is True
+        assert len(caplog.records) == 1
+        message = caplog.records[0].getMessage()
+        assert "classify_complaint" in message
+        assert "401" in message
+
+    asyncio.run(run())

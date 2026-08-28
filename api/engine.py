@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import math
 from dataclasses import dataclass
 from typing import Literal
@@ -11,6 +12,8 @@ from typing import Literal
 import httpx
 
 from failure_data import FAILURES
+
+logger = logging.getLogger(__name__)
 
 SARVAM_STT_URL = "https://api.sarvam.ai/speech-to-text"
 SARVAM_STT_MODEL = "saaras:v3"
@@ -341,7 +344,15 @@ async def classify_complaint(
             top_confidence_threshold=top_confidence_threshold,
             confidence_gap_threshold=confidence_gap_threshold,
         )
-    except (httpx.HTTPError, KeyError, IndexError, TypeError, ValueError):
+    except (httpx.HTTPError, KeyError, IndexError, TypeError, ValueError) as error:
+        status = getattr(getattr(error, "response", None), "status_code", None)
+        logger.warning(
+            "classify_complaint: LLM call failed (%s%s); falling back to UNKNOWN. "
+            "A 100%% rate of this warning means the classifier backend is down, "
+            "not that complaints are ambiguous.",
+            type(error).__name__,
+            f", status={status}" if status is not None else "",
+        )
         return normalize_classification(None, lang)
     finally:
         if owns_client:
