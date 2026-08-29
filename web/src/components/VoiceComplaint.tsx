@@ -1,7 +1,10 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+
+import { useLanguage } from "@/context/LanguageContext";
+
 
 type State = "idle" | "diagnosing";
 
@@ -20,6 +23,52 @@ interface DiagnosePayload {
   clarifyingQuestion?: string | null;
 }
 
+interface SpeechAlternativeLike {
+  transcript: string;
+}
+
+interface SpeechResultLike {
+  readonly isFinal: boolean;
+  readonly 0: SpeechAlternativeLike;
+}
+
+interface SpeechResultListLike {
+  readonly length: number;
+  readonly [index: number]: SpeechResultLike;
+}
+
+interface SpeechResultEventLike extends Event {
+  readonly resultIndex: number;
+  readonly results: SpeechResultListLike;
+}
+
+interface SpeechErrorEventLike extends Event {
+  readonly error: string;
+}
+
+interface BrowserSpeechRecognition {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  maxAlternatives: number;
+  onstart: (() => void) | null;
+  onresult: ((event: SpeechResultEventLike) => void) | null;
+  onerror: ((event: SpeechErrorEventLike) => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+  abort: () => void;
+}
+
+type SpeechRecognitionConstructor = new () => BrowserSpeechRecognition;
+
+declare global {
+  interface Window {
+    SpeechRecognition?: SpeechRecognitionConstructor;
+    webkitSpeechRecognition?: SpeechRecognitionConstructor;
+  }
+}
+
 const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const ONLINE_REQUEST_TIMEOUT_MS = 60_000;
 const WAKE_NOTICE_DELAY_MS = 3_000;
@@ -32,22 +81,18 @@ class ReviewApiError extends Error {
 }
 
 
-function failureMessage(error: unknown) {
-  if (error instanceof ReviewApiError && error.status === 429) {
-    return "एक मिनट में बहुत ज़्यादा कोशिशें हुईं। थोड़ी देर रुकें; ऊपर के आठ नमूना निदान अभी भी पूरी तरह काम करते हैं।";
-  }
-  return "ऑनलाइन जाँच सेवा तक अभी पहुँचा नहीं जा सका। ऊपर के आठ नमूना नंबरों से तैयार निदान और अगला कदम अभी भी काम करते हैं।";
-}
-
-
 export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
   const router = useRouter();
+  const { classifierLanguage, speechLocale, t } = useLanguage();
   const [state, setState] = useState<State>("idle");
   const [complaint, setComplaint] = useState("");
   const [message, setMessage] = useState("");
   const [expanded, setExpanded] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [voiceStatusKey, setVoiceStatusKey] = useState("voice.ready");
   const [showWakeNotice, setShowWakeNotice] = useState(false);
   const wakeNoticeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const recognitionRef = useRef<BrowserSpeechRecognition | null>(null);
   const complaintRef = useRef<HTMLTextAreaElement | null>(null);
 
   const startOnlineWait = () => {
@@ -73,19 +118,19 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
         method: "POST",
         signal: AbortSignal.timeout(ONLINE_REQUEST_TIMEOUT_MS),
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ complaint: text, lang: "hi" }),
+        body: JSON.stringify({ complaint: text, lang: classifierLanguage }),
       });
       if (!response.ok) throw new ReviewApiError(response.status);
       const result = (await response.json()) as DiagnosePayload;
       if (result.needsClarification) {
-        setMessage(result.clarifyingQuestion ?? "कृपया अपनी परेशानी थोड़ी और साफ़ बताएँ।");
+        setMessage(result.clarifyingQuestion ?? t("voice.clarify"));
         setState("idle");
         complaintRef.current?.focus();
         return;
       }
       const match = matches.find((item) => item.code === result.code);
       if (!match) {
-        setMessage("इस समस्या का डेमो रिकॉर्ड अभी उपलब्ध नहीं है। नीचे दिया कोई डेमो नंबर चुनें।");
+        setMessage(t("voice.noDemo"));
         setState("idle");
         return;
       }
@@ -95,6 +140,98 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     }
   };
 
+  const stopListening = useCallback(() => {
+    try {
+      recognitionRef.current?.stop();
+    } catch {
+      // The browser may already have ended the recognition session.
+    }
+    recognitionRef.current = null;
+    setListening(false);
+  }, []);
+
+  const startListening = () => {
+    setExpanded(true);
+    setMessage("");
+
+    const Recognition = window.SpeechRecognition ?? window.webkitSpeechRecognition;
+    if (!Recognition) {
+      setVoiceStatusKey("voice.unsupported");
+      window.setTimeout(() => complaintRef.current?.focus(), 0);
+      return;
+    }
+
+    stopListening();
+    const recognition = new Recognition();
+    recognition.lang = speechLocale;
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      setListening(true);
+      setVoiceStatusKey("voice.listening");
+    };
+
+    recognition.onresult = (event) => {
+      let spoken = "";
+      let hasFinalResult = false;
+
+      for (let index = event.resultIndex; index < event.results.length; index += 1) {
+        const result = event.results[index];
+        spoken += result[0]?.transcript ?? "";
+        hasFinalResult ||= result.isFinal;
+      }
+
+      const normalized = spoken.trim();
+      if (normalized) setComplaint(normalized);
+      if (hasFinalResult) {
+        setVoiceStatusKey("voice.heard");
+        setListening(false);
+        window.setTimeout(() => complaintRef.current?.focus(), 0);
+      }
+    };
+
+    recognition.onerror = (event) => {
+      setListening(false);
+      setVoiceStatusKey(
+        event.error === "not-allowed" || event.error === "service-not-allowed"
+          ? "voice.permission"
+          : "voice.noSpeech",
+      );
+    };
+
+    recognition.onend = () => {
+      recognitionRef.current = null;
+      setListening(false);
+    };
+
+    recognitionRef.current = recognition;
+    try {
+      recognition.start();
+    } catch {
+      recognitionRef.current = null;
+      setListening(false);
+      setVoiceStatusKey("voice.noSpeech");
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      try {
+        recognitionRef.current?.abort();
+      } catch {
+        // Nothing to clean up when the browser has already stopped listening.
+      }
+      if (wakeNoticeTimerRef.current) clearTimeout(wakeNoticeTimerRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    stopListening();
+    setVoiceStatusKey("voice.ready");
+  }, [speechLocale, stopListening]);
+
   const submitText = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const text = complaint.trim();
@@ -103,7 +240,11 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     try {
       await diagnose(text);
     } catch (error) {
-      setMessage(failureMessage(error));
+      setMessage(
+        error instanceof ReviewApiError && error.status === 429
+          ? t("voice.rateLimit")
+          : t("voice.serviceError"),
+      );
       setState("idle");
     }
   };
@@ -114,40 +255,57 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     <div className="complaint-shell">
       <button
         type="button"
-        className="voice-card voice-launch"
+        className={`voice-card voice-launch${listening ? " is-listening" : ""}`}
         aria-expanded={expanded}
         aria-controls="complaint-panel"
-        onClick={() => {
-          setExpanded((value) => !value);
-          window.setTimeout(() => complaintRef.current?.focus(), 0);
-        }}
+        onClick={listening ? stopListening : startListening}
       >
         <span className="voice-orbit" aria-hidden="true">
           <span className="voice-mic">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 18.5A3.5 3.5 0 0 1 8.5 15H16l3-3v8l-3-3H8.5A3.5 3.5 0 0 1 5 13.5v5Z" />
-              <path d="m8 9 2 2 5-6" />
+              <rect x="9" y="2" width="6" height="12" rx="3" />
+              <path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8" />
             </svg>
           </span>
         </span>
         <span className="voice-copy">
-          <strong>अपनी परेशानी बताइए</strong>
-          <span>टैप करें और हिंदी में लिखें</span>
+          <strong>{t("voice.heading")}</strong>
+          <span>{t("voice.subtitle")}</span>
         </span>
-        <span className="voice-cta">{expanded ? "बंद करें" : "लिखें ✎"}</span>
+        <span className="voice-cta">{listening ? t("voice.stop") : t("voice.start")}</span>
       </button>
 
       {expanded && (
-        <div id="complaint-panel" className="complaint-panel">
+        <div id="complaint-panel" className="complaint-panel" role="region" aria-label={t("voice.heading")}>
+          <div className={`voice-input-status${listening ? " is-listening" : ""}`} role="status" aria-live="polite">
+            <span className="voice-live-dot" aria-hidden="true" />
+            <p>{t(voiceStatusKey)}</p>
+            <button type="button" className="voice-retry-button" onClick={listening ? stopListening : startListening}>
+              {listening ? t("voice.stop") : t("voice.retry")}
+            </button>
+            <button
+              type="button"
+              className="voice-close-button"
+              onClick={() => {
+                stopListening();
+                setExpanded(false);
+              }}
+              aria-label={t("voice.close")}
+              title={t("voice.close")}
+            >
+              ×
+            </button>
+          </div>
+
           {showWakeNotice && (
             <div role="status" aria-live="polite" className="state-working complaint-notice">
-              <p className="section-label">ऑनलाइन सेवा शुरू हो रही है…</p>
-              <p>पन्ना खुला रखें—आपकी बात मिल गई है और जाँच जारी है।</p>
+              <p className="section-label">{t("voice.waking")}</p>
+              <p>{t("voice.wakingDetail")}</p>
             </div>
           )}
 
           <form onSubmit={submitText}>
-            <label htmlFor="complaint">अपनी परेशानी लिखें</label>
+            <label htmlFor="complaint">{t("voice.textLabel")}</label>
             <textarea
               ref={complaintRef}
               id="complaint"
@@ -155,11 +313,11 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
               onChange={(event) => setComplaint(event.target.value)}
               rows={3}
               maxLength={4000}
-              placeholder="जैसे: पोर्टल पर eKYC बाकी दिखा रहा है…"
+              placeholder={t("voice.placeholder")}
               className="complaint-textarea"
             />
             <button type="submit" disabled={busy} className="primary-action complaint-submit">
-              {busy ? "जाँच हो रही है…" : "परेशानी की वजह खोजें"}
+              {busy ? t("voice.submitting") : t("voice.submit")}
             </button>
           </form>
           {message && (

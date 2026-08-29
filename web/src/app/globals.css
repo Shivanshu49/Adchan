@@ -695,9 +695,10 @@ audio:focus-visible {
   line-height: 1.4;
 }
 
-.home-eyebrow span {
+.home-eyebrow > span[aria-hidden] {
   width: 9px;
   height: 9px;
+  flex: 0 0 9px;
   border-radius: 50%;
   background: var(--c-moss);
 }
@@ -711,7 +712,7 @@ audio:focus-visible {
   letter-spacing: -0.025em;
 }
 
-.home-hero h1 span {
+.home-hero h1 .greeting-wave {
   display: inline-block;
   font-size: 0.8em;
   transform: rotate(-10deg);
@@ -885,6 +886,11 @@ audio:focus-visible {
   transform: translateY(-1px);
 }
 
+.voice-card.voice-launch.is-listening {
+  background: radial-gradient(circle at 75% 0%, #617746 0%, var(--c-dark-olive) 68%);
+  box-shadow: 0 0 0 5px rgba(159, 184, 115, 0.15), 0 10px 24px rgba(56, 66, 43, 0.3);
+}
+
 .voice-orbit {
   display: grid;
   width: 72px;
@@ -909,6 +915,15 @@ audio:focus-visible {
 .voice-card .voice-mic svg {
   width: 27px;
   height: 27px;
+}
+
+.voice-card.is-listening .voice-orbit {
+  animation: listeningPulse 1.35s ease-in-out infinite;
+}
+
+@keyframes listeningPulse {
+  0%, 100% { box-shadow: 0 0 0 7px rgba(159, 184, 115, 0.08), 0 0 0 14px rgba(159, 184, 115, 0.04); }
+  50% { box-shadow: 0 0 0 10px rgba(159, 184, 115, 0.16), 0 0 0 20px rgba(159, 184, 115, 0.06); }
 }
 
 .voice-copy {
@@ -958,6 +973,75 @@ audio:focus-visible {
   color: var(--c-dark-olive);
   font-size: 20px;
   font-weight: 700;
+}
+
+.voice-input-status {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+  border: 1.5px solid var(--c-sage);
+  border-radius: 14px;
+  padding: 10px;
+  color: var(--c-dark-olive);
+  background: white;
+}
+
+.voice-input-status p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.voice-live-dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--c-moss);
+  border-radius: 50%;
+  background: var(--c-sage);
+}
+
+.voice-input-status.is-listening .voice-live-dot {
+  background: var(--c-leaf);
+  box-shadow: 0 0 0 6px rgba(159, 184, 115, 0.17);
+  animation: voiceDot 1s ease-in-out infinite;
+}
+
+@keyframes voiceDot {
+  50% { opacity: 0.45; transform: scale(0.82); }
+}
+
+.voice-retry-button,
+.voice-close-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--c-sage);
+  border-radius: 12px;
+  color: var(--c-dark-olive);
+  background: var(--c-card-tint);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.voice-retry-button {
+  padding: 7px 13px;
+}
+
+.voice-close-button {
+  width: 44px;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.voice-retry-button:hover,
+.voice-close-button:hover {
+  border-color: var(--c-moss);
+  background: rgba(159, 184, 115, 0.16);
 }
 
 .home-hero-side .complaint-textarea {
@@ -1263,6 +1347,9 @@ audio:focus-visible {
   .voice-copy span { font-size: 14px; }
   .voice-cta { display: none; }
   .home-hero-side .complaint-panel { padding: 16px 14px; }
+  .voice-input-status { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .voice-input-status .voice-retry-button { grid-column: 1 / 3; }
+  .voice-close-button { grid-column: 3; grid-row: 1 / 3; }
   .home-services { margin-top: 24px; }
   .home-section-heading { align-items: flex-start; }
   .home-section-heading h2 { font-size: 26px; }
