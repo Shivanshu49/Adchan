@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import ApiWarmup from "@/components/ApiWarmup";
 import DemoRegistrationList from "@/components/DemoRegistrationList";
 import MockBadge from "@/components/MockBadge";
+import ServiceIcon from "@/components/ServiceIcon";
 import VoiceComplaint from "@/components/VoiceComplaint";
 import schemes from "@/lib/schemes";
 import personas from "@/types/personas";
@@ -31,75 +32,6 @@ function ServiceCard({ title, titleKey, description, descriptionKey, icon, href 
       <strong data-i18n={titleKey}>{title}</strong>
       <span data-i18n={descriptionKey}>{description}</span>
     </a>
-  );
-}
-
-
-function ServiceIcon({ name }: { name: "money" | "shield" | "register" | "building" | "card" | "checklist" | "help" | "weather" }) {
-  const common = {
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 2,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-  };
-
-  return (
-    <svg viewBox="0 0 48 48" role="presentation">
-      {name === "money" && (
-        <>
-          <path {...common} d="M18 8c0-3 12-3 12 0 1 3 3 5 6 7 5 4 7 10 6 16-1 7-6 10-18 10S7 38 6 31c-1-6 1-12 6-16 3-2 5-4 6-7Z" fill="var(--c-sage)" />
-          <path {...common} d="M15 15c6 2 12 2 18 0" />
-          <path {...common} d="M20 22h9M20 26h9M22 22c5 0 5 8 0 8l8 6" />
-        </>
-      )}
-      {name === "shield" && (
-        <>
-          <path {...common} d="m24 5 14 6v10c0 10-5 17-14 22-9-5-14-12-14-22V11l14-6Z" fill="var(--c-sage)" />
-          <path {...common} d="m16 24 5 5 11-12" strokeWidth="3" />
-        </>
-      )}
-      {name === "register" && (
-        <>
-          <rect {...common} x="10" y="5" width="23" height="35" rx="4" fill="var(--c-sage)" />
-          <path {...common} d="M16 14h11M16 20h9M27 36l11-12 4 4-11 12-6 2 2-6Z" fill="var(--c-leaf)" />
-        </>
-      )}
-      {name === "building" && (
-        <>
-          <path {...common} d="M7 18h34L24 6 7 18ZM10 37h28M6 42h36M12 18v19M20 18v19M28 18v19M36 18v19" />
-          <path {...common} d="M21 8h6" stroke="var(--c-leaf)" strokeWidth="3" />
-        </>
-      )}
-      {name === "card" && (
-        <>
-          <rect {...common} x="5" y="11" width="38" height="27" rx="5" fill="var(--c-sage)" />
-          <path {...common} d="M5 19h38M11 30h7M23 30h11" />
-        </>
-      )}
-      {name === "checklist" && (
-        <>
-          <rect {...common} x="8" y="5" width="32" height="38" rx="4" fill="var(--c-sage)" />
-          <circle {...common} cx="16" cy="15" r="3" />
-          <circle {...common} cx="16" cy="25" r="3" />
-          <path {...common} d="M22 15h11M22 25h11m-19 9 3 3 6-7m3 5h7" />
-        </>
-      )}
-      {name === "help" && (
-        <>
-          <path {...common} d="M8 29V23a16 16 0 0 1 32 0v6" />
-          <rect {...common} x="5" y="25" width="8" height="13" rx="4" fill="var(--c-sage)" />
-          <rect {...common} x="35" y="25" width="8" height="13" rx="4" fill="var(--c-sage)" />
-          <path {...common} d="M39 38c-2 4-5 5-10 5" />
-        </>
-      )}
-      {name === "weather" && (
-        <>
-          <path {...common} d="M13 37h24a8 8 0 0 0 1-16 13 13 0 0 0-24-5 10 10 0 0 0-1 21Z" fill="var(--c-sage)" />
-          <path {...common} d="M13 12 9 8m29 4 4-4M25 6V1" stroke="var(--c-leaf)" />
-        </>
-      )}
-    </svg>
   );
 }
 
@@ -203,6 +135,10 @@ export default async function Home({ searchParams }: HomeProps) {
               </div>
             ))}
           </div>
+          <a className="home-info-cta" href="#help">
+            <span data-i18n="home.schemes.cta">सभी योजनाएं देखें</span>
+            <span aria-hidden="true">→</span>
+          </a>
         </article>
 
         <article id="eligibility" className="home-info-card">
@@ -221,6 +157,10 @@ export default async function Home({ searchParams }: HomeProps) {
               <p data-i18n="home.result.script.description">काउंटर पर कहने के लिए तैयार हिंदी स्क्रिप्ट मिलेगी।</p>
             </div>
           </div>
+          <a className="home-info-cta" href="#registration">
+            <span data-i18n="home.result.cta">पात्रता जाँचें</span>
+            <span aria-hidden="true">→</span>
+          </a>
         </article>
       </section>
 
