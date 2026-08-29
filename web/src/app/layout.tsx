@@ -48,26 +48,37 @@ export default function RootLayout({
               <div className="topbar">
                 <Link href="/" prefetch={false} className="brand-link" aria-label="अड़चन होम">
                   <Image
-                    src="/logo1.png"
+                    src="/adchan-logo-horizontal.webp"
                     alt="अड़चन"
-                    width={68}
-                    height={68}
-                    sizes="68px"
+                    width={220}
+                    height={74}
+                    sizes="(max-width: 640px) 150px, 220px"
                     className="brand-logo"
                     priority
                   />
                 </Link>
-                <label>
-                  <span className="sr-only">भाषा चुनें</span>
-                  <select className="language-select" defaultValue="hi" aria-label="भाषा चुनें">
-                    <option value="hi">हिंदी</option>
-                    <option value="en">English</option>
-                  </select>
-                </label>
+                <nav className="primary-nav" aria-label="मुख्य नेविगेशन">
+                  <Link href="/" prefetch={false} className="active">होम</Link>
+                  <Link href="/#services" prefetch={false}>सेवाएं</Link>
+                  <Link href="/#schemes" prefetch={false}>योजनाएं</Link>
+                  <Link href="/#help" prefetch={false}>सहायता</Link>
+                </nav>
+                <div className="header-actions">
+                  <label>
+                    <span className="sr-only">भाषा चुनें</span>
+                    <select className="language-select" defaultValue="hi" aria-label="भाषा चुनें">
+                      <option value="hi">हिंदी</option>
+                      <option value="en">English</option>
+                    </select>
+                  </label>
+                  <button type="button" className="profile-button" aria-label="प्रोफाइल">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="12" cy="8" r="4" />
+                      <path d="M5 21a7 7 0 0 1 14 0" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <p className="site-disclaimer">
-                स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।
-              </p>
             </header>
 
             <div className="site-content">{children}</div>

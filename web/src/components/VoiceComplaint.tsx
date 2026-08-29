@@ -45,6 +45,7 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
   const [state, setState] = useState<State>("idle");
   const [complaint, setComplaint] = useState("");
   const [message, setMessage] = useState("");
+  const [expanded, setExpanded] = useState(false);
   const [showWakeNotice, setShowWakeNotice] = useState(false);
   const wakeNoticeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const complaintRef = useRef<HTMLTextAreaElement | null>(null);
@@ -111,63 +112,63 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
 
   return (
     <div className="complaint-shell">
-      <div className="complaint-panel">
-        {showWakeNotice && (
-          <div
-            role="status"
-            aria-live="polite"
-            className="state-working mt-4 border-l-[8px] p-4"
-          >
-            <p className="section-label">ऑनलाइन सेवा शुरू हो रही है…</p>
-            <p className="mt-2 text-[19px] font-semibold leading-[1.55]">
-              मुफ़्त सेवा कुछ देर खाली रहने पर सो जाती है। पन्ना खुला रखें—
-              आपकी बात मिल गई है और जाँच जारी है।
-            </p>
-            <p className="secondary-copy mt-2" lang="en">
-              The free server is waking up. Keep this page open; you do not need to try again.
-            </p>
-          </div>
-        )}
-
-        <form onSubmit={submitText}>
-          <label htmlFor="complaint" className="block text-[24px] font-semibold leading-[1.4]">
-            अपनी परेशानी लिखें
-            <span className="secondary-copy ml-2" lang="en">/ Type instead</span>
-          </label>
-          <textarea
-            ref={complaintRef}
-            id="complaint"
-            value={complaint}
-            onChange={(event) => setComplaint(event.target.value)}
-            rows={4}
-            maxLength={4000}
-            placeholder="जैसे: पोर्टल पर eKYC बाकी दिखा रहा है…"
-            className="complaint-textarea mt-3 w-full rounded-[14px] border-[3px] border-[var(--c-dark-olive)] bg-[var(--c-card-bg)] px-4 py-3 text-[19px] leading-[1.6] focus:outline-none"
-          />
-          <button
-            type="submit"
-            disabled={busy}
-            className="primary-action mt-3 w-full disabled:cursor-wait disabled:opacity-60"
-          >
-            परेशानी की वजह खोजें
-          </button>
-        </form>
-        {message && (
-          <p className="state-working mt-4 p-4 text-[19px] font-semibold" role="status" aria-live="polite">
-            {message}
-          </p>
-        )}
-      </div>
-
-      <button type="button" disabled className="voice-card">
-        <span className="voice-mic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="9" y="2" width="6" height="12" rx="3" />
-            <path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8" />
-          </svg>
+      <button
+        type="button"
+        className="voice-card voice-launch"
+        aria-expanded={expanded}
+        aria-controls="complaint-panel"
+        onClick={() => {
+          setExpanded((value) => !value);
+          window.setTimeout(() => complaintRef.current?.focus(), 0);
+        }}
+      >
+        <span className="voice-orbit" aria-hidden="true">
+          <span className="voice-mic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 18.5A3.5 3.5 0 0 1 8.5 15H16l3-3v8l-3-3H8.5A3.5 3.5 0 0 1 5 13.5v5Z" />
+              <path d="m8 9 2 2 5-6" />
+            </svg>
+          </span>
         </span>
-        <span>आवाज़ सेवा अभी उपलब्ध नहीं — नीचे लिखकर बताइए</span>
+        <span className="voice-copy">
+          <strong>अपनी परेशानी बताइए</strong>
+          <span>टैप करें और हिंदी में लिखें</span>
+        </span>
+        <span className="voice-cta">{expanded ? "बंद करें" : "लिखें ✎"}</span>
       </button>
+
+      {expanded && (
+        <div id="complaint-panel" className="complaint-panel">
+          {showWakeNotice && (
+            <div role="status" aria-live="polite" className="state-working complaint-notice">
+              <p className="section-label">ऑनलाइन सेवा शुरू हो रही है…</p>
+              <p>पन्ना खुला रखें—आपकी बात मिल गई है और जाँच जारी है।</p>
+            </div>
+          )}
+
+          <form onSubmit={submitText}>
+            <label htmlFor="complaint">अपनी परेशानी लिखें</label>
+            <textarea
+              ref={complaintRef}
+              id="complaint"
+              value={complaint}
+              onChange={(event) => setComplaint(event.target.value)}
+              rows={3}
+              maxLength={4000}
+              placeholder="जैसे: पोर्टल पर eKYC बाकी दिखा रहा है…"
+              className="complaint-textarea"
+            />
+            <button type="submit" disabled={busy} className="primary-action complaint-submit">
+              {busy ? "जाँच हो रही है…" : "परेशानी की वजह खोजें"}
+            </button>
+          </form>
+          {message && (
+            <p className="state-working complaint-message" role="status" aria-live="polite">
+              {message}
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 
 import ApiWarmup from "@/components/ApiWarmup";
 import DemoRegistrationList from "@/components/DemoRegistrationList";
 import MockBadge from "@/components/MockBadge";
 import VoiceComplaint from "@/components/VoiceComplaint";
+import schemes from "@/lib/schemes";
 import personas from "@/types/personas";
 
 
@@ -12,88 +14,222 @@ interface HomeProps {
 }
 
 
+interface ServiceCardProps {
+  title: string;
+  description: string;
+  icon: ReactNode;
+  href: string;
+}
+
+
+function ServiceCard({ title, description, icon, href }: ServiceCardProps) {
+  return (
+    <a className="service-card" href={href}>
+      <span className="service-icon" aria-hidden="true">{icon}</span>
+      <strong>{title}</strong>
+      <span>{description}</span>
+    </a>
+  );
+}
+
+
+function ServiceIcon({ name }: { name: "money" | "shield" | "register" | "building" | "card" | "checklist" | "help" | "weather" }) {
+  const common = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+
+  return (
+    <svg viewBox="0 0 48 48" role="presentation">
+      {name === "money" && (
+        <>
+          <path {...common} d="M18 8c0-3 12-3 12 0 1 3 3 5 6 7 5 4 7 10 6 16-1 7-6 10-18 10S7 38 6 31c-1-6 1-12 6-16 3-2 5-4 6-7Z" fill="var(--c-sage)" />
+          <path {...common} d="M15 15c6 2 12 2 18 0" />
+          <path {...common} d="M20 22h9M20 26h9M22 22c5 0 5 8 0 8l8 6" />
+        </>
+      )}
+      {name === "shield" && (
+        <>
+          <path {...common} d="m24 5 14 6v10c0 10-5 17-14 22-9-5-14-12-14-22V11l14-6Z" fill="var(--c-sage)" />
+          <path {...common} d="m16 24 5 5 11-12" strokeWidth="3" />
+        </>
+      )}
+      {name === "register" && (
+        <>
+          <rect {...common} x="10" y="5" width="23" height="35" rx="4" fill="var(--c-sage)" />
+          <path {...common} d="M16 14h11M16 20h9M27 36l11-12 4 4-11 12-6 2 2-6Z" fill="var(--c-leaf)" />
+        </>
+      )}
+      {name === "building" && (
+        <>
+          <path {...common} d="M7 18h34L24 6 7 18ZM10 37h28M6 42h36M12 18v19M20 18v19M28 18v19M36 18v19" />
+          <path {...common} d="M21 8h6" stroke="var(--c-leaf)" strokeWidth="3" />
+        </>
+      )}
+      {name === "card" && (
+        <>
+          <rect {...common} x="5" y="11" width="38" height="27" rx="5" fill="var(--c-sage)" />
+          <path {...common} d="M5 19h38M11 30h7M23 30h11" />
+        </>
+      )}
+      {name === "checklist" && (
+        <>
+          <rect {...common} x="8" y="5" width="32" height="38" rx="4" fill="var(--c-sage)" />
+          <circle {...common} cx="16" cy="15" r="3" />
+          <circle {...common} cx="16" cy="25" r="3" />
+          <path {...common} d="M22 15h11M22 25h11m-19 9 3 3 6-7m3 5h7" />
+        </>
+      )}
+      {name === "help" && (
+        <>
+          <path {...common} d="M8 29V23a16 16 0 0 1 32 0v6" />
+          <rect {...common} x="5" y="25" width="8" height="13" rx="4" fill="var(--c-sage)" />
+          <rect {...common} x="35" y="25" width="8" height="13" rx="4" fill="var(--c-sage)" />
+          <path {...common} d="M39 38c-2 4-5 5-10 5" />
+        </>
+      )}
+      {name === "weather" && (
+        <>
+          <path {...common} d="M13 37h24a8 8 0 0 0 1-16 13 13 0 0 0-24-5 10 10 0 0 0-1 21Z" fill="var(--c-sage)" />
+          <path {...common} d="M13 12 9 8m29 4 4-4M25 6V1" stroke="var(--c-leaf)" />
+        </>
+      )}
+    </svg>
+  );
+}
+
+
 export default async function Home({ searchParams }: HomeProps) {
   const { reset } = await searchParams;
 
   return (
-    <main id="main-content" className="page-shell">
+    <main id="main-content" className="page-shell home-page">
       <ApiWarmup />
       {reset === "done" && (
-        <p role="status" className="state-working mb-6 p-4 text-[19px] font-semibold">
+        <p role="status" className="state-working home-alert">
           इस ब्राउज़र का डेमो साफ़ हो गया। अब किसी भी नमूना नंबर से फिर शुरू करें।
         </p>
       )}
 
-      <section className="landing-hero" aria-labelledby="landing-question">
-        <div className="landing-hero-copy">
-          <p className="section-label">नमस्ते किसान!</p>
-          <h1
-            id="landing-question"
-            className="mt-3 max-w-[13ch] text-[36px] font-semibold leading-[1.22] text-[var(--c-ink)]"
-          >
-            आपका ₹2000 नहीं आया?
-          </h1>
-          <p className="mt-3 max-w-[30ch] text-[19px] font-medium leading-[1.5]">
-            पैसा कहाँ रुका और अब क्या करना है—साफ़ हिंदी में जानिए।
-          </p>
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <MockBadge hi="काल्पनिक डेटा" en="SYNTHETIC" />
-          </div>
+      <section className="home-hero" aria-labelledby="landing-question">
+        <div className="home-hero-copy">
+          <p className="home-eyebrow"><span aria-hidden="true" /> डिजिटल किसान सेवा केंद्र</p>
+          <h1 id="landing-question">नमस्ते किसान! <span aria-hidden="true">👋</span></h1>
+          <p className="home-intro">PM-KISAN किस्त कहाँ रुकी और अब क्या करना है—साफ़ हिंदी में जानिए।</p>
+
+          <form id="registration" action="/status" method="get" className="home-registration-card">
+            <label htmlFor="regNo" className="home-registration-label">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5V3m8 2V3M6 7h12m-1 14H7a3 3 0 0 1-3-3V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v11a3 3 0 0 1-3 3Z"/><circle cx="9" cy="12" r="2"/><path d="M7 17c.8-2 3.2-2 4 0m3-5h3m-3 4h3"/></svg>
+              रजिस्ट्रेशन नंबर डालिए
+            </label>
+            <div className="home-registration-row">
+              <div className="home-input-wrap">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+                <input
+                  id="regNo"
+                  name="regNo"
+                  type="text"
+                  required
+                  autoComplete="off"
+                  autoCapitalize="characters"
+                  spellCheck={false}
+                  placeholder="रजिस्ट्रेशन नंबर (उदा. UP-DEMO-0001)"
+                  aria-describedby="reg-help"
+                />
+              </div>
+              <button type="submit" className="home-search-button">खोजें</button>
+            </div>
+            <p id="reg-help" className="home-security-note">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 7 3v5c0 5-2.6 8.4-7 10-4.4-1.6-7-5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-5"/></svg>
+              कोई लॉगिन नहीं, कोई कैप्चा नहीं। आपकी जानकारी सुरक्षित है।
+            </p>
+          </form>
         </div>
-        <div className="landing-hero-art" aria-hidden="true">
-          <Image
-            src="/kishan-banner.webp"
-            alt=""
-            fill
-            sizes="(max-width: 560px) calc(100vw - 28px), 510px"
-            priority
+
+        <div className="home-hero-side">
+          <div className="home-banner">
+            <Image
+              src="/adchan-home-banner.webp"
+              alt="नमस्ते किसान — आसान जानकारी, सही समय पर"
+              fill
+              sizes="(max-width: 900px) calc(100vw - 28px), 560px"
+              priority
+            />
+          </div>
+          <VoiceComplaint
+            matches={personas.map((persona) => ({
+              code: persona.failureCode,
+              regNo: persona.regNo,
+            }))}
           />
         </div>
       </section>
 
-      <div className="mt-6">
-        <VoiceComplaint
-          matches={personas.map((persona) => ({
-            code: persona.failureCode,
-            regNo: persona.regNo,
-          }))}
-        />
-      </div>
-
-      <form action="/status" method="get" className="registration-card mt-6 p-5 sm:p-6">
-        <div className="flex items-center gap-3">
-          <span aria-hidden="true" className="text-[25px] text-[var(--c-dark-olive)]">⌕</span>
-          <label htmlFor="regNo" className="block text-[22px] font-semibold text-[var(--c-dark-olive)]">
-            रजिस्ट्रेशन नंबर से देखें
-          </label>
+      <section id="services" className="home-services" aria-labelledby="services-title">
+        <div className="home-section-heading">
+          <div>
+            <h2 id="services-title">मुख्य किसान सेवाएं</h2>
+            <p>अपनी आवश्यकता अनुसार सेवा चुनें और तुरंत विवरण देखें</p>
+          </div>
+          <a href="#all-services">सभी 12 सेवाएं देखें <span aria-hidden="true">→</span></a>
         </div>
-        <span className="secondary-copy mt-1 block" lang="en">Check with a registration number</span>
-        <div className="registration-form-row mt-4">
-          <input
-            id="regNo"
-            name="regNo"
-            type="text"
-            required
-            autoComplete="off"
-            autoCapitalize="characters"
-            spellCheck={false}
-            placeholder="UP-DEMO-0001"
-            aria-describedby="reg-help"
-            className="min-w-0 flex-1 rounded-[14px] border-2 border-[var(--c-moss)] bg-[var(--c-card-bg)] px-4 py-3 font-mono text-[19px] font-semibold uppercase focus:border-[var(--c-dark-olive)] focus:outline-none"
-          />
-          <button type="submit" className="primary-action registration-submit">देखें</button>
-        </div>
-        <p id="reg-help" className="mt-2 text-[19px] text-[var(--c-muted)]">🔒 कोई लॉगिन नहीं। कोई कैप्चा नहीं।</p>
-      </form>
 
-      <section id="demo-numbers" className="demo-panel mt-6 scroll-mt-4" aria-labelledby="demo-title">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <h2 id="demo-title" className="text-[22px] font-semibold">आठ नमूना किसान</h2>
+        <div id="all-services" className="services-grid">
+          <ServiceCard href="#registration" title="स्थिति" description="किस्त व आवेदन स्थिति" icon={<ServiceIcon name="money" />} />
+          <ServiceCard href="#registration" title="e-KYC" description="आधार OTP सत्यापन" icon={<ServiceIcon name="shield" />} />
+          <ServiceCard href="#registration" title="पंजीकरण" description="नया किसान पंजीकरण" icon={<ServiceIcon name="register" />} />
+          <ServiceCard href="#schemes" title="योजनाएं" description="पीएम किसान व अन्य" icon={<ServiceIcon name="building" />} />
+          <ServiceCard href="#registration" title="भुगतान स्थिति" description="DBT व बैंक ट्रांसफर" icon={<ServiceIcon name="card" />} />
+          <ServiceCard href="#eligibility" title="पात्रता" description="शर्तें व जरूरी दस्तावेज" icon={<ServiceIcon name="checklist" />} />
+          <ServiceCard href="#help" title="सहायता" description="टोल-फ्री 1800-180-1551" icon={<ServiceIcon name="help" />} />
+          <ServiceCard href="#help" title="मौसम" description="स्थानीय पूर्वानुमान जानकारी" icon={<ServiceIcon name="weather" />} />
+        </div>
+      </section>
+
+      <section className="home-info-grid">
+        <article id="schemes" className="home-info-card">
+          <h2><ServiceIcon name="building" /> प्रमुख योजनाएं</h2>
+          <div className="home-info-list">
+            {schemes.slice(0, 3).map((scheme) => (
+              <div key={scheme.id}>
+                <h3>{scheme.name.hi}</h3>
+                <p>{scheme.purpose.hi}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article id="eligibility" className="home-info-card">
+          <h2><ServiceIcon name="checklist" /> जाँच में क्या मिलेगा</h2>
+          <div className="home-info-list">
+            <div>
+              <h3>रुकी किस्त का साफ कारण</h3>
+              <p>तकनीकी स्थिति को आसान हिंदी में समझाया जाएगा।</p>
+            </div>
+            <div>
+              <h3>सही कार्यालय और दस्तावेज</h3>
+              <p>निदान के अनुसार जाने की जगह और जरूरी कागज़ दिखेंगे।</p>
+            </div>
+            <div>
+              <h3>क्या बोलना है</h3>
+              <p>काउंटर पर कहने के लिए तैयार हिंदी स्क्रिप्ट मिलेगी।</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="help" className="home-demo-panel" aria-labelledby="demo-title">
+        <div className="home-section-heading">
+          <div>
+            <h2 id="demo-title">नमूना किसान से जाँचें</h2>
+            <p>किसी नंबर को चुनकर पूरा निदान, कार्यालय और दस्तावेज देखें।</p>
+          </div>
           <MockBadge />
         </div>
-        <p className="mt-1 text-[19px] text-[var(--c-muted)]">किसी नंबर को छूकर पूरा निदान देखें।</p>
-        <p className="mt-2 font-mono text-[19px] font-semibold">UP-DEMO- <span className="secondary-copy font-sans" lang="en">Tap 0001–0008</span></p>
-        <div className="mt-3"><DemoRegistrationList compact /></div>
+        <DemoRegistrationList compact />
       </section>
     </main>
   );
