@@ -23,6 +23,11 @@ interface DiagnosePayload {
   clarifyingQuestion?: string | null;
 }
 
+interface TranscribePayload {
+  text: string;
+  provider: "sarvam" | "openai";
+}
+
 interface SpeechAlternativeLike {
   transcript: string;
 }
@@ -93,6 +98,12 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
   const [showWakeNotice, setShowWakeNotice] = useState(false);
   const wakeNoticeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const recognitionRef = useRef<BrowserSpeechRecognition | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const mediaStreamRef = useRef<MediaStream | null>(null);
+  const mediaChunksRef = useRef<Blob[]>([]);
+  const recordingStartedAtRef = useRef(0);
+  const recordingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const discardRecordingRef = useRef(false);
   const complaintRef = useRef<HTMLTextAreaElement | null>(null);
 
   const startOnlineWait = () => {
@@ -140,15 +151,130 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
     }
   };
 
-  const stopListening = useCallback(() => {
+  const endCapture = useCallback((discardRecording: boolean) => {
+    discardRecordingRef.current = discardRecording;
     try {
       recognitionRef.current?.stop();
     } catch {
       // The browser may already have ended the recognition session.
     }
     recognitionRef.current = null;
+
+    const recorder = mediaRecorderRef.current;
+    if (recorder && recorder.state !== "inactive") {
+      try {
+        recorder.stop();
+      } catch {
+        // The recorder may already be stopping.
+      }
+    }
     setListening(false);
   }, []);
+
+  const stopListening = useCallback(() => endCapture(false), [endCapture]);
+  const cancelListening = useCallback(() => endCapture(true), [endCapture]);
+
+  const transcribeRecording = async (blob: Blob, durationSeconds: number) => {
+    setVoiceStatusKey("voice.processing");
+    startOnlineWait();
+    try {
+      const formData = new FormData();
+      const extension = blob.type.includes("ogg") ? "ogg" : "webm";
+      formData.append("audio", blob, `adchan-voice.${extension}`);
+      formData.append("duration_seconds", Math.max(0.1, durationSeconds).toFixed(2));
+
+      const response = await fetch(`${API_URL}/transcribe`, {
+        method: "POST",
+        signal: AbortSignal.timeout(ONLINE_REQUEST_TIMEOUT_MS),
+        body: formData,
+      });
+      if (!response.ok) throw new ReviewApiError(response.status);
+
+      const result = (await response.json()) as TranscribePayload;
+      const text = result.text.trim();
+      if (!text) throw new Error("empty transcript");
+      setComplaint(text);
+      setVoiceStatusKey("voice.heard");
+      window.setTimeout(() => complaintRef.current?.focus(), 0);
+    } catch (error) {
+      setVoiceStatusKey("voice.noSpeech");
+      setMessage(
+        error instanceof ReviewApiError && error.status === 429
+          ? t("voice.rateLimit")
+          : t("voice.serviceError"),
+      );
+    } finally {
+      finishOnlineWait();
+    }
+  };
+
+  const startMediaRecording = async () => {
+    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
+      setVoiceStatusKey("voice.unsupported");
+      window.setTimeout(() => complaintRef.current?.focus(), 0);
+      return;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaStreamRef.current = stream;
+      mediaChunksRef.current = [];
+      discardRecordingRef.current = false;
+
+      const supportedType = ["audio/webm;codecs=opus", "audio/ogg;codecs=opus", "audio/webm"]
+        .find((type) => MediaRecorder.isTypeSupported(type));
+      const recorder = new MediaRecorder(stream, supportedType ? { mimeType: supportedType } : undefined);
+      mediaRecorderRef.current = recorder;
+
+      recorder.ondataavailable = (event) => {
+        if (event.data.size > 0) mediaChunksRef.current.push(event.data);
+      };
+
+      recorder.onerror = () => {
+        setListening(false);
+        setVoiceStatusKey("voice.noSpeech");
+      };
+
+      recorder.onstop = () => {
+        if (recordingTimerRef.current) clearTimeout(recordingTimerRef.current);
+        recordingTimerRef.current = null;
+        const durationSeconds = (performance.now() - recordingStartedAtRef.current) / 1000;
+        const recording = new Blob(mediaChunksRef.current, {
+          type: recorder.mimeType || "audio/webm",
+        });
+
+        mediaRecorderRef.current = null;
+        mediaChunksRef.current = [];
+        mediaStreamRef.current?.getTracks().forEach((track) => track.stop());
+        mediaStreamRef.current = null;
+        setListening(false);
+
+        if (discardRecordingRef.current) {
+          discardRecordingRef.current = false;
+          return;
+        }
+        if (recording.size === 0) {
+          setVoiceStatusKey("voice.noSpeech");
+          return;
+        }
+        void transcribeRecording(recording, durationSeconds);
+      };
+
+      recordingStartedAtRef.current = performance.now();
+      recorder.start();
+      setListening(true);
+      setVoiceStatusKey("voice.recording");
+      recordingTimerRef.current = setTimeout(() => {
+        if (recorder.state !== "inactive") recorder.stop();
+      }, 15_000);
+    } catch {
+      mediaStreamRef.current?.getTracks().forEach((track) => track.stop());
+      mediaStreamRef.current = null;
+      mediaRecorderRef.current = null;
+      setListening(false);
+      setVoiceStatusKey("voice.permission");
+    }
+  };
 
   const startListening = () => {
     setExpanded(true);
@@ -156,8 +282,7 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
 
     const Recognition = window.SpeechRecognition ?? window.webkitSpeechRecognition;
     if (!Recognition) {
-      setVoiceStatusKey("voice.unsupported");
-      window.setTimeout(() => complaintRef.current?.focus(), 0);
+      void startMediaRecording();
       return;
     }
 
@@ -223,14 +348,24 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
       } catch {
         // Nothing to clean up when the browser has already stopped listening.
       }
+      discardRecordingRef.current = true;
+      if (mediaRecorderRef.current?.state !== "inactive") {
+        try {
+          mediaRecorderRef.current?.stop();
+        } catch {
+          // The recorder may already be stopping.
+        }
+      }
+      mediaStreamRef.current?.getTracks().forEach((track) => track.stop());
+      if (recordingTimerRef.current) clearTimeout(recordingTimerRef.current);
       if (wakeNoticeTimerRef.current) clearTimeout(wakeNoticeTimerRef.current);
     };
   }, []);
 
   useEffect(() => {
-    stopListening();
+    cancelListening();
     setVoiceStatusKey("voice.ready");
-  }, [speechLocale, stopListening]);
+  }, [cancelListening, speechLocale]);
 
   const submitText = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -287,7 +422,7 @@ export default function VoiceComplaint({ matches }: VoiceComplaintProps) {
               type="button"
               className="voice-close-button"
               onClick={() => {
-                stopListening();
+                cancelListening();
                 setExpanded(false);
               }}
               aria-label={t("voice.close")}

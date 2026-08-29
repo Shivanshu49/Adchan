@@ -102,6 +102,8 @@ const translations: Record<string, TranslationSet> = {
   "voice.subtitle": { hi: "माइक दबाएँ और अपनी समस्या बोलें", en: "Press the mic and describe your problem", mr: "माइक दाबा आणि समस्या सांगा", gu: "માઇક દબાવો અને સમસ્યા જણાવો" },
   "voice.start": { hi: "बोलें 🎙️", en: "Speak 🎙️", mr: "बोला 🎙️", gu: "બોલો 🎙️" },
   "voice.listening": { hi: "सुन रहे हैं…", en: "Listening…", mr: "ऐकत आहोत…", gu: "સાંભળી રહ્યા છીએ…" },
+  "voice.recording": { hi: "रिकॉर्डिंग हो रही है… बोलिए, फिर रोकें दबाएँ।", en: "Recording… speak now, then press stop.", mr: "रेकॉर्डिंग सुरू आहे… बोला, नंतर थांबा दाबा.", gu: "રેકોર્ડિંગ થઈ રહ્યું છે… બોલો, પછી રોકો દબાવો." },
+  "voice.processing": { hi: "आवाज़ को लिखे हुए शब्दों में बदला जा रहा है…", en: "Turning your recording into text…", mr: "आवाजाचे लिखित मजकुरात रूपांतर होत आहे…", gu: "તમારા અવાજને લખાણમાં ફેરવવામાં આવી રહ્યો છે…" },
   "voice.ready": { hi: "माइक तैयार है। बोलना शुरू करें।", en: "The microphone is ready. Start speaking.", mr: "माइक तयार आहे. बोलायला सुरुवात करा.", gu: "માઇક તૈયાર છે. બોલવાનું શરૂ કરો." },
   "voice.unsupported": { hi: "इस ब्राउज़र में आवाज़ उपलब्ध नहीं है। नीचे लिखकर बताइए।", en: "Voice input is unavailable in this browser. Type below instead.", mr: "या ब्राउझरमध्ये आवाज उपलब्ध नाही. खाली लिहा.", gu: "આ બ્રાઉઝરમાં વૉઇસ ઇનપુટ ઉપલબ્ધ નથી. નીચે લખો." },
   "voice.retry": { hi: "फिर बोलें", en: "Speak again", mr: "पुन्हा बोला", gu: "ફરી બોલો" },
