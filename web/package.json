@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "codegen": "python3 ../scripts/codegen.py",
+    "codegen": "python ../scripts/codegen.py",
     "prebuild": "npm run codegen",
     "dev": "next dev",
     "build": "next build",

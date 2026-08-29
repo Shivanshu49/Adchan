@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>adchan</title>
-  <link rel="icon" type="image/png" href="logo1.png">
+  <title>adchan — किसान सेवा पोर्टल</title>
+  <link rel="icon" type="image/png" href="image.png">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,173 +20,384 @@
 <body>
 
   <div class="site-wrapper">
-    <main class="main-card" id="home">
 
-      <!-- Topbar: Logo, Language, Profile -->
-      <header class="topbar">
-        <a href="#home" class="logo-link" aria-label="adchan">
-          <img src="logo1.png" alt="adchan" class="logo-img">
+    <!-- ============================================================== -->
+    <!-- HEADER: LOGO, DESKTOP NAV, LANGUAGE, PROFILE                   -->
+    <!-- ============================================================== -->
+    <header class="site-header" id="top-header">
+      <div class="header-inner">
+        <!-- Logo & Brand -->
+        <a href="#home" class="logo-link" aria-label="adchan होम">
+          <img src="logo.png" alt="adchan लोगो" class="logo-img">
         </a>
 
+        <!-- Desktop Navigation Bar (Visible on Tablet & Desktop) -->
+        <nav class="desktop-nav" aria-label="Main Navigation">
+          <a href="#home" class="nav-item active" data-nav="home">Home</a>
+          <a href="#services" class="nav-item" data-nav="services">Services</a>
+          <a href="#schemes-section" class="nav-item" data-nav="plans">Plans</a>
+          <a href="#help" class="nav-item" data-nav="aid" data-tool="help">Help</a>
+        </nav>
+
+        <!-- Topbar Actions (Language & Profile) -->
         <div class="topbar-actions">
           <div class="lang-dropdown-box" id="lang-box">
-            <button type="button" class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false">
-              <span id="cur-lang">हिंदी</span>
+            <button type="button" class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false"
+              aria-label="भाषा / Language">
+              <span id="cur-lang">Hindi</span>
               <span class="dropdown-arrow">⌄</span>
             </button>
-            <div class="lang-menu" id="lang-menu">
-              <button type="button" class="lang-opt active" data-lang="hi">हिंदी</button>
-              <button type="button" class="lang-opt" data-lang="en">English</button>
-              <button type="button" class="lang-opt" data-lang="mr">मराठी</button>
-              <button type="button" class="lang-opt" data-lang="gu">ગુજરાતી</button>
+            <div class="lang-menu" id="lang-menu" role="menu">
+              <button type="button" class="lang-opt active" data-lang="hi" role="menuitem">Hindi (हिंदी)</button>
+              <button type="button" class="lang-opt" data-lang="en" role="menuitem">English</button>
+              <button type="button" class="lang-opt" data-lang="mr" role="menuitem">Marathi (मराठी)</button>
+              <button type="button" class="lang-opt" data-lang="gu" role="menuitem">Gujarati (ગુજરાતી)</button>
             </div>
           </div>
 
-          <button type="button" class="profile-circle-btn" id="profile-toggle-btn" aria-label="प्रोफाइल">
+          <button type="button" class="profile-circle-btn" id="profile-toggle-btn"
+            aria-label="प्रोफाइल व सभी सेवाएं खोलें">
             <span class="material-symbols-outlined">person</span>
           </button>
         </div>
-      </header>
+      </div>
+    </header>
 
-      <!-- Hero Banner -->
-      <section class="hero-card">
-        <img src="kishan-banner-250px.png" alt="नमस्ते किसान! आसान जानकारी, सही समय पर" class="hero-img">
-      </section>
+    <!-- ============================================================== -->
+    <!-- MAIN CONTENT CONTAINER                                         -->
+    <!-- ============================================================== -->
+    <main class="main-card" id="home">
 
-      <!-- Voice Action Pill ("बोलकर बताइए") -->
-      <section class="voice-section">
-        <button type="button" class="voice-card" id="voice-btn" aria-label="बोलकर बताइए">
-          <div class="voice-waves-icon">
-            <span class="v-wave"></span>
-            <span class="v-wave"></span>
-            <div class="v-mic">
-              <span class="material-symbols-outlined">mic</span>
+      <!-- ============================================================ -->
+      <!-- 1. HERO SECTION: 2-COLUMN ON DESKTOP, INTEGRATED ON MOBILE   -->
+      <!-- ============================================================ -->
+      <section class="hero-section" aria-label="मुख्य परिचय">
+        <div class="hero-grid">
+
+          <!-- Left Column: Heading, Subtitle & Search Form -->
+          <div class="hero-left-col">
+            <div class="hero-welcome-badge">
+              <span class="badge-dot"></span>
+              <span>डिजिटल किसान सेवा केंद्र</span>
+            </div>
+
+            <h1 class="hero-title">
+              नमस्ते किसान! <span class="wave-emoji" aria-hidden="true">👋</span>
+            </h1>
+
+
+
+            <!-- Compact Registration Search Area -->
+            <div class="registration-card">
+              <div class="reg-title-row">
+                <span class="material-symbols-outlined reg-icon">badge</span>
+                <h2 class="reg-title">रजिस्ट्रेशन नंबर डालिए</h2>
+              </div>
+
+              <form class="reg-form" id="reg-form" novalidate>
+                <div class="reg-input-wrapper">
+                  <span class="material-symbols-outlined reg-search-ico" aria-hidden="true">search</span>
+                  <input type="text" id="reg-input" class="reg-input" placeholder="रजिस्ट्रेशन नंबर (उदा. UP123456789)"
+                    autocomplete="off" aria-label="रजिस्ट्रेशन नंबर दर्ज करें">
+                </div>
+                <button type="submit" class="reg-submit-btn">खोजें</button>
+              </form>
+
+              <div class="reg-footer-note">
+                <span class="material-symbols-outlined lock-ico" aria-hidden="true">verified_user</span>
+                <span id="form-note">आपकी जानकारी सुरक्षित एवं गोपनीय है</span>
+              </div>
             </div>
           </div>
-          <div class="voice-copy">
-            <span class="voice-heading">बोलकर बताइए</span>
-            <span class="voice-subheading">आपको कैसे मदद करे?</span>
+
+          <!-- Right Column: Visual Banner + Compact Prominent Voice Card -->
+          <div class="hero-right-col">
+            <div class="hero-banner-box">
+              <img src="kishan-banner-250px.png" alt="नमस्ते किसान! आसान जानकारी, सही समय पर" class="hero-banner-img">
+            </div>
+
+            <!-- Prominent Voice Action Card -->
+            <button type="button" class="voice-card" id="voice-btn"
+              aria-label="बोलकर बताइए - आवाज से सहायता प्राप्त करें">
+              <div class="voice-waves-icon" aria-hidden="true">
+                <span class="v-wave"></span>
+                <span class="v-wave"></span>
+                <div class="v-mic">
+                  <span class="material-symbols-outlined">mic</span>
+                </div>
+              </div>
+              <div class="voice-copy">
+                <span class="voice-heading">बोलकर बताइए</span>
+                <span class="voice-subheading">माइक दबाएं और अपनी समस्या बोलें</span>
+              </div>
+              <div class="voice-badge-action" aria-hidden="true">
+                <span>बोलें 🎙️</span>
+              </div>
+            </button>
           </div>
-        </button>
+
+        </div>
       </section>
 
-      <!-- Registration Search Card -->
-      <section class="registration-card">
-        <div class="reg-title-row">
-          <span class="material-symbols-outlined reg-icon">badge</span>
-          <h2 class="reg-title">रजिस्ट्रेशन नंबर डालिए</h2>
+      <!-- ============================================================ -->
+      <!-- 2. PRIMARY SERVICES GRID (8 ESSENTIAL SERVICES ON DESKTOP)    -->
+      <!-- ============================================================ -->
+      <section class="services-section" id="services" aria-label="मुख्य किसान सेवाएं">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">मुख्य किसान सेवाएं</h2>
+            <p class="section-subtitle">अपनी आवश्यकता अनुसार सेवा चुनें और तुरंत विवरण देखें</p>
+          </div>
+          <button type="button" class="view-all-link" id="all-services-link">
+            सभी 12 सेवाएं देखें <span>→</span>
+          </button>
         </div>
 
-        <form class="reg-form" id="reg-form">
-          <div class="reg-input-wrapper">
-            <span class="material-symbols-outlined reg-search-ico">search</span>
-            <input type="text" id="reg-input" class="reg-input" placeholder="रजिस्ट्रेशन नंबर डालिए" autocomplete="off">
-          </div>
-          <button type="submit" class="reg-submit-btn">खोजें</button>
-        </form>
+        <div class="primary-tools-grid">
 
-        <div class="reg-footer-note">
-          <span class="material-symbols-outlined lock-ico">lock</span>
-          <span id="form-note">जानकारी सुरक्षित है</span>
+          <!-- 1. स्थिति (Status) -->
+          <button type="button" class="tool-btn" data-tool="status" aria-label="स्थिति - किस्त व आवेदन स्थिति जांचें">
+            <div class="tool-icon-wrap">
+              <svg class="tool-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <path
+                  d="M38 18 C38 14, 62 14, 62 18 C65 24, 69 28, 73 28 C78 28, 78 33, 75 37 C82 48, 85 64, 78 78 C71 90, 29 90, 22 78 C15 64, 18 48, 25 37 C22 33, 22 28, 27 28 C31 28, 35 24, 38 18 Z"
+                  fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" stroke-linejoin="round" />
+                <path d="M33 30 Q50 35 67 30" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+                <text x="50" y="65" font-family="'Hind', sans-serif" font-size="34" font-weight="700"
+                  text-anchor="middle" fill="#38422B">₹</text>
+              </svg>
+            </div>
+            <span class="tool-label">स्थिति</span>
+            <span class="tool-desc">किस्त व आवेदन स्थिति</span>
+          </button>
+
+          <!-- 2. e-KYC -->
+          <button type="button" class="tool-btn" data-tool="ekyc" aria-label="e-KYC - आधार सत्यापन">
+            <div class="tool-icon-wrap">
+              <svg class="tool-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <path d="M50 14 L78 26 C78 52, 68 76, 50 86 C32 76, 22 52, 22 26 Z" fill="#CCD5C0" stroke="#38422B"
+                  stroke-width="4.5" stroke-linejoin="round" />
+                <path d="M36 50 L46 60 L65 38" stroke="#38422B" stroke-width="5.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <span class="tool-label">e-KYC</span>
+            <span class="tool-desc">आधार OTP सत्यापन</span>
+          </button>
+
+          <!-- 3. पंजीकरण (Registration) -->
+          <button type="button" class="tool-btn" data-tool="registration" aria-label="पंजीकरण - नया किसान आवेदन">
+            <div class="tool-icon-wrap">
+              <svg class="tool-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <rect x="24" y="16" width="46" height="66" rx="8" fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+                <line x1="34" y1="32" x2="56" y2="32" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+                <line x1="34" y1="44" x2="54" y2="44" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+                <path d="M56 78 L78 54 L84 60 L62 84 L54 86 Z" fill="#9FB873" stroke="#38422B" stroke-width="3.5"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <span class="tool-label">पंजीकरण</span>
+            <span class="tool-desc">नया किसान पंजीकरण</span>
+          </button>
+
+          <!-- 4. योजनाएं (Schemes) -->
+          <button type="button" class="tool-btn" data-tool="schemes" aria-label="योजनाएं - सरकारी योजनाएं">
+            <div class="tool-icon-wrap">
+              <svg class="tool-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <path d="M50 16 L50 24" stroke="#38422B" stroke-width="3" />
+                <path d="M50 16 C55 14, 60 18, 64 16 L64 22 C60 24, 55 20, 50 22 Z" fill="#9FB873" stroke="#38422B"
+                  stroke-width="2.5" />
+                <path d="M30 38 C30 25, 70 25, 70 38 Z" fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+                <rect x="22" y="38" width="56" height="6" rx="2" fill="#38422B" />
+                <rect x="27" y="44" width="8" height="26" fill="#38422B" />
+                <rect x="41" y="44" width="8" height="26" fill="#38422B" />
+                <rect x="53" y="44" width="8" height="26" fill="#38422B" />
+                <rect x="67" y="44" width="8" height="26" fill="#38422B" />
+                <rect x="14" y="76" width="72" height="7" rx="2" fill="#38422B" />
+              </svg>
+            </div>
+            <span class="tool-label">योजनाएं</span>
+            <span class="tool-desc">पीएम किसान व अन्य</span>
+          </button>
+
+          <!-- 5. भुगतान स्थिति (Payment) -->
+          <button type="button" class="tool-btn" data-tool="payment" aria-label="भुगतान स्थिति - बैंक खाता विवरण">
+            <div class="tool-icon-wrap">
+              <svg class="tool-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <rect x="18" y="24" width="64" height="52" rx="10" fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+                <line x1="18" y1="40" x2="82" y2="40" stroke="#38422B" stroke-width="5" />
+                <circle cx="36" cy="58" r="8" fill="#9FB873" stroke="#38422B" stroke-width="3" />
+                <path d="M52 58 L72 58" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+                <path d="M52 66 L66 66" stroke="#38422B" stroke-width="3.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <span class="tool-label">भुगतान स्थिति</span>
+            <span class="tool-desc">डीबीटी व बैंक ट्रांसफर</span>
+          </button>
+
+          <!-- 6. पात्रता (Eligibility) -->
+          <button type="button" class="tool-btn" data-tool="eligibility" aria-label="पात्रता - नियम व शर्तें जांचें">
+            <div class="tool-icon-wrap">
+              <svg class="tool-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <rect x="22" y="16" width="56" height="68" rx="8" fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+                <circle cx="36" cy="34" r="6" fill="#9FB873" stroke="#38422B" stroke-width="3" />
+                <line x1="48" y1="34" x2="68" y2="34" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+                <circle cx="36" cy="50" r="6" fill="#9FB873" stroke="#38422B" stroke-width="3" />
+                <line x1="48" y1="50" x2="68" y2="50" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+                <path d="M30 68 L36 74 L48 62" stroke="#38422B" stroke-width="4" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <line x1="56" y1="68" x2="68" y2="68" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
+              </svg>
+            </div>
+            <span class="tool-label">पात्रता</span>
+            <span class="tool-desc">शर्तें व जरूरी दस्तावेज</span>
+          </button>
+
+          <!-- 7. सहायता (Help) -->
+          <button type="button" class="tool-btn" data-tool="help" aria-label="सहायता - किसान कॉल सेंटर हेल्पलाइन">
+            <div class="tool-icon-wrap">
+              <svg class="tool-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <path d="M24 55 C24 32 34 20 50 20 C66 20 76 32 76 55" stroke="#38422B" stroke-width="5" fill="none"
+                  stroke-linecap="round" />
+                <rect x="18" y="50" width="12" height="24" rx="6" fill="#CCD5C0" stroke="#38422B" stroke-width="4" />
+                <rect x="70" y="50" width="12" height="24" rx="6" fill="#CCD5C0" stroke="#38422B" stroke-width="4" />
+                <path d="M76 68 C76 78 68 84 54 84 L50 84" stroke="#38422B" stroke-width="4" stroke-linecap="round"
+                  fill="none" />
+                <circle cx="46" cy="84" r="4" fill="#9FB873" stroke="#38422B" stroke-width="2" />
+              </svg>
+            </div>
+            <span class="tool-label">सहायता</span>
+            <span class="tool-desc">टोल-फ्री 1800-180-1551</span>
+          </button>
+
+          <!-- 8. मौसम (Weather) -->
+          <button type="button" class="tool-btn" data-tool="weather" aria-label="मौसम - 7 दिवस मौसम पूर्वानुमान">
+            <div class="tool-icon-wrap">
+              <svg class="tool-svg" viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="62" cy="38" r="16" fill="#9AA458" stroke="#38422B" stroke-width="3.5" />
+                <path
+                  d="M32 72 C22 72 16 64 16 54 C16 45 23 38 32 38 C35 30 43 24 53 24 C65 24 74 33 74 45 C78 45 82 49 82 55 C82 64 74 72 65 72 Z"
+                  fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
+              </svg>
+            </div>
+            <span class="tool-label">मौसम</span>
+            <span class="tool-desc">7 दिवस पूर्वानुमान</span>
+          </button>
+
         </div>
       </section>
 
-      <!-- Starting 4 Icons on Home Screen -->
-      <section class="home-tools-grid">
-        <!-- 1. स्थिति -->
-        <button type="button" class="tool-btn" data-tool="status">
-          <div class="tool-icon-wrap">
-            <svg class="tool-svg" viewBox="0 0 100 100">
-              <path
-                d="M38 18 C38 14, 62 14, 62 18 C65 24, 69 28, 73 28 C78 28, 78 33, 75 37 C82 48, 85 64, 78 78 C71 90, 29 90, 22 78 C15 64, 18 48, 25 37 C22 33, 22 28, 27 28 C31 28, 35 24, 38 18 Z"
-                fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" stroke-linejoin="round" />
-              <path d="M33 30 Q50 35 67 30" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
-              <text x="50" y="65" font-family="'Hind', sans-serif" font-size="34" font-weight="700" text-anchor="middle"
-                fill="#38422B">₹</text>
-            </svg>
-          </div>
-          <span class="tool-label">स्थिति</span>
-        </button>
+      <!-- ============================================================ -->
+      <!-- 3. ADDITIONAL INFO SECTION (DESKTOP DETAILED CARDS)          -->
+      <!-- ============================================================ -->
+      <section class="info-showcase-section" id="schemes-section" aria-label="योजनाएं एवं किसान मार्गदर्शन">
 
-        <!-- 2. e-KYC -->
-        <button type="button" class="tool-btn" data-tool="ekyc">
-          <div class="tool-icon-wrap">
-            <svg class="tool-svg" viewBox="0 0 100 100">
-              <path d="M50 14 L78 26 C78 52, 68 76, 50 86 C32 76, 22 52, 22 26 Z" fill="#CCD5C0" stroke="#38422B"
-                stroke-width="4.5" stroke-linejoin="round" />
-              <path d="M36 50 L46 60 L65 38" stroke="#38422B" stroke-width="5.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </div>
-          <span class="tool-label">e-KYC</span>
-        </button>
+        <!-- Desktop / Laptop View: Detailed Cards (Visible >= 768px) -->
+        <div class="info-grid desktop-details">
 
-        <!-- 3. पंजीकरण -->
-        <button type="button" class="tool-btn" data-tool="registration">
-          <div class="tool-icon-wrap">
-            <svg class="tool-svg" viewBox="0 0 100 100">
-              <rect x="24" y="16" width="46" height="66" rx="8" fill="#CCD5C0" stroke="#38422B" stroke-width="4.5" />
-              <line x1="34" y1="32" x2="56" y2="32" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
-              <line x1="34" y1="44" x2="54" y2="44" stroke="#38422B" stroke-width="4" stroke-linecap="round" />
-              <path d="M56 78 L78 54 L84 60 L62 84 L54 86 Z" fill="#9FB873" stroke="#38422B" stroke-width="3.5"
-                stroke-linejoin="round" />
-            </svg>
+          <!-- Card 1: Featured Schemes -->
+          <div class="info-card">
+            <div class="info-card-header">
+              <span class="material-symbols-outlined info-card-ico">account_balance</span>
+              <h3 class="info-card-title">प्रमुख योजनाएं</h3>
+            </div>
+            <ul class="info-card-list">
+              <li>
+                <strong>प्रधानमंत्री किसान सम्मान निधि</strong>
+                <span>₹6,000 प्रति वर्ष 3 बराबर किस्तों में सीधे खाते में।</span>
+              </li>
+              <li>
+                <strong>प्रधानमंत्री फसल बीमा योजना</strong>
+                <span>प्राकृतिक आपदा से फसल सुरक्षा व तुरंत दावा निपटान।</span>
+              </li>
+              <li>
+                <strong>किसान क्रेडिट कार्ड (KCC)</strong>
+                <span>कम ब्याज पर ₹3 लाख तक आसान ऋण सुविधा।</span>
+              </li>
+            </ul>
+            <button type="button" class="info-card-action" data-tool="schemes">
+              सभी योजनाएं देखें →
+            </button>
           </div>
-          <span class="tool-label">पंजीकरण</span>
-        </button>
 
-        <!-- 4. योजनाएं -->
-        <button type="button" class="tool-btn" data-tool="schemes">
-          <div class="tool-icon-wrap">
-            <svg class="tool-svg" viewBox="0 0 100 100">
-              <path d="M50 16 L50 24" stroke="#000000" stroke-width="3" />
-              <path d="M50 16 C55 14, 60 18, 64 16 L64 22 C60 24, 55 20, 50 22 Z" fill="#9FB873" stroke="#38422B"
-                stroke-width="2.5" />
-              <path d="M30 38 C30 25, 70 25, 70 38 Z" fill="#000000" stroke="#38422B" stroke-width="4.5" />
-              <rect x="22" y="38" width="56" height="6" rx="2" fill="#38422B" />
-              <rect x="27" y="44" width="8" height="26" fill="#38422B" />
-              <rect x="41" y="44" width="8" height="26" fill="#38422B" />
-              <rect x="53" y="44" width="8" height="26" fill="#38422B" />
-              <rect x="67" y="44" width="8" height="26" fill="#38422B" />
-              <rect x="14" y="76" width="72" height="7" rx="2" fill="#38422B" />
-            </svg>
+          <!-- Card 2: Eligibility & Checklist -->
+          <div class="info-card">
+            <div class="info-card-header">
+              <span class="material-symbols-outlined info-card-ico">fact_check</span>
+              <h3 class="info-card-title">पात्रता एवं जरूरी दस्तावेज</h3>
+            </div>
+            <ul class="info-card-list">
+              <li>
+                <strong>आधार कार्ड लिंक</strong>
+                <span>मोबाइल नंबर से जुड़ा सक्रिय आधार कार्ड आवश्यक है।</span>
+              </li>
+              <li>
+                <strong>जमीन की खतौनी / दस्तावेज</strong>
+                <span>कृषि योग्य भूमि का सही व अद्यतन भू-अभिलेख।</span>
+              </li>
+              <li>
+                <strong>बैंक खाता (NPCI एक्टिव)</strong>
+                <span>DBT सक्रिय बैंक खाता ताकि राशि समय पर पहुंचे।</span>
+              </li>
+            </ul>
+            <button type="button" class="info-card-action" data-tool="eligibility">
+              पात्रता जांचें →
+            </button>
           </div>
-          <span class="tool-label">योजनाएं</span>
-        </button>
+
+        </div>
+
       </section>
 
-      <!-- Bottom Quick Links (Exact as mockup) -->
-      <footer class="bottom-links">
-        <button type="button" class="bottom-link-btn" data-info="genuine">
+      <!-- ============================================================ -->
+      <!-- 4. QUICK INSIGHTS BAR (VERIFIED, HOW IT WORKS, RESEARCH)      -->
+      <!-- ============================================================ -->
+      <section class="quick-insights-bar" aria-label="पोर्टल जानकारी">
+        <button type="button" class="quick-link-btn" data-info="genuine">
           <span class="material-symbols-outlined b-icon">verified_user</span>
           <span>क्या असली है</span>
         </button>
-        <button type="button" class="bottom-link-btn" data-info="how">
+        <button type="button" class="quick-link-btn" data-info="how">
           <span class="material-symbols-outlined b-icon">help</span>
           <span>कैसे काम करता है</span>
         </button>
-        <button type="button" class="bottom-link-btn" data-info="research">
+        <button type="button" class="quick-link-btn" data-info="research">
           <span class="material-symbols-outlined b-icon">menu_book</span>
-          <span>शोध</span>
+          <span>शोध एवं सलाह</span>
         </button>
-        <button type="button" class="bottom-link-btn" id="reset-btn">
+        <button type="button" class="quick-link-btn reset-action" id="reset-btn">
           <span class="material-symbols-outlined b-icon">restart_alt</span>
           <span>डेमो रीसेट करें</span>
         </button>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- 5. FOOTER & PROTOTYPE DISCLAIMER                             -->
+      <!-- ============================================================ -->
+      <footer class="site-footer">
+        <!-- Mandatory Independent Prototype Disclaimer -->
+        <div class="footer-disclaimer-bar">
+          <div class="disclaimer-badge">
+            <span class="material-symbols-outlined disc-ico" aria-hidden="true">info</span>
+            <span>स्वतंत्र प्रोटोटाइप — किसी सरकारी संस्था से संबंधित नहीं।</span>
+          </div>
+          <p class="copyright-text">© 2026 adchan. सभी अधिकार सुरक्षित।</p>
+        </div>
       </footer>
 
     </main>
   </div>
 
+
   <!-- ============================================================== -->
   <!-- PROFILE DRAWER: ALL 12 FEATURES IN PROFILE SECTION             -->
   <!-- ============================================================== -->
   <div class="drawer-backdrop" id="drawer-backdrop"></div>
-  <aside class="profile-drawer" id="profile-drawer" aria-label="प्रोफाइल एवं सेवाएं">
+  <aside class="profile-drawer" id="profile-drawer" aria-label="प्रोफाइल एवं सभी सेवाएं">
 
     <div class="drawer-header">
-      <h3 class="drawer-title">मेरा प्रोफ़ाइल</h3>
-      <button type="button" class="drawer-close" id="drawer-close" aria-label="बंद करें">×</button>
+      <h3 class="drawer-title">मेरा प्रोफ़ाइल एवं सेवाएं</h3>
+      <button type="button" class="drawer-close" id="drawer-close" aria-label="ड्रॉवर बंद करें">×</button>
     </div>
 
     <div class="drawer-user-box">
@@ -195,13 +406,13 @@
       </div>
       <div class="user-meta">
         <strong>किसान साथी</strong>
-        <small>अपना खाता बनाएं</small>
+        <small>अपना खाता बनाएं / विवरण देखें</small>
       </div>
     </div>
 
     <!-- All 12 Icons & Features -->
     <div class="drawer-12-container">
-      <h4 class="drawer-subhead">सभी सेवाएं</h4>
+      <h4 class="drawer-subhead">सभी 12 सेवाएं</h4>
 
       <div class="drawer-grid-12">
 
@@ -372,11 +583,11 @@
   <!-- ============================================================== -->
   <!-- MODAL: FOR SERVICES & INFO                                     -->
   <!-- ============================================================== -->
-  <div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-window">
       <div class="modal-head">
         <h3 id="modal-title">विवरण</h3>
-        <button type="button" class="modal-close-btn" id="modal-close-btn">×</button>
+        <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="बंद करें">×</button>
       </div>
       <div class="modal-body" id="modal-body"></div>
     </div>
@@ -385,11 +596,11 @@
   <!-- ============================================================== -->
   <!-- VOICE MODAL (OPENS ONLY ON VOICE BUTTON CLICK)                 -->
   <!-- ============================================================== -->
-  <div class="voice-backdrop" id="voice-backdrop">
+  <div class="voice-backdrop" id="voice-backdrop" role="dialog" aria-modal="true" aria-labelledby="voice-heading">
     <div class="voice-popup">
-      <button type="button" class="voice-close-btn" id="voice-close-btn">×</button>
+      <button type="button" class="voice-close-btn" id="voice-close-btn" aria-label="बंद करें">×</button>
 
-      <div class="voice-orb" id="voice-orb">
+      <div class="voice-orb" id="voice-orb" aria-hidden="true">
         <div class="v-ring v-ring-1"></div>
         <div class="v-ring v-ring-2"></div>
         <div class="v-orb-center">
